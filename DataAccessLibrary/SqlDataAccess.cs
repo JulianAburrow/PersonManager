@@ -19,7 +19,7 @@ namespace DataAccessLibrary
             _config = config;
         }
 
-        public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
+        public async Task<List<T>> LoadData<T, TU>(string sql, TU parameters)
         {
             var connectionString = _config.GetConnectionString(ConnectionStringName);
 
@@ -31,7 +31,7 @@ namespace DataAccessLibrary
             }
         }
 
-        public async Task<T> LoadSingle<T, U>(string sql, U parameters)
+        public async Task<T> LoadSingle<T, TU>(string sql, TU parameters)
         {
             var connectionString = _config.GetConnectionString(ConnectionStringName);
 

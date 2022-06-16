@@ -42,7 +42,8 @@ namespace DataAccessLibrary
             //    });
 
             //return person;
-            return _db.LoadSingle<PersonModel, CountryModel>(sql, new CountryModel());
+
+            return _db.LoadSingle<PersonModel, dynamic>(sql, new {});
         }
 
         public Task DeletePerson(int personId)
