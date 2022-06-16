@@ -12,8 +12,8 @@ namespace DataAccessLibrary
 
         Task UpdatePerson(PersonModel person);
 
-        Task<PersonModel> GetPerson(int id);
+        Task<PersonModel> GetPerson(int personId);
 
-        void DeletePerson(int id);
+        Task DeletePerson(int personId);
     }
 }

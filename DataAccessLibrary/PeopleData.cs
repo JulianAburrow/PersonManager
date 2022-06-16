@@ -31,18 +31,18 @@ namespace DataAccessLibrary
             return _db.SaveData(sql, person);
         }
 
-        public Task<PersonModel> GetPerson(int id)
+        public Task<PersonModel> GetPerson(int personId)
         {
-            var sql = $"select * from dbo.People where PersonId = {id}";
+            var sql = $"select * from dbo.People where PersonId = {personId}";
 
             return _db.LoadSingle<PersonModel, dynamic>(sql, new { });
         }
 
-        public void DeletePerson(int id)
+        public Task DeletePerson(int personId)
         {
-            var sql = $"delete from dbo.people where PersonId = {id}";
+            var sql = $"delete from dbo.people where PersonId = {personId}";
 
-            _db.DeleteData(sql);
+            return _db.DeleteData(sql);
         }
 
         public Task UpdatePerson(PersonModel person)
@@ -59,7 +59,7 @@ namespace DataAccessLibrary
                     LastName = '{person.LastName}', 
                     EmailAddress = '{person.EmailAddress}', 
                     DateOfBirth = {dobString} 
-                    where PersonId = {person.Id}";
+                    where PersonId = {person.PersonId}";
 
             return _db.SaveData(sql, person);
         }

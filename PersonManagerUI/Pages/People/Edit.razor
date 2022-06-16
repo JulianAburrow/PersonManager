@@ -1,4 +1,4 @@
-﻿@page "/data/person/edit/{Id:int}"
+﻿@page "/data/person/edit/{PersonId:int}"
 
 @using PersonManagerUI.Models
 @using DataAccessLibrary
@@ -41,7 +41,7 @@
 @code {
 
     [Parameter]
-    public int Id { get; set; }
+    public int PersonId { get; set; }
 
     private PersonModel person = new PersonModel();
 
@@ -49,7 +49,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(Id);
+        person = await _db.GetPerson(PersonId);
 
         FullName = $"{person.FirstName} {person.LastName}";
     }
@@ -58,7 +58,7 @@
     {
         _db.UpdatePerson(person);
 
-        _navigationManager.NavigateTo($"/data/person/details/{Id}");
+        _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
     }
 
 }

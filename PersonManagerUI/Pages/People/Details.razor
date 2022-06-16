@@ -1,4 +1,4 @@
-﻿@page "/data/person/details/{Id:int}"
+﻿@page "/data/person/details/{PersonId:int}"
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
@@ -8,20 +8,20 @@
 
 <PersonDetails Person="person" ShowPersonName="true" />
 
-<a class="btn btn-primary" href="data/person/edit/@person.Id">Edit</a> |
-<a class="btn btn-danger" href="data/person/delete/@person.Id">Delete</a> |
+<a class="btn btn-primary" href="data/person/edit/@person.PersonId">Edit</a> |
+<a class="btn btn-danger" href="data/person/delete/@person.PersonId">Delete</a> |
 <a href="data/people/index">Index</a>
 
 @code {
 
     [Parameter]
-    public int Id { get; set; }
+    public int PersonId { get; set; }
 
     private PersonModel person = new PersonModel();
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(Id);
+        person = await _db.GetPerson(PersonId);
     }
 
 }

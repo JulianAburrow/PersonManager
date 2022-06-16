@@ -96,7 +96,7 @@ using DataAccessLibrary.Models;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/data/person/edit/{Id:int}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/person/edit/{PersonId:int}")]
     public partial class Edit : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -109,7 +109,7 @@ using DataAccessLibrary.Models;
        
 
     [Parameter]
-    public int Id { get; set; }
+    public int PersonId { get; set; }
 
     private PersonModel person = new PersonModel();
 
@@ -117,7 +117,7 @@ using DataAccessLibrary.Models;
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(Id);
+        person = await _db.GetPerson(PersonId);
 
         FullName = $"{person.FirstName} {person.LastName}";
     }
@@ -126,7 +126,7 @@ using DataAccessLibrary.Models;
     {
         _db.UpdatePerson(person);
 
-        _navigationManager.NavigateTo($"/data/person/details/{Id}");
+        _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
     }
 
 

@@ -96,7 +96,7 @@ using PersonManagerUI.Components;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/data/person/details/{Id:int}")]
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/person/details/{PersonId:int}")]
     public partial class Details : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -109,13 +109,13 @@ using PersonManagerUI.Components;
        
 
     [Parameter]
-    public int Id { get; set; }
+    public int PersonId { get; set; }
 
     private PersonModel person = new PersonModel();
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(Id);
+        person = await _db.GetPerson(PersonId);
     }
 
 

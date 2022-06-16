@@ -764,3 +764,13 @@ C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\PersonManage
 C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\PersonManagerUI.dll
 C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\PersonManagerUI.pdb
 C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\PersonManagerUI.genruntimeconfig.cache
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Countries\Create.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Countries\Delete.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Countries\Details.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Countries\Edit.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Countries\Index.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\Razor\Pages\Countries\Create.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\Razor\Pages\Countries\Delete.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\Razor\Pages\Countries\Details.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\Razor\Pages\Countries\Edit.razor.g.cs
+C:\JulianApps\PersonManager\PersonManagerUI\obj\Debug\netcoreapp3.1\Razor\Pages\Countries\Index.razor.g.cs

@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace PersonManagerUI.Pages.People
+namespace PersonManagerUI.Pages.Countries
 {
     #line hidden
     using System;
@@ -75,28 +75,6 @@ using PersonManagerUI.Shared;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Delete.razor"
-using DataAccessLibrary.Models;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Delete.razor"
-using DataAccessLibrary;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Delete.razor"
-using PersonManagerUI.Components;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/data/person/delete/{PersonId:int}")]
     public partial class Delete : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -104,33 +82,6 @@ using PersonManagerUI.Components;
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 18 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Delete.razor"
-       
-
-    [Parameter]
-    public int PersonId { get; set; }
-
-    private PersonModel person = new PersonModel();
-
-    protected override async Task OnInitializedAsync()
-    {
-        person = await _db.GetPerson(PersonId);
-    }
-
-    private void DeletePerson()
-    {
-        _db.DeletePerson(PersonId);
-
-        _navigationManager.NavigateTo("data/people/index");
-    }
-
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _db { get; set; }
     }
 }
 #pragma warning restore 1591
