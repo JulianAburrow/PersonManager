@@ -1,0 +1,27 @@
+﻿@page "/data/person/details/{Id:int}"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Components
+
+@inject IPeopleData _db
+
+<PersonDetails Person="person" ShowPersonName="true" />
+
+<a class="btn btn-primary" href="data/person/edit/@person.Id">Edit</a> |
+<a class="btn btn-danger" href="data/person/delete/@person.Id">Delete</a> |
+<a href="data/people/index">Index</a>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private PersonModel person = new PersonModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        person = await _db.GetPerson(Id);
+    }
+
+}

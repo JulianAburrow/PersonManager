@@ -1,0 +1,40 @@
+﻿@using DataAccessLibrary.Models
+
+@{
+    if (ShowPersonName)
+    {
+        <h3>@Person.FirstName @Person.LastName</h3>
+    }
+}
+
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td><strong>First Name:</strong></td>
+            <td>@Person.FirstName</td>
+        </tr>
+        <tr>
+            <td><strong>Last Name</strong></td>
+            <td>@Person.LastName</td>
+        </tr>
+        <tr>
+            <td><strong>Email Address</strong></td>
+            <td>@Person.EmailAddress</td>
+        </tr>
+        <tr>
+            <td><strong>Date of Birth</strong></td>
+            <td>
+                @(Person.DateOfBirth != null ? Person.DateOfBirth.Value.ToShortDateString(): "Not Stated")
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public PersonModel Person { get; set; }
+
+    [Parameter]
+    public bool ShowPersonName { get; set; }
+}

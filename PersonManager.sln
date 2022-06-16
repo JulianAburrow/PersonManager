@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonManagerUI", "PersonManagerUI\PersonManagerUI.csproj", "{4BC2F08D-89D1-4560-90B0-83A3FEF0A1C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{67F75864-46B8-465F-A2B4-423D8DA043C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BC2F08D-89D1-4560-90B0-83A3FEF0A1C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BC2F08D-89D1-4560-90B0-83A3FEF0A1C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BC2F08D-89D1-4560-90B0-83A3FEF0A1C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BC2F08D-89D1-4560-90B0-83A3FEF0A1C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67F75864-46B8-465F-A2B4-423D8DA043C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F75864-46B8-465F-A2B4-423D8DA043C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F75864-46B8-465F-A2B4-423D8DA043C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F75864-46B8-465F-A2B4-423D8DA043C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6C00772-1B73-42B8-B11F-11C344716856}
+	EndGlobalSection
+EndGlobal

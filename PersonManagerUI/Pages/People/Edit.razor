@@ -1,0 +1,64 @@
+﻿@page "/data/person/edit/{Id:int}"
+
+@using PersonManagerUI.Models
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IPeopleData _db;
+@inject NavigationManager _navigationManager
+
+<h3>Edit @FullName</h3>
+
+<EditForm Model="@person" OnValidSubmit="@UpdatePerson">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>First Name:</strong></td>
+                <td><InputText id="firstName" @bind-Value="person.FirstName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Last Name</strong></td>
+                <td><InputText id="lastName" @bind-Value="person.LastName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Email Address</strong></td>
+                <td><InputText id="emailAddress" @bind-Value="person.EmailAddress" /></td>
+            </tr>
+            <tr>
+                <td><strong>Date of Birth</strong></td>
+                <td><InputDate @bind-Value="person.DateOfBirth" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary" @onclick="UpdatePerson">Update</button> | <a href="/data/people/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private PersonModel person = new PersonModel();
+
+    private string FullName { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        person = await _db.GetPerson(Id);
+
+        FullName = $"{person.FirstName} {person.LastName}";
+    }
+
+    private void UpdatePerson()
+    {
+        _db.UpdatePerson(person);
+
+        _navigationManager.NavigateTo($"/data/person/details/{Id}");
+    }
+
+}
