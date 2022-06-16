@@ -109,29 +109,10 @@ using PersonManagerUI.Models;
        
 
     private List<PersonModel> people;
-    private DisplayPersonModel newPerson = new DisplayPersonModel();
 
     protected override async Task OnInitializedAsync()
     {
         people = await _db.GetPeople();
-        SortPeople();
-    }
-
-    private async Task InsertPerson()
-    {
-        var p = new PersonModel
-        {
-            FirstName = newPerson.FirstName,
-            LastName = newPerson.LastName,
-            EmailAddress = newPerson.EmailAddress
-        };
-
-        await _db.InsertPerson(p);
-
-        people.Add(p);
-
-        newPerson = new DisplayPersonModel();
-
         SortPeople();
     }
 

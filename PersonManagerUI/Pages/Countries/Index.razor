@@ -1,5 +1,62 @@
-﻿<h3>Index</h3>
+﻿@page "/data/countries/index"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+@inject ICountryData _db
+
+<h1>Countries Page</h1>
+
+<a href="data/country/create" class="btn btn-primary">Add New Country</a>
+
+<br/><br/>
+
+<h4>Current Countries</h4>
+
+@if (countries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Country Name</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var country in countries)
+        {
+            <tr>
+                <td>@country.CountryName</td>
+                <td>
+                    <a class="btn btn-primary" href="/data/country/details/@country.CountryId">Details</a>
+                    <a class="btn btn-primary" href="/data/country/edit/@country.CountryId">Edit</a>
+                    <a class="btn btn-danger" href="/data/country/delete/@country.CountryId">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
 
 @code {
+
+    private List<CountryModel> countries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await _db.GetCountries();
+        SortCountries();
+    }
+
+    private void SortCountries()
+    {
+        countries = countries.OrderBy(c => c.CountryName).ToList();
+    }
 
 }

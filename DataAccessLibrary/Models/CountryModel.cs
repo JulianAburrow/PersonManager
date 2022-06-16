@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DataAccessLibrary.Models
 {
@@ -8,5 +6,7 @@ namespace DataAccessLibrary.Models
     {
         public int CountryId { get; set; }
         public string CountryName { get; set; }
+
+        public ICollection<PersonModel> People { get; set; }
     }
 }

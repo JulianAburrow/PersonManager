@@ -75,6 +75,28 @@ using PersonManagerUI.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
+using DataAccessLibrary;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
+using PersonManagerUI.Models;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/countries/index")]
     public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +104,28 @@ using PersonManagerUI.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 47 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
+       
+
+    private List<CountryModel> countries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await _db.GetCountries();
+        SortCountries();
+    }
+
+    private void SortCountries()
+    {
+        countries = countries.OrderBy(c => c.CountryName).ToList();
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _db { get; set; }
     }
 }
 #pragma warning restore 1591

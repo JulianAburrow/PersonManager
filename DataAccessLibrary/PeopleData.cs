@@ -1,9 +1,6 @@
-﻿using System;
+﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
-using DataAccessLibrary.Models;
 
 namespace DataAccessLibrary
 {
@@ -11,10 +8,8 @@ namespace DataAccessLibrary
     {
         public ISqlDataAccess _db { get; }
 
-        public PeopleData(ISqlDataAccess db)
-        {
+        public PeopleData(ISqlDataAccess db) =>
             _db = db;
-        }
 
         public Task<List<PersonModel>> GetPeople()
         {
@@ -25,7 +20,7 @@ namespace DataAccessLibrary
 
         public Task InsertPerson(PersonModel person)
         {
-            var sql = $@"insert into dbo.People (FirstName, LastName, EmailAddress, DateOfBirth)
+            var sql = @"insert into dbo.People (FirstName, LastName, EmailAddress, DateOfBirth)
                         values (@FirstName, @LastName, @EmailAddress, @DateOfBirth);";
 
             return _db.SaveData(sql, person);
@@ -33,9 +28,21 @@ namespace DataAccessLibrary
 
         public Task<PersonModel> GetPerson(int personId)
         {
-            var sql = $"select * from dbo.People where PersonId = {personId}";
+            var sql = $@"select *
+                    from dbo.People
+                    join Countries
+                    on People.CountryId = Countries.CountryId
+                    where PersonId = {personId}";
 
-            return _db.LoadSingle<PersonModel, dynamic>(sql, new { });
+            //var person =
+            //    _db.LoadSingle<PersonModel, CountryModel>(sql, (thing, country) =>
+            //    {
+            //        thing.country = country;
+            //        return thing;
+            //    });
+
+            //return person;
+            return _db.LoadSingle<PersonModel, CountryModel>(sql, new CountryModel());
         }
 
         public Task DeletePerson(int personId)

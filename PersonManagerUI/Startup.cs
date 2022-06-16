@@ -24,6 +24,7 @@ namespace PersonManagerUI
             services.AddServerSideBlazor();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddTransient<IPeopleData, PeopleData>();
+            services.AddTransient<ICountryData, CountryData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

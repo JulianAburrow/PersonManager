@@ -21,12 +21,18 @@
             <td><strong>Email Address</strong></td>
             <td>@Person.EmailAddress</td>
         </tr>
-        <tr>
-            <td><strong>Date of Birth</strong></td>
-            <td>
-                @(Person.DateOfBirth != null ? Person.DateOfBirth.Value.ToShortDateString(): "Not Stated")
-            </td>
-        </tr>
+    <tr>
+        <td><strong>Date of Birth</strong></td>
+        <td>
+            @(Person.DateOfBirth != null ? Person.DateOfBirth.Value.ToShortDateString(): "Not Stated")
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Country</strong></td>
+        <td>
+            @Person.Country.CountryName
+        </td>
+    </tr>
     </tbody>
 </table>
 

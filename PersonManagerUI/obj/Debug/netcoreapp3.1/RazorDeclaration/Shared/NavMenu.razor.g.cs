@@ -83,7 +83,7 @@ using PersonManagerUI.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 23 "C:\JulianApps\PersonManager\PersonManagerUI\Shared\NavMenu.razor"
+#line 28 "C:\JulianApps\PersonManager\PersonManagerUI\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

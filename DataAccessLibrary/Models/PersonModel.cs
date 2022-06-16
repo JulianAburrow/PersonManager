@@ -10,6 +10,6 @@ namespace DataAccessLibrary.Models
         public string EmailAddress { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int CountryId { get; set; }
-        public CountryModel CountryType { get; set; }
+        public CountryModel Country { get; set; }
     }
 }
