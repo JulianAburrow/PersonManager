@@ -51,13 +51,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        people = await _db.GetPeople();
-        SortPeople();
-    }
-
-    private void SortPeople()
-    {
-        people = people.OrderBy(p => p.FirstName).ToList();
+        people = (await _db.GetPeople())
+            .OrderBy(p => p.FirstName)
+            .ToList();
     }
 
 }

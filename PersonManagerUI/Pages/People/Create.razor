@@ -4,33 +4,34 @@
 @using PersonManagerUI.Models
 @using DataAccessLibrary.Models
 
-@inject IPeopleData _db
+@inject ICountryData _countriesDb
+@inject IPeopleData _peopleDb
 @inject NavigationManager _navigationManager
 
 <h3>Create Person</h3>
 
 <EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
     <table class="table table-striped">
         <tbody>
-        <tr>
-            <td><strong>First Name</strong></td>
-            <td><InputText id="firstName" @bind-Value="newPerson.FirstName"/></td>
-        </tr>
-        <tr>
-            <td><strong>Last Name</strong></td>
-            <td><InputText id="lastName" @bind-Value="newPerson.LastName"/></td>
-        </tr>
-        <tr>
-            <td><strong>Email Address</strong></td>
-            <td><InputText id="emailAddress" @bind-Value="newPerson.EmailAddress"/></td>
-        </tr>
-        <tr>
-            <td><strong>Date of Birth</strong></td>
-            <td><InputDate @bind-Value="newPerson.DateOfBirth" /></td>
-        </tr>
+            <tr>
+                <td><strong>First Name</strong></td>
+                <td><InputText id="firstName" @bind-Value="newPerson.FirstName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Last Name</strong></td>
+                <td><InputText id="lastName" @bind-Value="newPerson.LastName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Email Address</strong></td>
+                <td><InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" /></td>
+            </tr>
+            <tr>
+                <td><strong>Date of Birth</strong></td>
+                <td><InputDate @bind-Value="newPerson.DateOfBirth" /></td>
+            </tr>
         </tbody>
     </table>
 
@@ -45,6 +46,13 @@
 
     private DisplayPersonModel newPerson = new DisplayPersonModel();
 
+    private List<CountryModel> Countries { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Countries = (await _countriesDb.GetCountries()).OrderBy(c => c.CountryName).ToList();
+    }
+
     private void InsertPerson()
     {
         var p = new PersonModel
@@ -55,7 +63,7 @@
             DateOfBirth = newPerson.DateOfBirth
         };
 
-        _db.InsertPerson(p);
+        _peopleDb.InsertPerson(p);
 
         _navigationManager.NavigateTo("/data/people/index");
     }

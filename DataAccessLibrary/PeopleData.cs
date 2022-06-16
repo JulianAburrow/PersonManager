@@ -34,15 +34,6 @@ namespace DataAccessLibrary
                     on People.CountryId = Countries.CountryId
                     where PersonId = {personId}";
 
-            //var person =
-            //    _db.LoadSingle<PersonModel, CountryModel>(sql, (thing, country) =>
-            //    {
-            //        thing.country = country;
-            //        return thing;
-            //    });
-
-            //return person;
-
             return _db.LoadSingle<PersonModel, dynamic>(sql, new {});
         }
 

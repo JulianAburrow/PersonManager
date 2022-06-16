@@ -105,10 +105,17 @@ using DataAccessLibrary.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Create.razor"
+#line 45 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Create.razor"
        
 
     private DisplayPersonModel newPerson = new DisplayPersonModel();
+
+    private List<CountryModel> Countries { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Countries = (await _countriesDb.GetCountries()).OrderBy(c => c.CountryName).ToList();
+    }
 
     private void InsertPerson()
     {
@@ -120,7 +127,7 @@ using DataAccessLibrary.Models;
             DateOfBirth = newPerson.DateOfBirth
         };
 
-        _db.InsertPerson(p);
+        _peopleDb.InsertPerson(p);
 
         _navigationManager.NavigateTo("/data/people/index");
     }
@@ -130,7 +137,8 @@ using DataAccessLibrary.Models;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _db { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _peopleDb { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _countriesDb { get; set; }
     }
 }
 #pragma warning restore 1591
