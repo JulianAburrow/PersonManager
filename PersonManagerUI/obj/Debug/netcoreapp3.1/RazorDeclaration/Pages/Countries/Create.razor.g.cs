@@ -75,6 +75,28 @@ using PersonManagerUI.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Create.razor"
+using DataAccessLibrary.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Create.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Create.razor"
+using PersonManagerUI.Models;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/country/create")]
     public partial class Create : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +104,30 @@ using PersonManagerUI.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 29 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Create.razor"
+       
+
+    private DisplayCountryModel newCountry = new DisplayCountryModel();
+
+    private void InsertCountry()
+    {
+        var c = new CountryModel
+        {
+            CountryName = newCountry.CountryName
+        };
+
+        _countriesDb.InsertCountry(c);
+
+        _navigationManager.NavigateTo("/data/countries/index");
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _countriesDb { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -77,7 +77,7 @@ using PersonManagerUI.Shared;
 #nullable disable
 #nullable restore
 #line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Create.razor"
-using DataAccessLibrary;
+using DataAccessLibrary.Interfaces;
 
 #line default
 #line hidden
@@ -96,6 +96,13 @@ using DataAccessLibrary.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Create.razor"
+using PersonManagerUI.CustomControls;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/data/person/create")]
     public partial class Create : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,16 +112,35 @@ using DataAccessLibrary.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 45 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Create.razor"
+#line 66 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Create.razor"
        
 
     private DisplayPersonModel newPerson = new DisplayPersonModel();
 
     private List<CountryModel> Countries { get; set; }
 
+    private List<StatusModel> Statuses { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        Countries = (await _countriesDb.GetCountries()).OrderBy(c => c.CountryName).ToList();
+        newPerson.CountryId = -1;
+        newPerson.StatusId = -1;
+
+        Countries = _countriesDb.GetCountries()
+            .OrderBy(c => c.CountryName)
+            .ToList();
+        Countries.Insert(0, new CountryModel
+        {
+            CountryId = -1,
+            CountryName = "Please select"
+        });
+        Statuses = _statusesDb.GetStatuses()
+            .ToList();
+        Statuses.Insert(0, new StatusModel
+        {
+            StatusId = -1,
+            StatusName = "Please select"
+        });
     }
 
     private void InsertPerson()
@@ -124,7 +150,9 @@ using DataAccessLibrary.Models;
             FirstName = newPerson.FirstName,
             LastName = newPerson.LastName,
             EmailAddress = newPerson.EmailAddress,
-            DateOfBirth = newPerson.DateOfBirth
+            DateOfBirth = newPerson.DateOfBirth,
+            CountryId = newPerson.CountryId,
+            StatusId = newPerson.StatusId
         };
 
         _peopleDb.InsertPerson(p);
@@ -132,11 +160,11 @@ using DataAccessLibrary.Models;
         _navigationManager.NavigateTo("/data/people/index");
     }
 
-
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IStatusesData _statusesDb { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _peopleDb { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _countriesDb { get; set; }
     }

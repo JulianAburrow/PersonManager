@@ -75,6 +75,28 @@ using PersonManagerUI.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Details.razor"
+using DataAccessLibrary.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Details.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Details.razor"
+using PersonManagerUI.Components;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/country/details/{CountryId:int}")]
     public partial class Details : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +104,25 @@ using PersonManagerUI.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 14 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Details.razor"
+       
+
+    [Parameter]
+    public int CountryId { get; set; }
+
+    private CountryModel country = new CountryModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        country = _db.GetCountry(CountryId);
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _db { get; set; }
     }
 }
 #pragma warning restore 1591

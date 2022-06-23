@@ -84,7 +84,7 @@ using DataAccessLibrary.Models;
 #nullable disable
 #nullable restore
 #line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Delete.razor"
-using DataAccessLibrary;
+using DataAccessLibrary.Interfaces;
 
 #line default
 #line hidden
@@ -115,7 +115,7 @@ using PersonManagerUI.Components;
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(PersonId);
+        person = _db.GetPerson(PersonId);
     }
 
     private void DeletePerson()

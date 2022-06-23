@@ -1,8 +1,7 @@
 ﻿@page "/data/countries/index"
 
-@using DataAccessLibrary
+@using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
-@using PersonManagerUI.Models
 
 @inject ICountryData _db
 
@@ -50,6 +49,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        countries = (await _db.GetCountries()).OrderBy(c => c.CountryName).ToList();
+        countries = _db.GetCountries()
+            .OrderBy(c => c.CountryName)
+            .ToList();
     }
 }

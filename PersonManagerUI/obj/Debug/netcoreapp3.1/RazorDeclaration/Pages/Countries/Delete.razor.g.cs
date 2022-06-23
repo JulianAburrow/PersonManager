@@ -75,6 +75,35 @@ using PersonManagerUI.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Delete.razor"
+using DataAccessLibrary.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Delete.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Delete.razor"
+using PersonManagerUI.Components;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Delete.razor"
+using System.Diagnostics.Eventing.Reader;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/country/delete/{CountryId:int}")]
     public partial class Delete : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +111,41 @@ using PersonManagerUI.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 30 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Delete.razor"
+       
+
+    [Parameter]
+    public int CountryId { get; set; }
+
+    private CountryModel country = new CountryModel();
+
+    private bool OkToDelete = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        country = _db.GetCountry(CountryId);
+
+        if (country.People.Count > 0)
+        {
+            OkToDelete = false;
+        }
+
+    }
+
+    private void DeleteCountry()
+    {
+        _db.DeleteCountry(CountryId);
+
+        _navigationManager.NavigateTo("data/countries/index");
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _db { get; set; }
     }
 }
 #pragma warning restore 1591

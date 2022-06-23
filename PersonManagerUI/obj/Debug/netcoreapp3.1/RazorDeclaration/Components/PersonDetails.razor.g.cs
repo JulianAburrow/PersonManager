@@ -90,7 +90,7 @@ using DataAccessLibrary.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 39 "C:\JulianApps\PersonManager\PersonManagerUI\Components\PersonDetails.razor"
+#line 45 "C:\JulianApps\PersonManager\PersonManagerUI\Components\PersonDetails.razor"
        
 
     [Parameter]

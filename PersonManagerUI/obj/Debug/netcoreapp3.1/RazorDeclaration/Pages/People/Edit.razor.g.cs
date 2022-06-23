@@ -77,21 +77,28 @@ using PersonManagerUI.Shared;
 #nullable disable
 #nullable restore
 #line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Edit.razor"
-using PersonManagerUI.Models;
+using DataAccessLibrary.Interfaces;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Edit.razor"
-using DataAccessLibrary;
+using DataAccessLibrary.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Edit.razor"
-using DataAccessLibrary.Models;
+using PersonManagerUI.CustomControls;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Edit.razor"
+using PersonManagerUI.Models;
 
 #line default
 #line hidden
@@ -105,36 +112,64 @@ using DataAccessLibrary.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 41 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Edit.razor"
+#line 67 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Edit.razor"
        
 
     [Parameter]
     public int PersonId { get; set; }
 
-    private PersonModel person = new PersonModel();
+    private DisplayPersonModel person = new DisplayPersonModel();
+
+    private List<CountryModel> Countries { get; set; }
+
+    private List<StatusModel> Statuses { get; set; }
 
     private string FullName { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(PersonId);
+        var p = _peopleDb.GetPerson(PersonId);
 
-        FullName = $"{person.FirstName} {person.LastName}";
+        person.FirstName = p.FirstName;
+        person.LastName = p.LastName;
+        person.EmailAddress = p.EmailAddress;
+        person.DateOfBirth = p.DateOfBirth;
+        person.CountryId = p.CountryId;
+        person.StatusId = p.StatusId;
+
+        FullName = $"{p.FirstName} {p.LastName}";
+
+        Countries = _countriesDb.GetCountries()
+            .OrderBy(c => c.CountryName)
+            .ToList();
+        Statuses = _statusesDb.GetStatuses().ToList();
     }
 
     private void UpdatePerson()
     {
-        _db.UpdatePerson(person);
+        var p = new PersonModel
+        {
+            PersonId = PersonId,
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            EmailAddress = person.EmailAddress,
+            DateOfBirth = person.DateOfBirth,
+            CountryId = person.CountryId,
+            StatusId = person.StatusId
+        };
+
+        _peopleDb.UpdatePerson(p);
 
         _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
     }
-
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _db { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IStatusesData _statusesDb { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _countriesDb { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPeopleData _peopleDb { get; set; }
     }
 }
 #pragma warning restore 1591

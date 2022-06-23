@@ -1,13 +1,17 @@
 ﻿@page "/data/person/edit/{PersonId:int}"
 
-@using PersonManagerUI.Models
-@using DataAccessLibrary
+@using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
+@using PersonManagerUI.CustomControls
+@using PersonManagerUI.Models
 
-@inject IPeopleData _db;
+
+@inject IPeopleData _peopleDb;
+@inject ICountryData _countriesDb;
+@inject IStatusesData _statusesDb;
 @inject NavigationManager _navigationManager
 
-<h3>Edit @FullName</h3>
+<h1>Edit @FullName</h1>
 
 <EditForm Model="@person" OnValidSubmit="@UpdatePerson">
     <DataAnnotationsValidator />
@@ -16,7 +20,7 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <td><strong>First Name:</strong></td>
+                <td><strong>First Name</strong></td>
                 <td><InputText id="firstName" @bind-Value="person.FirstName" /></td>
             </tr>
             <tr>
@@ -31,6 +35,28 @@
                 <td><strong>Date of Birth</strong></td>
                 <td><InputDate @bind-Value="person.DateOfBirth" /></td>
             </tr>
+        <tr>
+            <td><strong>Country</strong></td>
+            <td>
+                <InputSelectNumber id="country" @bind-Value="person.CountryId">
+                    @foreach (var country in Countries)
+                    {
+                        <option value="@country.CountryId">@country.CountryName</option>
+                    }
+                </InputSelectNumber>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Status</strong></td>
+            <td>
+                <InputSelectNumber id="status" @bind-Value="person.StatusId">
+                    @foreach (var status in Statuses)
+                    {
+                        <option value="@status.StatusId">@status.StatusName</option>
+                    }
+                </InputSelectNumber>
+            </td>
+        </tr>
         </tbody>
     </table>
 
@@ -43,22 +69,48 @@
     [Parameter]
     public int PersonId { get; set; }
 
-    private PersonModel person = new PersonModel();
+    private DisplayPersonModel person = new DisplayPersonModel();
+
+    private List<CountryModel> Countries { get; set; }
+
+    private List<StatusModel> Statuses { get; set; }
 
     private string FullName { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(PersonId);
+        var p = _peopleDb.GetPerson(PersonId);
 
-        FullName = $"{person.FirstName} {person.LastName}";
+        person.FirstName = p.FirstName;
+        person.LastName = p.LastName;
+        person.EmailAddress = p.EmailAddress;
+        person.DateOfBirth = p.DateOfBirth;
+        person.CountryId = p.CountryId;
+        person.StatusId = p.StatusId;
+
+        FullName = $"{p.FirstName} {p.LastName}";
+
+        Countries = _countriesDb.GetCountries()
+            .OrderBy(c => c.CountryName)
+            .ToList();
+        Statuses = _statusesDb.GetStatuses().ToList();
     }
 
     private void UpdatePerson()
     {
-        _db.UpdatePerson(person);
+        var p = new PersonModel
+        {
+            PersonId = PersonId,
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            EmailAddress = person.EmailAddress,
+            DateOfBirth = person.DateOfBirth,
+            CountryId = person.CountryId,
+            StatusId = person.StatusId
+        };
+
+        _peopleDb.UpdatePerson(p);
 
         _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
     }
-
 }

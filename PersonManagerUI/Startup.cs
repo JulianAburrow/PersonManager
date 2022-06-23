@@ -1,6 +1,8 @@
 using DataAccessLibrary;
+using DataAccessLibrary.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,9 +24,13 @@ namespace PersonManagerUI
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddServerSideBlazor();
-            services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+            services.AddDbContext<PersonManagerContext>(
+                options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("default")));
             services.AddTransient<IPeopleData, PeopleData>();
             services.AddTransient<ICountryData, CountryData>();
+            services.AddTransient<IStatusesData, StatusesData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

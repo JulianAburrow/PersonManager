@@ -1,6 +1,7 @@
 ﻿@page "/data/people/index"
 
 @using DataAccessLibrary
+@using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Models
 
@@ -51,7 +52,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        people = (await _db.GetPeople())
+        people = _db.GetPeople()
             .OrderBy(p => p.FirstName)
             .ToList();
     }

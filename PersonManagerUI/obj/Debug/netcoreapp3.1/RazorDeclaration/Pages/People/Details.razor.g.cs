@@ -77,7 +77,7 @@ using PersonManagerUI.Shared;
 #nullable disable
 #nullable restore
 #line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Details.razor"
-using DataAccessLibrary;
+using DataAccessLibrary.Interfaces;
 
 #line default
 #line hidden
@@ -115,7 +115,7 @@ using PersonManagerUI.Components;
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(PersonId);
+        person = _db.GetPerson(PersonId);
     }
 
 

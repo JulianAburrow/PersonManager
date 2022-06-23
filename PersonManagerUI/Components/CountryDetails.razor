@@ -1,0 +1,27 @@
+﻿@using DataAccessLibrary.Models
+
+@{
+    if (ShowCountryName)
+    {
+        <h1>@Country.CountryName</h1>
+    }
+}
+
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><strong>Country Name</strong></td>
+        <td>@Country.CountryName</td>
+    </tr>
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public CountryModel Country { get; set; }
+
+    [Parameter]
+    public bool ShowCountryName { get; set; }
+
+}

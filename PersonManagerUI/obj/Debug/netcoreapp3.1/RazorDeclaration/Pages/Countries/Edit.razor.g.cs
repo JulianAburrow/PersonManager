@@ -75,6 +75,35 @@ using PersonManagerUI.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Edit.razor"
+using DataAccessLibrary.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Edit.razor"
+using System.Security.AccessControl;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Edit.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Edit.razor"
+using PersonManagerUI.Models;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/data/country/edit/{CountryId:int}")]
     public partial class Edit : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +111,45 @@ using PersonManagerUI.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 30 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Edit.razor"
+       
+
+    [Parameter]
+    public int CountryId { get; set; }
+
+    private DisplayCountryModel country = new DisplayCountryModel();
+
+    private string CountryDisplayName { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var c = _countriesDb.GetCountry(CountryId);
+
+        country.CountryName = c.CountryName;
+
+        CountryDisplayName = country.CountryName;
+    }
+
+    private void UpdateCountry()
+    {
+        var c = new CountryModel
+        {
+            CountryId = CountryId,
+            CountryName = country.CountryName
+        };
+
+        _countriesDb.UpdateCountry(c);
+
+        _navigationManager.NavigateTo($"/data/country/details/{CountryId}");
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICountryData _countriesDb { get; set; }
     }
 }
 #pragma warning restore 1591

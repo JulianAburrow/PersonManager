@@ -1,66 +1,63 @@
-﻿using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Interfaces;
+using DataAccessLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace DataAccessLibrary
 {
     public class PeopleData : IPeopleData
     {
-        public ISqlDataAccess _db { get; }
+        private readonly PersonManagerContext _context;
 
-        public PeopleData(ISqlDataAccess db) =>
-            _db = db;
+        public PeopleData(PersonManagerContext context) =>
+            _context = context;
 
-        public Task<List<PersonModel>> GetPeople()
+        public PersonModel GetPerson(int personId)
         {
-            var sql = "select * from dbo.People";
-
-            return _db.LoadData<PersonModel, dynamic>(sql, new { });
+            return _context.People
+                .Include(p => p.Country)
+                .Include(p => p.Status)
+                .SingleOrDefault(p => p.PersonId == personId);
         }
 
-        public Task InsertPerson(PersonModel person)
+        public List<PersonModel> GetPeople()
         {
-            var sql = @"insert into dbo.People (FirstName, LastName, EmailAddress, DateOfBirth)
-                        values (@FirstName, @LastName, @EmailAddress, @DateOfBirth);";
-
-            return _db.SaveData(sql, person);
+            return _context.People.ToList();
         }
 
-        public Task<PersonModel> GetPerson(int personId)
+        public void InsertPerson(PersonModel person)
         {
-            var sql = $@"select *
-                    from dbo.People
-                    join Countries
-                    on People.CountryId = Countries.CountryId
-                    where PersonId = {personId}";
-
-            return _db.LoadSingle<PersonModel, dynamic>(sql, new {});
+            _context.People.Add(person);
+            _context.SaveChanges();
         }
 
-        public Task DeletePerson(int personId)
+        public void UpdatePerson(PersonModel person)
         {
-            var sql = $"delete from dbo.people where PersonId = {personId}";
+            var oldPerson = _context.People
+                .SingleOrDefault(p =>
+                    p.PersonId == person.PersonId);
+            if (oldPerson == null) return;
+            
+            oldPerson.FirstName = person.FirstName;
+            oldPerson.LastName = person.LastName;
+            oldPerson.EmailAddress = person.EmailAddress;
+            oldPerson.DateOfBirth = person.DateOfBirth;
+            oldPerson.CountryId = person.CountryId;
+            oldPerson.StatusId = person.StatusId;
 
-            return _db.DeleteData(sql);
+            _context.SaveChanges();
         }
 
-        public Task UpdatePerson(PersonModel person)
+        public void DeletePerson(int personId)
         {
-            var dob = person.DateOfBirth;
-            var dobString = "NULL";
+            var person = _context.People
+                .SingleOrDefault(p =>
+                    p.PersonId == personId);
+            if (person == null) return;
 
-            if (dob != null)
-            {
-                dobString = $"'{dob.Value.Year}-{dob.Value.Month}-{dob.Value.Day}' ";
-            }
-
-            var sql = $@"update dbo.people set FirstName = '{person.FirstName}',
-                    LastName = '{person.LastName}', 
-                    EmailAddress = '{person.EmailAddress}', 
-                    DateOfBirth = {dobString} 
-                    where PersonId = {person.PersonId}";
-
-            return _db.SaveData(sql, person);
+            _context.People.Remove(person);
+            _context.SaveChanges();
         }
     }
 }

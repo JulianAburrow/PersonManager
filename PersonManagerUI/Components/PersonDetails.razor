@@ -3,14 +3,14 @@
 @{
     if (ShowPersonName)
     {
-        <h3>@Person.FirstName @Person.LastName</h3>
+        <h1>@Person.FirstName @Person.LastName</h1>
     }
 }
 
 <table class="table table-striped">
     <tbody>
         <tr>
-            <td><strong>First Name:</strong></td>
+            <td><strong>First Name</strong></td>
             <td>@Person.FirstName</td>
         </tr>
         <tr>
@@ -21,18 +21,24 @@
             <td><strong>Email Address</strong></td>
             <td>@Person.EmailAddress</td>
         </tr>
-    <tr>
-        <td><strong>Date of Birth</strong></td>
-        <td>
-            @(Person.DateOfBirth != null ? Person.DateOfBirth.Value.ToShortDateString(): "Not Stated")
-        </td>
-    </tr>
-    <tr>
-        <td><strong>Country</strong></td>
-        <td>
-            @Person.CountryId
-        </td>
-    </tr>
+        <tr>
+            <td><strong>Date of Birth</strong></td>
+            <td>
+                @(Person.DateOfBirth != null ? Person.DateOfBirth.Value.ToShortDateString(): "Not Stated")
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Country</strong></td>
+            <td>
+                @Person.Country.CountryName
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Status</strong></td>
+            <td>
+                @Person.Status.StatusName
+            </td>
+        </tr>
     </tbody>
 </table>
 

@@ -1,6 +1,6 @@
 ﻿@page "/data/person/details/{PersonId:int}"
 
-@using DataAccessLibrary
+@using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Components
 
@@ -8,8 +8,8 @@
 
 <PersonDetails Person="person" ShowPersonName="true" />
 
-<a class="btn btn-primary" href="data/person/edit/@person.PersonId">Edit</a> |
-<a class="btn btn-danger" href="data/person/delete/@person.PersonId">Delete</a> |
+<a class="btn btn-primary" href="data/person/edit/@person.PersonId">Edit</a> 
+<a class="btn btn-danger" href="data/person/delete/@person.PersonId">Delete</a>
 <a href="data/people/index">Index</a>
 
 @code {
@@ -21,7 +21,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        person = await _db.GetPerson(PersonId);
+        person = _db.GetPerson(PersonId);
     }
 
 }

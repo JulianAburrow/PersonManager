@@ -1,53 +1,57 @@
-﻿using DataAccessLibrary.Models;
-using System;
+﻿using DataAccessLibrary.Interfaces;
+using DataAccessLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace DataAccessLibrary
 {
     public class CountryData : ICountryData
     {
-        public ISqlDataAccess _db { get; }
+        private readonly PersonManagerContext _context;
 
-        public CountryData(ISqlDataAccess db) =>
-            _db = db;
+        public CountryData(PersonManagerContext context) =>
+            _context = context;
 
-        public Task<List<CountryModel>> GetCountries()
+        public CountryModel GetCountry(int countryId)
         {
-            var sql = "select * from dbo.Countries";
-
-            return _db.LoadData<CountryModel, dynamic>(sql, new { });
+            return _context.Countries
+                .Include(c => c.People)
+                .SingleOrDefault(c => c.CountryId == countryId);
         }
 
-        public Task InsertCountry(CountryModel country)
+        public List<CountryModel> GetCountries()
         {
-            var sql = @"insert into dbo.Countries (CountryName)
-                        values (@CountryName);";
-
-            return _db.SaveData(sql, country);
+            return _context.Countries.ToList();
         }
 
-        public Task UpdateCountry(CountryModel country)
+        public void InsertCountry(CountryModel country)
         {
-            var sql = $@"update dbo.Countries set CountryName = {country.CountryName}
-                        where CountryId = {country.CountryId}";
-
-            return _db.SaveData(sql, country);
+            _context.Countries.Add(country);
+            _context.SaveChanges();
         }
 
-        public Task<CountryModel> GetCountry(int countryId)
+        public void UpdateCountry(CountryModel country)
         {
-            var sql = $"select * from Countries where CountryId = {countryId}";
+            var oldCountry = _context.Countries
+                .SingleOrDefault(c =>
+                    c.CountryId == country.CountryId);
+            if (oldCountry == null) return;
 
-            return _db.LoadSingle<CountryModel, dynamic>(sql, new { });
+            oldCountry.CountryName = country.CountryName;
+
+            _context.SaveChanges();
         }
 
-        public Task DeleteCountry(int countryId)
+        public void DeleteCountry(int countryId)
         {
-            var sql = $"delete from dbo.Countries where CountryId = {countryId}";
+            var country = _context.Countries
+                .SingleOrDefault(c =>
+                    c.CountryId == countryId);
+            if (country == null) return;
 
-            return _db.DeleteData(sql);
+            _context.Countries.Remove(country);
+            _context.SaveChanges();
         }
     }
 }

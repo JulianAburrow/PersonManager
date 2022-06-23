@@ -1,5 +1,61 @@
-﻿<h3>Edit</h3>
+﻿@page "/data/country/edit/{CountryId:int}"
+@using DataAccessLibrary.Interfaces
+@using System.Security.AccessControl
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+
+@inject ICountryData _countriesDb;
+@inject NavigationManager _navigationManager;
+
+<h1>Edit @CountryDisplayName</h1>
+
+<EditForm Model="@country" OnValidSubmit="@UpdateCountry">
+<DataAnnotationsValidator />
+<ValidationSummary />
+
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><strong>Country Name</strong></td>
+        <td><InputText id="firstName" @bind-Value="country.CountryName" /></td>
+    </tr>
+    </tbody>
+</table>
+
+</EditForm>
+
+<button class="btn btn-primary" @onclick="UpdateCountry">Update</button> | <a href="/data/countries/index">Cancel</a>
 
 @code {
+
+    [Parameter]
+    public int CountryId { get; set; }
+
+    private DisplayCountryModel country = new DisplayCountryModel();
+
+    private string CountryDisplayName { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var c = _countriesDb.GetCountry(CountryId);
+
+        country.CountryName = c.CountryName;
+
+        CountryDisplayName = country.CountryName;
+    }
+
+    private void UpdateCountry()
+    {
+        var c = new CountryModel
+        {
+            CountryId = CountryId,
+            CountryName = country.CountryName
+        };
+
+        _countriesDb.UpdateCountry(c);
+
+        _navigationManager.NavigateTo($"/data/country/details/{CountryId}");
+    }
 
 }

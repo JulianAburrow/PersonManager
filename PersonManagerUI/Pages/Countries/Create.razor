@@ -1,5 +1,45 @@
-﻿<h3>Create</h3>
+﻿@page "/data/country/create"
+
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+@inject ICountryData _countriesDb
+@inject NavigationManager _navigationManager
+
+<h1>Create Country</h1>
+
+<EditForm Model="@newCountry" OnValidSubmit="@InsertCountry">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Country Name</strong></td>
+                <td><InputText id="countryName" @bind-Value="newCountry.CountryName" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/countries/index">Cancel</a>
+
+</EditForm>
 
 @code {
+
+    private DisplayCountryModel newCountry = new DisplayCountryModel();
+
+    private void InsertCountry()
+    {
+        var c = new CountryModel
+        {
+            CountryName = newCountry.CountryName
+        };
+
+        _countriesDb.InsertCountry(c);
+
+        _navigationManager.NavigateTo("/data/countries/index");
+    }
 
 }

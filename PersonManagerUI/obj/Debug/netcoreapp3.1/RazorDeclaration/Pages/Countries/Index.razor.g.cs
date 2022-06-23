@@ -77,7 +77,7 @@ using PersonManagerUI.Shared;
 #nullable disable
 #nullable restore
 #line 3 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
-using DataAccessLibrary;
+using DataAccessLibrary.Interfaces;
 
 #line default
 #line hidden
@@ -85,13 +85,6 @@ using DataAccessLibrary;
 #nullable restore
 #line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
 using DataAccessLibrary.Models;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
-using PersonManagerUI.Models;
 
 #line default
 #line hidden
@@ -105,22 +98,17 @@ using PersonManagerUI.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 47 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
+#line 46 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\Countries\Index.razor"
        
 
     private List<CountryModel> countries;
 
     protected override async Task OnInitializedAsync()
     {
-        countries = await _db.GetCountries();
-        SortCountries();
+        countries = _db.GetCountries()
+            .OrderBy(c => c.CountryName)
+            .ToList();
     }
-
-    private void SortCountries()
-    {
-        countries = countries.OrderBy(c => c.CountryName).ToList();
-    }
-
 
 #line default
 #line hidden

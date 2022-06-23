@@ -84,13 +84,20 @@ using DataAccessLibrary;
 #nullable disable
 #nullable restore
 #line 4 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Index.razor"
-using DataAccessLibrary.Models;
+using DataAccessLibrary.Interfaces;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Index.razor"
+using DataAccessLibrary.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Index.razor"
 using PersonManagerUI.Models;
 
 #line default
@@ -105,20 +112,16 @@ using PersonManagerUI.Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 48 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Index.razor"
+#line 49 "C:\JulianApps\PersonManager\PersonManagerUI\Pages\People\Index.razor"
        
 
     private List<PersonModel> people;
 
     protected override async Task OnInitializedAsync()
     {
-        people = await _db.GetPeople();
-        SortPeople();
-    }
-
-    private void SortPeople()
-    {
-        people = people.OrderBy(p => p.FirstName).ToList();
+        people = _db.GetPeople()
+            .OrderBy(p => p.FirstName)
+            .ToList();
     }
 
 
