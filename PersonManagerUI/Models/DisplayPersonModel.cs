@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using DataAccessLibrary.Models;
 
 namespace PersonManagerUI.Models
 {
@@ -7,12 +8,10 @@ namespace PersonManagerUI.Models
     {
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(15, ErrorMessage = "{0} cannot be more than {1} characters")]
-        [MinLength(5, ErrorMessage = "{0} must be at least {1} characters")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(15, ErrorMessage = "{0} cannot be more than {1} characters")]
-        [MinLength(5, ErrorMessage = "{0} must be at least {1} characters")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "{0} is required")]
@@ -28,6 +27,9 @@ namespace PersonManagerUI.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} is required")]
         [Display(Name = "Status")]
         public int StatusId { get; set; }
-        public DisplayStatusesModel Status { get; set; }
+        public DisplayStatusModel Status { get; set; }
+        public int? FavouriteColourId { get; set; }
+        [Display(Name = "Favourite Colour")]
+        public DisplayColourModel FavouriteColour { get; set; }
     }
 }

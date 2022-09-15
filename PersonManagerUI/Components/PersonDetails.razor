@@ -30,15 +30,23 @@
         <tr>
             <td><strong>Country</strong></td>
             <td>
-                @Person.Country.CountryName
+                <a href="/data/country/details/@Person.CountryId">
+                    @Person.Country.CountryName
+                </a>
             </td>
         </tr>
-        <tr>
-            <td><strong>Status</strong></td>
-            <td>
-                @Person.Status.StatusName
-            </td>
-        </tr>
+    <tr>
+        <td><strong>Status</strong></td>
+        <td>
+            @Person.Status.StatusName
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Favourite Colour</strong></td>
+        <td>
+            @(Person.FavouriteColour != null ? Person.FavouriteColour.ColourName : "None")
+        </td>
+    </tr>
     </tbody>
 </table>
 

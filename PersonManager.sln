@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonManagerUI", "PersonMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{67F75864-46B8-465F-A2B4-423D8DA043C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{1EAA6608-C2EE-4567-ABC6-6FFE9A4BC651}"
+	ProjectSection(SolutionItems) = preProject
+		DataAccessLibrary\DbScripts\PersonManager.sql = DataAccessLibrary\DbScripts\PersonManager.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

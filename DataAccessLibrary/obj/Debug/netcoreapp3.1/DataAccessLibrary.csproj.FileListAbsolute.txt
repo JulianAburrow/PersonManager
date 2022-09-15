@@ -8,13 +8,3 @@ C:\JulianApps\BlazorDemoApp\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccess
 C:\JulianApps\BlazorDemoApp\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.dll
 C:\JulianApps\BlazorDemoApp\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.pdb
 C:\JulianApps\BlazorDemoApp\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.csproj.AssemblyReference.cache
-C:\JulianApps\PersonManager\DataAccessLibrary\bin\Debug\netcoreapp3.1\DataAccessLibrary.deps.json
-C:\JulianApps\PersonManager\DataAccessLibrary\bin\Debug\netcoreapp3.1\DataAccessLibrary.dll
-C:\JulianApps\PersonManager\DataAccessLibrary\bin\Debug\netcoreapp3.1\DataAccessLibrary.pdb
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.AssemblyInfoInputs.cache
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.AssemblyInfo.cs
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.csproj.CoreCompileInputs.cache
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.dll
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.pdb
-C:\JulianApps\PersonManager\DataAccessLibrary\obj\Debug\netcoreapp3.1\DataAccessLibrary.csproj.AssemblyReference.cache

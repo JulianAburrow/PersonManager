@@ -22,7 +22,9 @@ namespace DataAccessLibrary
 
         public List<CountryModel> GetCountries()
         {
-            return _context.Countries.ToList();
+            return _context.Countries
+                .Include(c => c.People)
+                .ToList();
         }
 
         public void InsertCountry(CountryModel country)

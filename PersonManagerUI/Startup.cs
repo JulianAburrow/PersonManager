@@ -28,9 +28,10 @@ namespace PersonManagerUI
                 options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("default")));
-            services.AddTransient<IPeopleData, PeopleData>();
+            services.AddTransient<IPersonData, PersonData>();
             services.AddTransient<ICountryData, CountryData>();
-            services.AddTransient<IStatusesData, StatusesData>();
+            services.AddTransient<IStatusData, StatusData>();
+            services.AddTransient<IColourData, ColourData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

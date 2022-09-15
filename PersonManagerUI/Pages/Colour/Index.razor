@@ -1,0 +1,58 @@
+﻿@page "/data/colours/index"
+
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+
+@inject IColourData _db
+
+<h1>Colours Page</h1>
+
+<a href="data/colour/create" class="btn btn-primary">Add New Colour</a>
+
+<br/><br/>
+
+<h4>Current Colours</h4>
+
+@if (colours == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Colour Name</th>
+                <th>People</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var colour in colours)
+            {
+                <tr>
+                    <td>@colour.ColourName</td>
+                    <td>@colour.People.Count</td>
+                    <td>
+                        <a class="btn btn-primary" href="/data/colour/details/@colour.ColourId">Details</a>
+                        <a class="btn btn-primary" href="/data/colour/edit/@colour.ColourId">Edit</a>
+                        <a class="btn btn-danger" href="/data/colour/delete/@colour.ColourId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<ColourModel> colours;
+
+    protected override void OnInitialized()
+    {
+        colours = _db.GetColours()
+            .OrderBy(c => c.ColourName)
+            .ToList();
+    }
+
+}

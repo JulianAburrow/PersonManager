@@ -1,0 +1,60 @@
+﻿@page "/data/people/index"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+@inject IPersonData _db
+
+<h1>People Page</h1>
+
+<a href="/data/person/create" class="btn btn-primary">Add New Person</a>
+
+<br /><br />
+
+<h4>Current People</h4>
+
+@if (people == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in people)
+            {
+            <tr>
+                <td>@person.FirstName</td>
+                <td>@person.LastName</td>
+                <td>
+                    <a class="btn btn-primary" href="/data/person/details/@person.PersonId">Details</a>
+                    <a class="btn btn-primary" href="/data/person/edit/@person.PersonId">Edit</a>
+                    <a class="btn btn-danger" href="/data/person/delete/@person.PersonId">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<PersonModel> people;
+
+    protected override void OnInitialized()
+    {
+        people = _db.GetPeople()
+            .OrderBy(p => p.FirstName)
+            .ToList();
+    }
+
+}

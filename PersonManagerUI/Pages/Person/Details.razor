@@ -1,0 +1,26 @@
+﻿@page "/data/person/details/{PersonId:int}"
+
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Components
+
+@inject IPersonData _db
+
+<PersonDetails Person="person" ShowPersonName="true" />
+
+<a class="btn btn-primary" href="data/person/edit/@person.PersonId">Edit</a> 
+<a class="btn btn-danger" href="data/person/delete/@person.PersonId">Delete</a>
+<a href="data/people/index">Index</a>
+
+@code {
+
+    [Parameter]
+    public int PersonId { get; set; }
+
+    private PersonModel person = new PersonModel();
+
+    protected override void OnInitialized()
+    {
+        person = _db.GetPerson(PersonId);
+    }
+}

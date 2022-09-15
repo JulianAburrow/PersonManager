@@ -22,6 +22,11 @@ namespace DataAccessLibrary.Configuration
                 .HasForeignKey(e => e.StatusId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(e => e.FavouriteColour)
+                .WithMany(e => e.People)
+                .HasForeignKey(e => e.FavouriteColourId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

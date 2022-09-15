@@ -1,0 +1,60 @@
+﻿@page "/data/colour/edit/{ColourId:int}"
+
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+@inject IColourData _coloursDb
+@inject NavigationManager _navigationManager;
+
+<h1>Edit @ColourDisplayName</h1>
+
+<EditForm Model="@colour" OnValidSubmit="@UpdateColour">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td><strong>Country Name</strong></td>
+            <td><InputText id="colourName" @bind-Value="colour.ColourName" /></td>
+        </tr>
+        </tbody>
+    </table>
+
+</EditForm>
+
+<button class="btn btn-primary" @onclick="UpdateColour">Update</button> | <a href="/data/countries/index">Cancel</a>
+
+@code {
+
+    [Parameter]
+    public int ColourId { get; set; }
+
+    private DisplayColourModel colour = new DisplayColourModel();
+
+    private string ColourDisplayName { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var c = _coloursDb.GetColour(ColourId);
+
+        colour.ColourName = c.ColourName;
+
+        ColourDisplayName = colour.ColourName;
+    }
+
+    private void UpdateColour()
+    {
+        var c = new ColourModel
+        {
+            ColourId = ColourId,
+            ColourName = colour.ColourName
+        };
+
+        _coloursDb.UpdateColour(c);
+
+        _navigationManager.NavigateTo($"/data/colour/details/{ColourId}");
+    }
+
+}

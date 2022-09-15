@@ -15,7 +15,9 @@ namespace DataAccessLibrary.Models
         public DateTime? DateOfBirth { get; set; }
         public int CountryId { get; set; }
         public int StatusId { get; set; }
+        public int? FavouriteColourId { get; set; }
         public CountryModel Country { get; set; }
         public StatusModel Status { get; set; }
+        public ColourModel FavouriteColour { get; set; }
     }
 }

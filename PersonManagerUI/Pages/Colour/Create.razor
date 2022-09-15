@@ -1,0 +1,45 @@
+﻿@page "/data/colour/create"
+
+@using PersonManagerUI.Models
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+
+@inject IColourData _coloursDb;
+@inject NavigationManager _navigationManager
+
+<h3>Create Colour</h3>
+
+<EditForm Model="@newColour" OnValidSubmit="@InsertColour">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td><strong>Colour Name</strong></td>
+            <td><InputText id="countryName" @bind-Value="newColour.ColourName" /></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/colour/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    private DisplayColourModel newColour = new DisplayColourModel();
+
+    private void InsertColour()
+    {
+        var c = new ColourModel()
+        {
+            ColourName = newColour.ColourName
+        };
+
+        _coloursDb.InsertColour(c);
+
+        _navigationManager.NavigateTo("data/colours/index");
+    }
+
+}

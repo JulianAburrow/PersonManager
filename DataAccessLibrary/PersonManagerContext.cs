@@ -15,12 +15,14 @@ namespace DataAccessLibrary
         public DbSet<PersonModel> People { get; set; }
         public DbSet<CountryModel> Countries { get; set; }
         public DbSet<StatusModel> Statuses { get; set; }
+        public DbSet<ColourModel> Colours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new PersonConfiguration());
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new StatusConfiguration());
+            builder.ApplyConfiguration(new ColourConfiguration());
         }
     }
 }

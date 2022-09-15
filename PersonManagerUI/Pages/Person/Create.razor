@@ -1,0 +1,140 @@
+﻿@page "/data/person/create"
+
+@using DataAccessLibrary.Interfaces
+@using PersonManagerUI.Models
+@using DataAccessLibrary.Models
+@using PersonManagerUI.CustomControls
+
+@inject ICountryData _countriesDb
+@inject IPersonData _peopleDb
+@inject IStatusData _statusesDb
+@inject IColourData _colourDb
+@inject NavigationManager _navigationManager
+
+<h1>Create Person</h1>
+
+<EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>First Name</strong></td>
+                <td><InputText id="firstName" @bind-Value="newPerson.FirstName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Last Name</strong></td>
+                <td><InputText id="lastName" @bind-Value="newPerson.LastName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Email Address</strong></td>
+                <td><InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" /></td>
+            </tr>
+        <tr>
+            <td><strong>Date of Birth</strong></td>
+            <td><InputDate @bind-Value="newPerson.DateOfBirth" /></td>
+        </tr>
+        <tr>
+            <td><strong>Country</strong></td>
+            <td>
+                <InputSelectNumber id="country" @bind-Value="newPerson.CountryId">
+                    @foreach (var country in Countries)
+                    {
+                        <option value="@country.CountryId">@country.CountryName</option>
+                    }
+                </InputSelectNumber>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Status</strong></td>
+            <td>
+                <InputSelectNumber id="status" @bind-Value="newPerson.StatusId">
+                    @foreach (var status in Statuses)
+                    {
+                        <option value="@status.StatusId">@status.StatusName</option>
+                    }
+                </InputSelectNumber>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Favourite Colour</strong></td>
+            <td>
+                <InputSelectNumber id="favouriteColour" @bind-Value="@newPerson.FavouriteColourId">
+                    @foreach (var colour in Colours)
+                    {
+                        <option value="@colour.ColourId">@colour.ColourName</option>
+                    }
+                </InputSelectNumber>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/people/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    private DisplayPersonModel newPerson = new DisplayPersonModel();
+
+    private List<CountryModel> Countries { get; set; }
+
+    private List<StatusModel> Statuses { get; set; }
+
+    private List<ColourModel> Colours { get; set; }
+
+    protected override void OnInitialized()
+    {
+        newPerson.CountryId = -1;
+        newPerson.StatusId = -1;
+        newPerson.FavouriteColourId = -1;
+
+        const string pleaseSelect = "Please select";
+
+        Countries = _countriesDb.GetCountries()
+            .OrderBy(c => c.CountryName)
+            .ToList();
+        Countries.Insert(0, new CountryModel
+        {
+            CountryId = -1,
+            CountryName = pleaseSelect
+        });
+        Statuses = _statusesDb.GetStatuses()
+            .ToList();
+        Statuses.Insert(0, new StatusModel
+        {
+            StatusId = -1,
+            StatusName = pleaseSelect
+        });
+        Colours = _colourDb.GetColours()
+            .OrderBy(c => c.ColourName)
+            .ToList();
+        Colours.Insert(0, new ColourModel
+        {
+            ColourId = -1,
+            ColourName = "None"
+        });
+    }
+
+    private void InsertPerson()
+    {
+        var p = new PersonModel
+        {
+            FirstName = newPerson.FirstName,
+            LastName = newPerson.LastName,
+            EmailAddress = newPerson.EmailAddress,
+            DateOfBirth = newPerson.DateOfBirth,
+            CountryId = newPerson.CountryId,
+            StatusId = newPerson.StatusId,
+            FavouriteColourId = newPerson.FavouriteColourId != -1
+                ? newPerson.FavouriteColourId
+                : null
+        };
+
+        _peopleDb.InsertPerson(p);
+
+        _navigationManager.NavigateTo("/data/people/index");
+    }
+}

@@ -10,11 +10,41 @@
 <table class="table table-striped">
     <tbody>
     <tr>
-        <td><strong>Country Name</strong></td>
+        <th><strong>Country Name</strong></th>
         <td>@Country.CountryName</td>
     </tr>
     </tbody>
 </table>
+
+@{
+    if (@Country.People.Count == 0)
+    {
+        <h3>No people assigned to this country</h3>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <tbody>
+                @foreach (var person in Country.People)
+                {
+                    <tr>
+                        <td>
+
+                            @($"{person.FirstName} {person.LastName}")
+
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="/data/person/details/@person.PersonId">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+
+
 
 @code {
 
