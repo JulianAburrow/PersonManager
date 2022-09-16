@@ -1,0 +1,27 @@
+﻿@page "/data/colour/details/{ColourId:int}"
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Components
+
+
+@inject IColourData _db;
+
+<ColourDetails Colour="colour" ShowColourName="true" />
+
+<a class="btn btn-primary" href="data/colour/edit/@colour.ColourId">Edit</a>
+<a class="btn btn-danger" href="data/colour/delete/@colour.ColourId">Delete</a>
+<a href="data/colours/index">Index</a>
+
+@code {
+
+    [Parameter]
+    public int ColourId { get; set; }
+
+    private ColourModel colour = new ColourModel();
+
+    protected override void OnInitialized()
+    {
+        colour = _db.GetColour(ColourId);
+    }
+
+}

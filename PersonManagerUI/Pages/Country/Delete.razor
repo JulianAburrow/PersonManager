@@ -3,7 +3,6 @@
 @using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Components
-@using System.Diagnostics.Eventing.Reader
 
 @inject ICountryData _db
 @inject NavigationManager _navigationManager
@@ -44,7 +43,6 @@ else
         {
             OkToDelete = false;
         }
-
     }
 
     private void DeleteCountry()

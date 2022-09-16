@@ -71,4 +71,33 @@ CREATE TABLE People (
 )
 GO
 
-	
+CREATE TABLE AddressTypes (
+	AddressTypeId INT NOT NULL IDENTITY (1, 1),
+	AddressTypeName NVARCHAR(50) NOT NULL,
+	CONSTRAINT pk_AddressTypes PRIMARY KEY (AddressTypeId)
+)
+GO
+
+INSERT INTO AddressTypes
+	( AddressTypeName )
+VALUES
+	( 'Home' ),
+	( 'Work' ),
+	( 'Other')
+GO
+
+CREATE TABLE Addresses (
+	AddressId INT NOT NULL IDENTITY (1, 1),
+	AddressLine1 NVARCHAR(50) NOT NULL,
+	AddressLine2 NVARCHAR(50) NULL,
+	Town NVARCHAR(50) NOT NULL,
+	Postcode NVARCHAR(15) NOT NULL,
+	AddressTypeId INT NOT NULL,
+	PersonId INT NOT NULL,
+	CONSTRAINT pk_Address PRIMARY KEY (AddressId),
+	CONSTRAINT fk_Addresses_AddressTypes FOREIGN KEY(AddressTypeId)
+		REFERENCES AddressTypes (AddressTypeId),
+	CONSTRAINT fk_Addresses_People FOREIGN KEY (PersonId)
+		REFERENCES People (PersonId)
+	)
+GO	

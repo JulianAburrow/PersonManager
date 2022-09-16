@@ -1,0 +1,53 @@
+﻿@using DataAccessLibrary.Models
+
+@{
+    if (ShowColourName)
+    {
+        <h1>@Colour.ColourName</h1>
+    }
+}
+
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <th><strong>Colour Name</strong></th>
+        <td>@Colour.ColourName</td>
+    </tr>
+    </tbody>
+</table>
+
+@{
+    if (Colour.People.Count == 0)
+    {
+        <h3>No people assigned to this country</h3>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <tbody>
+            @foreach (var person in Colour.People)
+            {
+                <tr>
+                    <td>
+
+                        @($"{person.FirstName} {person.LastName}")
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/data/person/details/@person.PersonId">Details</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public ColourModel Colour { get; set; }
+
+    [Parameter]
+    public bool ShowColourName { get; set; }
+}
