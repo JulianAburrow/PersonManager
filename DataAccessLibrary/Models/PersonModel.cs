@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,5 +20,6 @@ namespace DataAccessLibrary.Models
         public CountryModel Country { get; set; }
         public StatusModel Status { get; set; }
         public ColourModel FavouriteColour { get; set; }
+        public ICollection<AddressModel> Addresses { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace DataAccessLibrary
         public DbSet<CountryModel> Countries { get; set; }
         public DbSet<StatusModel> Statuses { get; set; }
         public DbSet<ColourModel> Colours { get; set; }
+        public DbSet<AddressTypeModel> AddressTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,6 +24,7 @@ namespace DataAccessLibrary
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new StatusConfiguration());
             builder.ApplyConfiguration(new ColourConfiguration());
+
         }
     }
 }
