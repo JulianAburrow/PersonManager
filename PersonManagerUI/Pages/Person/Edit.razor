@@ -28,6 +28,10 @@
                 <td><strong>Last Name</strong></td>
                 <td><InputText id="lastName" @bind-Value="person.LastName" /></td>
             </tr>
+        <tr>
+                <td><strong>Skillset</strong></td>
+                <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="person.Skillset" /></td>
+            </tr>
             <tr>
                 <td><strong>Email Address</strong></td>
                 <td><InputText id="emailAddress" @bind-Value="person.EmailAddress" /></td>
@@ -102,6 +106,7 @@
         person.CountryId = p.CountryId;
         person.StatusId = p.StatusId;
         person.FavouriteColourId = p.FavouriteColourId ?? -1;
+        person.Skillset = p.Skillset;
 
         FullName = $"{p.FirstName} {p.LastName}";
 
@@ -133,7 +138,8 @@
             StatusId = person.StatusId,
             FavouriteColourId = person.FavouriteColourId != -1
                 ? person.FavouriteColourId
-                    : null
+                    : null,
+            Skillset = person.Skillset
         };
 
         _peopleDb.UpdatePerson(p);

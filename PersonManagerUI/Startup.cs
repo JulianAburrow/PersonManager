@@ -32,6 +32,8 @@ namespace PersonManagerUI
             services.AddTransient<ICountryData, CountryData>();
             services.AddTransient<IStatusData, StatusData>();
             services.AddTransient<IColourData, ColourData>();
+            services.AddTransient<IAddressData, AddressData>();
+            services.AddTransient<IAddressTypeData, AddressTypeData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

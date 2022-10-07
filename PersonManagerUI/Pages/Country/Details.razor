@@ -3,7 +3,7 @@
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Components
 
-@inject ICountryData _db;
+@inject ICountryData _countryDb;
 
 <CountryDetails Country="country" ShowCountryName="true" />
 
@@ -20,7 +20,7 @@
 
     protected override void OnInitialized()
     {
-        country = _db.GetCountry(CountryId);
+        country = _countryDb.GetCountry(CountryId);
     }
 
 }

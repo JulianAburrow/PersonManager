@@ -4,7 +4,8 @@
 @using DataAccessLibrary.Interfaces
 @using PersonManagerUI.Components
 
-@inject IPersonData _db
+@inject IAddressData _addressDb
+@inject IPersonData _personDb
 @inject NavigationManager _navigationManager
 
 <h1>Delete</h1>
@@ -24,12 +25,13 @@
 
     protected override void OnInitialized()
     {
-        person = _db.GetPerson(PersonId);
+        person = _personDb.GetPerson(PersonId);
     }
 
     private void DeletePerson()
     {
-        _db.DeletePerson(PersonId);
+        _addressDb.DeleteAddress(PersonId);
+        _personDb.DeletePerson(PersonId);
 
         _navigationManager.NavigateTo("data/people/index");
     }

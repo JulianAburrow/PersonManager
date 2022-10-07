@@ -18,6 +18,8 @@ namespace DataAccessLibrary
             return _context.People
                 .Include(p => p.Country)
                 .Include(p => p.Status)
+                .Include(p => p.Address)
+                    .ThenInclude(a => a.AddressType)
                 .SingleOrDefault(p => p.PersonId == personId);
         }
 
@@ -46,6 +48,7 @@ namespace DataAccessLibrary
             oldPerson.CountryId = person.CountryId;
             oldPerson.StatusId = person.StatusId;
             oldPerson.FavouriteColourId = person.FavouriteColourId;
+            oldPerson.Skillset = person.Skillset;
 
             _context.SaveChanges();
         }

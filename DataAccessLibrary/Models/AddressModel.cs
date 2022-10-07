@@ -6,7 +6,8 @@ namespace DataAccessLibrary.Models
     [Table("Addresses")]
     public class AddressModel
     {
-        [Key] public int AddressId { get; set; }
+        [Key]
+        public int AddressId { get; set; }
 
         public string AddressLine1 { get; set; }
 

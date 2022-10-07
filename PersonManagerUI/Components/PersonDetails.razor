@@ -18,6 +18,10 @@
             <td>@Person.LastName</td>
         </tr>
         <tr>
+            <td><strong>Skillset</strong></td>
+            <td>@(!string.IsNullOrWhiteSpace(Person.Skillset) ? Person.Skillset : "None declared")</td>
+        </tr>
+        <tr>
             <td><strong>Email Address</strong></td>
             <td>@Person.EmailAddress</td>
         </tr>
@@ -35,18 +39,34 @@
                 </a>
             </td>
         </tr>
-    <tr>
-        <td><strong>Status</strong></td>
-        <td>
-            @Person.Status.StatusName
-        </td>
-    </tr>
-    <tr>
-        <td><strong>Favourite Colour</strong></td>
-        <td>
-            @(Person.FavouriteColour != null ? Person.FavouriteColour.ColourName : "None")
-        </td>
-    </tr>
+        <tr>
+            <td><strong>Status</strong></td>
+            <td>
+                @Person.Status.StatusName
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Favourite Colour</strong></td>
+            <td>
+                @(Person.FavouriteColour != null ? Person.FavouriteColour.ColourName : "None")
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Address</strong></td>
+            <td>
+                <a class="btn btn-primary" href="data/addresses/index/@Person.PersonId">Manage</a>
+                @if (Person.Address == null)
+                {
+                    @("No address given")
+                }
+                else
+                {
+                    var address = Person.Address;
+                    var a = $"{address.AddressLine1} {address.AddressLine2} {address.Town} {address.Postcode} ({address.AddressType.AddressTypeName})";
+                    @(a)
+                }
+            </td>
+        </tr>
     </tbody>
 </table>
 

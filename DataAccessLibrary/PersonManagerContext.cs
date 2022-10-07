@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using DataAccessLibrary.Configuration;
+﻿using DataAccessLibrary.Configuration;
 using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,19 +11,21 @@ namespace DataAccessLibrary
         {
         }
 
-        public DbSet<PersonModel> People { get; set; }
-        public DbSet<CountryModel> Countries { get; set; }
-        public DbSet<StatusModel> Statuses { get; set; }
-        public DbSet<ColourModel> Colours { get; set; }
+        public  DbSet<AddressModel> Addresses { get; set; }
         public DbSet<AddressTypeModel> AddressTypes { get; set; }
+        public DbSet<ColourModel> Colours { get; set; }
+        public DbSet<CountryModel> Countries { get; set; }
+        public DbSet<PersonModel> People { get; set; }
+        public DbSet<StatusModel> Statuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new PersonConfiguration());
-            builder.ApplyConfiguration(new CountryConfiguration());
-            builder.ApplyConfiguration(new StatusConfiguration());
+            builder.ApplyConfiguration(new AddressConfiguration());
+            builder.ApplyConfiguration(new AddressTypeConfiguration());
             builder.ApplyConfiguration(new ColourConfiguration());
-
+            builder.ApplyConfiguration(new CountryConfiguration());
+            builder.ApplyConfiguration(new PersonConfiguration());
+            builder.ApplyConfiguration(new StatusConfiguration());
         }
     }
 }

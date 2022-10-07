@@ -60,7 +60,7 @@
         <tr>
             <td><strong>Favourite Colour</strong></td>
             <td>
-                <InputSelectNumber id="favouriteColour" @bind-Value="@newPerson.FavouriteColourId">
+                <InputSelectNumber id="favouriteColour" @bind-Value="newPerson.FavouriteColourId">
                     @foreach (var colour in Colours)
                     {
                         <option value="@colour.ColourId">@colour.ColourName</option>

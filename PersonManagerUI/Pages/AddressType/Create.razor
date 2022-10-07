@@ -1,0 +1,60 @@
+﻿@page "/data/addresstype/create"
+
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+@inject IAddressTypeData _addressTypeDb
+@inject NavigationManager _navigationManager
+
+<h1>Create Address</h1>
+
+@if (AddressTypeAlreadyExists)
+{
+    <h4 style="color: red">An address type with this name already exists</h4>
+}
+
+<EditForm Model="@newAddressType" OnValidSubmit="@InsertAddressType">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Address Type Name</strong></td>
+                <td><InputText id="addressTypeName" @bind-Value="newAddressType.AddressTypeName" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/addresstypes/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    private DisplayAddressTypeModel newAddressType = new DisplayAddressTypeModel();
+
+    private bool AddressTypeAlreadyExists { get; set; }
+
+    private void InsertAddressType()
+    {
+        if (_addressTypeDb.AddressTypeExists(
+            newAddressType.AddressTypeName
+                .Replace(" ", "")
+                .ToLower()))
+        {
+            AddressTypeAlreadyExists = true;
+            return;
+        }
+
+        var a = new AddressTypeModel
+        {
+            AddressTypeName = newAddressType.AddressTypeName
+        };
+
+        _addressTypeDb.InsertAddressType(a);
+
+        _navigationManager.NavigateTo("/data/addresstypes/index");
+    }
+}

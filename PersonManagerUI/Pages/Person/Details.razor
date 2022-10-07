@@ -4,7 +4,7 @@
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Components
 
-@inject IPersonData _db
+@inject IPersonData _personDb
 
 <PersonDetails Person="person" ShowPersonName="true" />
 
@@ -21,6 +21,6 @@
 
     protected override void OnInitialized()
     {
-        person = _db.GetPerson(PersonId);
+        person = _personDb.GetPerson(PersonId);
     }
 }

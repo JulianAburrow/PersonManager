@@ -4,7 +4,7 @@
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Components
 
-@inject IColourData _db
+@inject IColourData _colourDb
 @inject NavigationManager _navigationManager
 
 <h1>Delete</h1>
@@ -37,7 +37,7 @@ else
 
     protected override void OnInitialized()
     {
-        colour = _db.GetColour(ColourId);
+        colour = _colourDb.GetColour(ColourId);
 
         if (colour.People.Count > 0)
         {
@@ -47,7 +47,7 @@ else
 
     private void DeleteColour()
     {
-        _db.DeleteColour(ColourId);
+        _colourDb.DeleteColour(ColourId);
 
         _navigationManager.NavigateTo("data/colours/index");
     }

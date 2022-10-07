@@ -4,7 +4,7 @@
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Components
 
-@inject ICountryData _db
+@inject ICountryData _countryDb
 @inject NavigationManager _navigationManager
 
 <h1>Delete</h1>
@@ -37,7 +37,7 @@ else
 
     protected override void OnInitialized()
     {
-        country = _db.GetCountry(CountryId);
+        country = _countryDb.GetCountry(CountryId);
 
         if (country.People.Count > 0)
         {
@@ -47,7 +47,7 @@ else
 
     private void DeleteCountry()
     {
-        _db.DeleteCountry(CountryId);
+        _countryDb.DeleteCountry(CountryId);
 
         _navigationManager.NavigateTo("data/countries/index");
     }

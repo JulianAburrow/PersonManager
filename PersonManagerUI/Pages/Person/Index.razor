@@ -1,13 +1,11 @@
 ﻿@page "/data/people/index"
 
-@using DataAccessLibrary
 @using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
-@using PersonManagerUI.Models
 
-@inject IPersonData _db
+@inject IPersonData _personDb
 
-<h1>People Page</h1>
+<h1>People</h1>
 
 <a href="/data/person/create" class="btn btn-primary">Add New Person</a>
 
@@ -52,7 +50,7 @@ else
 
     protected override void OnInitialized()
     {
-        people = _db.GetPeople()
+        people = _personDb.GetPeople()
             .OrderBy(p => p.FirstName)
             .ToList();
     }

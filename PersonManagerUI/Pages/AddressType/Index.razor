@@ -1,0 +1,57 @@
+﻿@page "/data/addresstypes/index"
+
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+
+@inject IAddressTypeData _addressTypeDb;
+
+<h1>Address Types</h1>
+
+<a href="/data/addresstype/create" class="btn btn-primary">Add New Address Type</a>
+
+<br /><br />
+
+<h4>Current Address Types</h4>
+
+@if (addressTypes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Address Type Name</th>
+            <th>Usage</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var addressType in addressTypes)
+        {
+            <tr>
+                <td>@addressType.AddressTypeName</td>
+                <td>@addressType.Addresses.Count</td>
+                <td>
+                    <a class="btn btn-primary" href="/data/addresstype/edit/@addressType.AddressTypeId">Edit</a>
+                    <a class="btn btn-danger" href="/data/addresstype/delete/@addressType.AddressTypeId">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<AddressTypeModel> addressTypes;
+
+    protected override void OnInitialized()
+    {
+        addressTypes = _addressTypeDb.GetAddressTypes()
+            .OrderBy(a => a.AddressTypeName)
+            .ToList();
+    }
+
+}

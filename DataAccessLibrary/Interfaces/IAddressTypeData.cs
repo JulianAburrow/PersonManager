@@ -14,5 +14,7 @@ namespace DataAccessLibrary.Interfaces
         void UpdateAddressType(AddressTypeModel addressType);
 
         void DeleteAddressType(int addressTypeId);
+
+        bool AddressTypeExists(string addressTypeName);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using DataAccessLibrary.Models;
 
 namespace PersonManagerUI.Models
 {
@@ -31,5 +30,7 @@ namespace PersonManagerUI.Models
         public int? FavouriteColourId { get; set; }
         [Display(Name = "Favourite Colour")]
         public DisplayColourModel FavouriteColour { get; set; }
+        [StringLength(1000, ErrorMessage = "{0} cannot be more than {1} characters")]
+        public string Skillset { get; set; }
     }
 }

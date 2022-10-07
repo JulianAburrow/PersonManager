@@ -3,7 +3,7 @@
 @using DataAccessLibrary.Models
 @using DataAccessLibrary.Interfaces
 
-@inject IColourData _db
+@inject IColourData _colourDb
 
 <h1>Colours Page</h1>
 
@@ -50,7 +50,7 @@ else
 
     protected override void OnInitialized()
     {
-        colours = _db.GetColours()
+        colours = _colourDb.GetColours()
             .OrderBy(c => c.ColourName)
             .ToList();
     }

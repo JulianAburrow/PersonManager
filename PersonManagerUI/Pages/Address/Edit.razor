@@ -1,0 +1,96 @@
+﻿@page "/data/address/edit/{AddressId:int}"
+@using PersonManagerUI.Models
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.CustomControls
+
+@inject IAddressData _addressDb;
+@inject IAddressTypeData _addressTypeDb;
+@inject NavigationManager _navigationManager;
+
+<h3>Edit Address</h3>
+
+<EditForm Model="@address" OnValidSubmit="@UpdateAddress">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Address Line 1</strong></td>
+                <td><InputText id="addressLine1" @bind-Value="address.AddressLine1" /></td>
+            </tr>
+            <tr>
+                <td><strong>Address Line 1</strong></td>
+                <td><InputText id="addressLine2" @bind-Value="address.AddressLine2" /></td>
+            </tr>
+            <tr>
+                <td><strong>Address Line 1</strong></td>
+                <td><InputText id="town" @bind-Value="address.Town" /></td>
+            </tr>
+            <tr>
+                <td><strong>Address Line 1</strong></td>
+                <td><InputText id="postcode" @bind-Value="address.Postcode" /></td>
+            </tr>
+            <tr>
+                <td><strong>Address Type</strong></td>
+                <td>
+                    <InputSelectNumber id="addressType" @bind-Value="address.AddressTypeId">
+                        @foreach (var addressType in AddressTypes)
+                        {
+                            <option value="@addressType.AddressTypeId">@addressType.AddressTypeName</option>
+                        }
+                    </InputSelectNumber>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary" type="submit">Update</button> | <a href="/data/addresses/index/@PersonId">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int AddressId { get; set; }
+
+    private DisplayAddressModel address = new DisplayAddressModel();
+
+    private List<AddressTypeModel> AddressTypes { get; set; }
+
+    private int PersonId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AddressTypes = _addressTypeDb.GetAddressTypes()
+            .ToList();
+
+        var a = _addressDb.GetAddress(AddressId);
+
+        address.AddressLine1 = a.AddressLine1;
+        address.AddressLine2 = a.AddressLine2;
+        address.Town = a.Town;
+        address.Postcode = a.Postcode;
+        address.AddressTypeId = a.AddressTypeId;
+
+        PersonId = a.PersonId;
+    }
+
+    private void UpdateAddress()
+    {
+        var a = new AddressModel
+        {
+            AddressId = AddressId,
+            AddressLine1 = address.AddressLine1,
+            AddressLine2 = address.AddressLine2,
+            Town = address.Town,
+            Postcode = address.Postcode,
+            AddressTypeId = address.AddressTypeId
+        };
+
+        _addressDb.UpdateAddress(a);
+
+        _navigationManager.NavigateTo($"data/addresses/index/{PersonId}");
+    }
+}

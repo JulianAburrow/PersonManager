@@ -100,4 +100,10 @@ CREATE TABLE Addresses (
 	CONSTRAINT fk_Addresses_People FOREIGN KEY (PersonId)
 		REFERENCES People (PersonId)
 	)
-GO	
+GO
+
+ALTER TABLE People ADD AddressId INT NULL FOREIGN KEY (AddressId) REFERENCES Addresses (AddressId)
+GO
+
+ALTER TABLE People ADD Skillset NVARCHAR(1000) NULL
+GO

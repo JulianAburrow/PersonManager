@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DataAccessLibrary
 {
@@ -17,27 +19,47 @@ namespace DataAccessLibrary
         public AddressTypeModel GetAddressType(int addressTypeId)
         {
             return _context.AddressTypes
-                .SingleOrDefault();
-        }
-
-        public void DeleteAddressType(int addressTypeId)
-        {
-            throw new NotImplementedException();
+                .Include(a => a.Addresses)
+                .SingleOrDefault(a => a.AddressTypeId == addressTypeId);
         }
 
         public List<AddressTypeModel> GetAddressTypes()
         {
-            throw new NotImplementedException();
+            return _context.AddressTypes
+                .Include(a => a.Addresses)
+                .ToList();
         }
 
         public void InsertAddressType(AddressTypeModel addressType)
         {
-            throw new NotImplementedException();
+            _context.AddressTypes.Add(addressType);
+            _context.SaveChanges();
         }
 
         public void UpdateAddressType(AddressTypeModel addressType)
         {
-            throw new NotImplementedException();
+            var oldAddressType = _context.AddressTypes
+                .SingleOrDefault(a => a.AddressTypeId == addressType.AddressTypeId);
+            if (oldAddressType == null) return;
+
+            oldAddressType.AddressTypeName = addressType.AddressTypeName;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteAddressType(int addressTypeId)
+        {
+            var addressType = _context.AddressTypes
+                .SingleOrDefault(a => a.AddressTypeId == addressTypeId);
+            if (addressType == null) return;
+
+            _context.AddressTypes.Remove(addressType);
+            _context.SaveChanges();
+        }
+
+        public bool AddressTypeExists(string addressTypeName)
+        {
+            return _context.AddressTypes.Any(a => a.AddressTypeName.ToLower() == addressTypeName);
         }
     }
 }

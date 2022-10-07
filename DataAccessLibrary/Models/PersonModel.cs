@@ -17,9 +17,11 @@ namespace DataAccessLibrary.Models
         public int CountryId { get; set; }
         public int StatusId { get; set; }
         public int? FavouriteColourId { get; set; }
+        public string Skillset { get; set; }
+        public int? AddressId { get; set; }
         public CountryModel Country { get; set; }
         public StatusModel Status { get; set; }
         public ColourModel FavouriteColour { get; set; }
-        public ICollection<AddressModel> Addresses { get; set; }
+        public AddressModel Address { get; set; }
     }
 }

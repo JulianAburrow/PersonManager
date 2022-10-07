@@ -12,6 +12,8 @@ namespace DataAccessLibrary.Configuration
                 .IsUnicode(false);
             builder.Property(e => e.LastName)
                 .IsUnicode(false);
+            builder.Property(e => e.Skillset)
+                .IsUnicode(false);
             builder.HasOne(e => e.Country)
                 .WithMany(e => e.People)
                 .HasForeignKey(e => e.CountryId)
@@ -25,6 +27,11 @@ namespace DataAccessLibrary.Configuration
             builder.HasOne(e => e.FavouriteColour)
                 .WithMany(e => e.People)
                 .HasForeignKey(e => e.FavouriteColourId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(e => e.Address)
+                .WithOne(e => e.Person)
+                .HasForeignKey<PersonModel>(e => e.AddressId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
         }

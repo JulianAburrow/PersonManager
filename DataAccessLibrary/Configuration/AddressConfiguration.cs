@@ -25,9 +25,9 @@ namespace DataAccessLibrary.Configuration
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(e => e.Person)
-                .WithMany(e => e.Addresses)
-                .HasForeignKey(e => e.AddressId)
-                .IsRequired()
+                .WithOne(e => e.Address)
+                .HasForeignKey<AddressModel>(e => e.AddressId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

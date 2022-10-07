@@ -3,7 +3,7 @@
 @using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
 
-@inject ICountryData _db
+@inject ICountryData _countryDb
 
 <h1>Countries Page</h1>
 
@@ -51,7 +51,7 @@ else
 
     protected override void OnInitialized()
     {
-        countries = _db.GetCountries()
+        countries = _countryDb.GetCountries()
             .OrderBy(c => c.CountryName)
             .ToList();
     }
