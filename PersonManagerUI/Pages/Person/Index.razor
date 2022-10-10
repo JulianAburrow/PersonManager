@@ -9,9 +9,14 @@
 
 <a href="/data/person/create" class="btn btn-primary">Add New Person</a>
 
-<br /><br />
+<br />
+<br />
 
 <h4>Current People</h4>
+
+<input type="text" @bind-value="@searchTerm" />
+<input type="button" value="Search" @onclick="@SearchPeople" />
+<input type="button" value="Clear" @onclick="@ClearSearch" />
 
 @if (people == null)
 {
@@ -30,15 +35,15 @@ else
         <tbody>
             @foreach (var person in people)
             {
-            <tr>
-                <td>@person.FirstName</td>
-                <td>@person.LastName</td>
-                <td>
-                    <a class="btn btn-primary" href="/data/person/details/@person.PersonId">Details</a>
-                    <a class="btn btn-primary" href="/data/person/edit/@person.PersonId">Edit</a>
-                    <a class="btn btn-danger" href="/data/person/delete/@person.PersonId">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>
+                        <a class="btn btn-primary" href="/data/person/details/@person.PersonId">Details</a>
+                        <a class="btn btn-primary" href="/data/person/edit/@person.PersonId">Edit</a>
+                        <a class="btn btn-danger" href="/data/person/delete/@person.PersonId">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -48,11 +53,34 @@ else
 
     private List<PersonModel> people;
 
+    public string searchTerm;
+
     protected override void OnInitialized()
+    {
+        GetPeople();
+    }
+
+    private void SearchPeople()
+    {
+        if (searchTerm == null) return;
+
+        people = people
+            .Where(p =>
+                p.FirstName.Contains(searchTerm) ||
+                p.LastName.Contains(searchTerm))
+            .ToList();
+    }
+
+    private void ClearSearch()
+    {
+        searchTerm = null;
+        GetPeople();
+    }
+
+    private void GetPeople()
     {
         people = _personDb.GetPeople()
             .OrderBy(p => p.FirstName)
             .ToList();
     }
-
 }

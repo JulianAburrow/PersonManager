@@ -60,6 +60,9 @@ namespace DataAccessLibrary
                     p.PersonId == personId);
             if (person == null) return;
 
+            if (person.Address != null)
+                _context.Remove(person.Address);
+
             _context.People.Remove(person);
             _context.SaveChanges();
         }
