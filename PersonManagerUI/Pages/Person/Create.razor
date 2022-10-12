@@ -3,7 +3,11 @@
 @using DataAccessLibrary.Interfaces
 @using PersonManagerUI.Models
 @using DataAccessLibrary.Models
+@using Microsoft.AspNetCore.Authentication
 @using PersonManagerUI.CustomControls
+@using System.IO
+@using System.Linq.Expressions
+@using System.Threading
 
 @inject ICountryData _countriesDb
 @inject IPersonData _peopleDb
@@ -68,6 +72,10 @@
                 </InputSelectNumber>
             </td>
         </tr>
+        <tr>
+            <td><strong>Picture</strong></td>
+            <td><InputFile id="picture" OnChange="@LoadFile" /></td>
+        </tr>
         </tbody>
     </table>
 
@@ -130,11 +138,19 @@
             StatusId = newPerson.StatusId,
             FavouriteColourId = newPerson.FavouriteColourId != -1
                 ? newPerson.FavouriteColourId
-                : null
+                : null,
+            Picture = newPerson.Picture
         };
 
         _peopleDb.InsertPerson(p);
 
         _navigationManager.NavigateTo("/data/people/index");
+    }
+
+    private async void LoadFile(InputFileChangeEventArgs e)
+    {
+        await using var ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        newPerson.Picture = ms.ToArray();
     }
 }

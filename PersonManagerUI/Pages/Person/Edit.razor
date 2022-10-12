@@ -4,6 +4,7 @@
 @using DataAccessLibrary.Models
 @using PersonManagerUI.CustomControls
 @using PersonManagerUI.Models
+@using System.IO
 
 
 @inject IPersonData _peopleDb;
@@ -28,7 +29,7 @@
                 <td><strong>Last Name</strong></td>
                 <td><InputText id="lastName" @bind-Value="person.LastName" /></td>
             </tr>
-        <tr>
+            <tr>
                 <td><strong>Skillset</strong></td>
                 <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="person.Skillset" /></td>
             </tr>
@@ -73,6 +74,29 @@
                     </InputSelectNumber>
                 </td>
             </tr>
+            <tr>
+                <td><strong>Picture</strong></td>
+                <td>
+                    <InputFile id="picture" OnChange="@LoadFile"/>
+                </td>
+            </tr>
+        <tr>
+            <td><strong>Current Picture</strong></td>
+            <td>
+                @{
+                    if (person.Picture != null)
+                    {
+                        <img src=@($"data:image/jpg;base64,{Convert.ToBase64String(person.Picture)}") alt="Picture" />
+                        <br />
+                        <button class="btn btn-secondary" @onclick="@RemovePicture">Remove picture</button>
+                    }
+                    else
+                    {
+                        @("No picture uploaded")
+                    }
+                }
+            </td>
+        </tr>
         </tbody>
     </table>
 
@@ -107,6 +131,8 @@
         person.StatusId = p.StatusId;
         person.FavouriteColourId = p.FavouriteColourId ?? -1;
         person.Skillset = p.Skillset;
+        person.Picture = p.Picture;
+        person.HasPicture = p.HasPicture;
 
         FullName = $"{p.FirstName} {p.LastName}";
 
@@ -139,11 +165,25 @@
             FavouriteColourId = person.FavouriteColourId != -1
                 ? person.FavouriteColourId
                     : null,
-            Skillset = person.Skillset
+            Skillset = person.Skillset,
+            Picture = person.HasPicture ? person.Picture : null
         };
 
         _peopleDb.UpdatePerson(p);
 
         _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
+    }
+
+    private async void LoadFile(InputFileChangeEventArgs e)
+    {
+        await using var ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        person.Picture = ms.ToArray();
+        person.HasPicture = true;
+    }
+
+    private void RemovePicture()
+    {
+        person.HasPicture = false;
     }
 }

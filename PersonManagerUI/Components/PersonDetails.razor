@@ -51,22 +51,34 @@
                 @(Person.FavouriteColour != null ? Person.FavouriteColour.ColourName : "None")
             </td>
         </tr>
-        <tr>
-            <td><strong>Address</strong></td>
-            <td>
-                <a class="btn btn-primary" href="data/addresses/index/@Person.PersonId">Manage</a>
-                @if (Person.Address == null)
+    <tr>
+        <td><strong>Address</strong></td>
+        <td>
+            <a class="btn btn-primary" href="data/addresses/index/@Person.PersonId">Manage</a>
+            @{
+                var address = Person.Address;
+                var a = Person.Address != null
+                    ? $"{address.AddressLine1} {address.AddressLine2} {address.Town} {address.Postcode} ({address.AddressType.AddressTypeName})"
+                    : "No address given";
+                @(a)
+            }
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Picture</strong></td>
+        <td>
+            @{
+                if (Person.Picture != null)
                 {
-                    @("No address given")
+                    <img src=@($"data:image/jpg;base64,{Convert.ToBase64String(Person.Picture)}") alt="Picture" />
                 }
                 else
                 {
-                    var address = Person.Address;
-                    var a = $"{address.AddressLine1} {address.AddressLine2} {address.Town} {address.Postcode} ({address.AddressType.AddressTypeName})";
-                    @(a)
+                    @("No picture uploaded")
                 }
-            </td>
-        </tr>
+            }
+        </td>
+    </tr>
     </tbody>
 </table>
 

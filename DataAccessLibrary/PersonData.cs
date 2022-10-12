@@ -49,6 +49,7 @@ namespace DataAccessLibrary
             oldPerson.StatusId = person.StatusId;
             oldPerson.FavouriteColourId = person.FavouriteColourId;
             oldPerson.Skillset = person.Skillset;
+            oldPerson.Picture = person.Picture;
 
             _context.SaveChanges();
         }

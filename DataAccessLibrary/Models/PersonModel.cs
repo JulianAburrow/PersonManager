@@ -19,9 +19,12 @@ namespace DataAccessLibrary.Models
         public int? FavouriteColourId { get; set; }
         public string Skillset { get; set; }
         public int? AddressId { get; set; }
+        public byte[] Picture { get; set; }
         public CountryModel Country { get; set; }
         public StatusModel Status { get; set; }
         public ColourModel FavouriteColour { get; set; }
         public AddressModel Address { get; set; }
+        [NotMapped]
+        public bool HasPicture => Picture != null;
     }
 }
