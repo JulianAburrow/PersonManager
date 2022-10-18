@@ -1,16 +1,41 @@
 ﻿@page "/data/people/index"
+@page "/data/people/index/{firstInitial}"
 
 @using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
 
 @inject IPersonData _personDb
+@inject NavigationManager _navigationManager
 
-<h1>People</h1>
+<h1>@header</h1>
 
 <a href="/data/person/create" class="btn btn-primary">Add New Person</a>
 
 <br />
 <br />
+
+<hr />
+Filter:
+<p>
+    <ul class="list-group list-group-horizontal">
+        @{
+            <li class="list-group-item small active p-3" style="background-color: lightgray; border-color: black">
+            <a href="/data/people/index" target="_top">All</a>
+            </li>
+
+            foreach (var initial in firstInitials)
+            {
+                <li class="list-group-item small active p-3" style="background-color: lightgray; border-color: black">
+                <a href="/data/people/index/@initial" style="cursor: pointer" target="_top">
+                        @initial
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</p>
+
+<hr />
 
 <h4>Current People</h4>
 
@@ -51,36 +76,68 @@ else
 
 @code {
 
+    [Parameter]
+    public string firstInitial { get; set; }
+
+    private string url;
+
+    private string header = "People";
+
     private List<PersonModel> people;
 
-    public string searchTerm;
+    private string searchTerm;
+
+    private List<string> firstInitials;
 
     protected override void OnInitialized()
     {
         GetPeople();
+        GetInitials();
     }
 
     private void SearchPeople()
     {
         if (searchTerm == null) return;
 
-        people = people
+        searchTerm = searchTerm.ToLower();
+
+        people = _personDb.GetPeople()
             .Where(p =>
-                p.FirstName.Contains(searchTerm) ||
-                p.LastName.Contains(searchTerm))
+                p.FirstName.ToLower().Contains(searchTerm) ||
+                p.LastName.ToLower().Contains(searchTerm))
+            .OrderBy(p => p.FirstName)
             .ToList();
+
+        header = $"People with names containing '{searchTerm}'";
     }
 
     private void ClearSearch()
     {
+        firstInitial = null;
         searchTerm = null;
         GetPeople();
+        header = "People";
     }
 
     private void GetPeople()
     {
         people = _personDb.GetPeople()
-            .OrderBy(p => p.FirstName)
             .ToList();
+
+        if (firstInitial != null)
+        {
+            people = people
+                .Where(p => p.FirstName.StartsWith(firstInitial))
+                .ToList();
+
+            header = $"People beginning with {firstInitial.ToUpper()}";
+        }
+
+        people = people.OrderBy(p => p.FirstName).ToList();
+    }
+
+    private void GetInitials()
+    {
+        firstInitials = _personDb.GetInitials();
     }
 }

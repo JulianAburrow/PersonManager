@@ -67,5 +67,14 @@ namespace DataAccessLibrary
             _context.People.Remove(person);
             _context.SaveChanges();
         }
+
+        public List<string> GetInitials()
+        {
+            return GetPeople()
+                .OrderBy(p => p.FirstName)
+                .Select(p => p.FirstName.Substring(0, 1))
+                .Distinct()
+                .ToList();
+        }
     }
 }

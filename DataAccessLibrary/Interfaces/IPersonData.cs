@@ -14,5 +14,7 @@ namespace DataAccessLibrary.Interfaces
         void UpdatePerson(PersonModel person);
 
         void DeletePerson(int personId);
+
+        List<string> GetInitials();
     }
 }
