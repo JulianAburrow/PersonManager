@@ -5,7 +5,7 @@
 @using PersonManagerUI.Models
 
 @inject IColourData _coloursDb
-@inject NavigationManager _navigationManager;
+@inject NavigationManager _navigationManager
 
 <h1>Edit @ColourDisplayName</h1>
 
@@ -31,7 +31,7 @@
     [Parameter]
     public int ColourId { get; set; }
 
-    private DisplayColourModel colour = new DisplayColourModel();
+    private DisplayColourModel colour = new();
 
     private string ColourDisplayName { get; set; }
 

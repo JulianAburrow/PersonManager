@@ -79,8 +79,6 @@ else
     [Parameter]
     public string firstInitial { get; set; }
 
-    private string url;
-
     private string header = "People";
 
     private List<PersonModel> people;
@@ -117,6 +115,7 @@ else
         searchTerm = null;
         GetPeople();
         header = "People";
+        _navigationManager.NavigateTo("/data/people/index");
     }
 
     private void GetPeople()

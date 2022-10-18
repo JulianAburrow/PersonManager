@@ -1,0 +1,59 @@
+﻿@page "/data/addresstype/edit/{AddressTypeId:int}"
+
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+@using Microsoft.AspNetCore.Components
+@using PersonManagerUI.Models
+
+@inject IAddressTypeData _addressTypeDb
+@inject NavigationManager _navigationManager
+
+<h3>Edit @AddressTypeDisplayName</h3>
+
+<EditForm Model="@addressType" OnValidSubmit="@UpdateAddressType">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Country Name</strong></td>
+                <td><InputText id="colourName" @bind-Value="addressType.AddressTypeName" /></td>
+            </tr>
+        </tbody>
+    </table>
+</EditForm>
+
+<button class="btn btn-primary" @onclick="UpdateAddressType">Update</button> | <a href="/data/addresstypes/index">Cancel</a>
+
+@code {
+
+    [Parameter]
+    public int AddressTypeId { get; set; }
+
+    private string AddressTypeDisplayName { get; set; }
+
+    private DisplayAddressTypeModel addressType = new();
+
+    protected override void OnInitialized()
+    {
+        var a = _addressTypeDb.GetAddressType(AddressTypeId);
+
+        addressType.AddressTypeName = a.AddressTypeName;
+
+        AddressTypeDisplayName = addressType.AddressTypeName;
+    }
+
+    private void UpdateAddressType()
+    {
+        var a = new AddressTypeModel
+        {
+            AddressTypeId = AddressTypeId,
+            AddressTypeName = addressType.AddressTypeName
+        };
+
+        _addressTypeDb.UpdateAddressType(a);
+
+        _navigationManager.NavigateTo("/data/addresstypes/index");
+    }
+}
