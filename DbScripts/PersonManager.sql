@@ -115,6 +115,7 @@ CREATE TABLE MyPersonManagerSavedUrls (
 	UrlId INT NOT NULL IDENTITY (1, 1),
 	Title NVARCHAR(100) NULL,
 	Url NVARCHAR(100) NOT NULL,
+	Notes NVARCHAR(250) NULL,
 	CONSTRAINT pk_MyPersonManagerSavedUrls PRIMARY KEY (UrlId)
 )
 GO
