@@ -94,7 +94,7 @@ CREATE TABLE Addresses (
 	Postcode NVARCHAR(15) NOT NULL,
 	AddressTypeId INT NOT NULL,
 	PersonId INT NOT NULL,
-	CONSTRAINT pk_Address PRIMARY KEY (AddressId),
+	CONSTRAINT pk_Addresses PRIMARY KEY (AddressId),
 	CONSTRAINT fk_Addresses_AddressTypes FOREIGN KEY(AddressTypeId)
 		REFERENCES AddressTypes (AddressTypeId),
 	CONSTRAINT fk_Addresses_People FOREIGN KEY (PersonId)
@@ -109,4 +109,12 @@ ALTER TABLE People ADD Skillset NVARCHAR(1000) NULL
 GO
 
 ALTER TABLE People Add Picture VARBINARY(MAX) NULL
+GO
+
+CREATE TABLE MyPersonManagerSavedUrls (
+	UrlId INT NOT NULL IDENTITY (1, 1),
+	Title NVARCHAR(100) NULL,
+	Url NVARCHAR(100) NOT NULL,
+	CONSTRAINT pk_MyPersonManagerSavedUrls PRIMARY KEY (UrlId)
+)
 GO

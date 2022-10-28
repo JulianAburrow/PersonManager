@@ -1,0 +1,54 @@
+﻿@page "/data/mypersonmanager/savedurls/index"
+
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+
+@inject IMyPersonManagerSavedUrlData _myPersonManagerDb;
+
+<h3>Saved Urls Page</h3>
+
+<a href="data/mypersonmanager/savedurls/create" class="btn btn-primary">Add New Saved Url</a>
+
+<br/><br/>
+
+<h4>Current Saved Urls</h4>
+
+@if (savedUrls == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Url</th>
+            <th>Title</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var savedUrl in savedUrls)
+        {
+            <tr>
+                <td><a href="@savedUrl.Url">@savedUrl.Url</a></td>
+                <td>@savedUrl.Title</td>
+                <td>
+                    <a class="btn btn-primary" href="/data/mypersonmanager/savedurls/edit/@savedUrl.UrlId">Edit</a>
+                    <a class="btn btn-danger" href="/data/mypersonmanager/savedurls/delete/@savedUrl.UrlId">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<MyPersonManagerSavedUrlModel> savedUrls;
+
+    protected override void OnInitialized()
+    {
+        savedUrls = _myPersonManagerDb.GetMyPersonManagerSavedUrlModels();
+    }
+}

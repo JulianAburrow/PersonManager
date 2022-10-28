@@ -11,12 +11,13 @@ namespace DataAccessLibrary
         {
         }
 
-        public  DbSet<AddressModel> Addresses { get; set; }
+        public DbSet<AddressModel> Addresses { get; set; }
         public DbSet<AddressTypeModel> AddressTypes { get; set; }
         public DbSet<ColourModel> Colours { get; set; }
         public DbSet<CountryModel> Countries { get; set; }
         public DbSet<PersonModel> People { get; set; }
         public DbSet<StatusModel> Statuses { get; set; }
+        public DbSet<MyPersonManagerSavedUrlModel> MyPersonManagerSavedUrls { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
