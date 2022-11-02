@@ -1,0 +1,75 @@
+﻿@page "/data/mypersonmanager/reminder/edit/{ReminderId:int}"
+
+@using PersonManagerUI.Models
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+
+@inject IReminderData _reminderDb;
+@inject NavigationManager _navigationManager;
+
+<h3>Edit Reminder</h3>
+
+<EditForm Model="@reminder" OnValidSubmit="UpdateReminder">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td><strong>Title</strong></td>
+            <td><InputText id="title" @bind-Value="@reminder.Title" /></td>
+        </tr>
+        <tr>
+            <td><strong>Reminder Date</strong></td>
+            <td><InputDate id="reminderDate" @bind-Value="@reminder.ReminderDate" /></td>
+        </tr>
+        <tr>
+            <td><strong>Notes</strong></td>
+            <td><InputTextArea id="notes" @bind-Value="@reminder.Notes" /></td>
+        </tr>
+        <tr>
+            <td><strong>Is Current</strong></td>
+            <td><InputCheckbox id="isCurrent" @bind-Value="@reminder.IsCurrent" /></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Update</button> <a href="/data/mypersonmanager/reminders/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int ReminderId { get; set; }
+
+    private DisplayReminderModel reminder = new();
+
+    protected override void OnInitialized()
+    {
+        var r = _reminderDb.GetReminder(ReminderId);
+
+        reminder.Title = r.Title;
+        reminder.ReminderDate = r.ReminderDate;
+        reminder.Notes = r.Notes;
+        reminder.IsCurrent = r.IsCurrent;
+    }
+
+    private void UpdateReminder()
+    {
+        var r = new ReminderModel
+        {
+            ReminderId = ReminderId,
+            Title = reminder.Title,
+            ReminderDate = reminder.ReminderDate,
+            Notes = reminder.Notes,
+            IsCurrent = reminder.IsCurrent
+        };
+
+        _reminderDb.UpdateReminder(r);
+
+        _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
+    }
+
+}

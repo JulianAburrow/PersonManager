@@ -1,0 +1,32 @@
+﻿@using DataAccessLibrary.Models
+
+
+<h3>Reminder</h3>
+
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><strong>Title</strong></td>
+        <td>@Reminder.Title</td>
+    </tr>
+    <tr>
+        <td><strong>Reminder Date</strong></td>
+        <td>@Reminder.ReminderDate.ToShortDateString()</td>
+    </tr>
+    <tr>
+        <td><strong>Notes</strong></td>
+        <td>@Reminder.Notes</td>
+    </tr>
+    <tr>
+        <td><strong>Is Current</strong></td>
+        <td>@Reminder.IsCurrent</td>
+    </tr>
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public ReminderModel Reminder { get; set; }
+
+}

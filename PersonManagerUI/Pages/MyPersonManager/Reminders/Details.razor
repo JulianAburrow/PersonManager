@@ -1,0 +1,27 @@
+﻿@page "/data/mypersonmanager/reminder/details/{ReminderId:int}"
+
+@using PersonManagerUI.Components
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+
+@inject IReminderData _reminderDb;
+
+<ReminderDetails Reminder="reminder" />
+
+<a class="btn btn-primary" href="data/mypersonmanager/reminder/edit/@reminder.ReminderId">Edit</a>
+<a class="btn btn-danger" href="data/mypersonmanager/reminder/delete/@reminder.ReminderId">Delete</a>
+<a href="data/mypersonmanager/reminders/index">Index</a>
+
+@code {
+
+    [Parameter]
+    public int ReminderId { get; set; }
+
+    private ReminderModel reminder = new();
+
+    protected override void OnInitialized()
+    {
+        reminder = _reminderDb.GetReminder(ReminderId);
+    }
+
+}

@@ -1,0 +1,67 @@
+﻿@using DataAccessLibrary.Models
+
+@if (ShowAllReminders)
+{
+    <h1>Reminders</h1>
+
+    <a href="data/mypersonmanager/reminder/create" class="btn btn-primary">Add New Reminder</a>
+    <br />
+}
+else
+{
+    <h3>Reminders For Today</h3>
+}
+<br />
+@{
+    if (Reminders.Count == 0)
+    {
+        <p>No reminders found</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Notes</th>
+                    @if (ShowAllReminders)
+                    {
+                        <th>Is Current</th>
+                    }
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var reminder in Reminders)
+            {
+                <tr>
+                    <td>@reminder.Title</td>
+                    <td>@reminder.ReminderDate.ToShortDateString()</td>
+                    <td>@(reminder.Notes.Length < 25 ? reminder.Notes : $"{reminder.Notes.Substring(0, 22)}...")</td>
+                    @if (ShowAllReminders)
+                    {
+                        <td>@reminder.IsCurrent</td>
+                    }
+                    <td>
+                        <a class="btn btn-primary" href="/data/mypersonmanager/reminder/details/@reminder.ReminderId">Details</a>
+                        <a class="btn btn-primary" href="/data/mypersonmanager/reminder/edit/@reminder.ReminderId">Edit</a>
+                        <a class="btn btn-danger" href="/data/mypersonmanager/reminder/delete/@reminder.ReminderId">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}
+
+
+
+@code {
+
+    [Parameter]
+    public bool ShowAllReminders { get; set; }
+
+    [Parameter]
+    public List<ReminderModel> Reminders { get; set; }
+}

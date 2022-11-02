@@ -1,6 +1,6 @@
 ﻿@page "/data/country/edit/{CountryId:int}"
+
 @using DataAccessLibrary.Interfaces
-@using System.Security.AccessControl
 @using DataAccessLibrary.Models
 @using PersonManagerUI.Models
 
@@ -11,28 +11,28 @@
 <h1>Edit @CountryDisplayName</h1>
 
 <EditForm Model="@country" OnValidSubmit="@UpdateCountry">
-<DataAnnotationsValidator />
-<ValidationSummary />
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
     <table class="table table-striped">
         <tbody>
-        <tr>
-            <td><strong>Country Name</strong></td>
-            <td><InputText id="firstName" @bind-Value="country.CountryName" /></td>
-        </tr>
+            <tr>
+                <td><strong>Country Name</strong></td>
+                <td><InputText id="firstName" @bind-Value="country.CountryName" /></td>
+            </tr>
         </tbody>
     </table>
 
-</EditForm>
+    <button type="submit" class="btn btn-primary">Update</button> | <a href="/data/countries/index">Cancel</a>
 
-<button class="btn btn-primary" @onclick="UpdateCountry">Update</button> | <a href="/data/countries/index">Cancel</a>
+</EditForm>
 
 @code {
 
     [Parameter]
     public int CountryId { get; set; }
 
-    private DisplayCountryModel country = new DisplayCountryModel();
+    private DisplayCountryModel country = new();
 
     private string CountryDisplayName { get; set; }
 

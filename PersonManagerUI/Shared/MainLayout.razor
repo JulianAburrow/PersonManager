@@ -1,4 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+@inherits LayoutComponentBase
+@inject NavigationManager _navigationManager
+@inject ISavedUrlData _savedUrlDb;
 
 <div class="sidebar">
     <NavMenu />
@@ -6,6 +10,7 @@
 
 <div class="main">
     <div class="top-row px-4">
+        <a class="btn btn-info" @onclick="SaveUrl" style="cursor: pointer">Save Page</a>&nbsp;|
         <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
     </div>
 
@@ -13,3 +18,20 @@
         @Body
     </div>
 </div>
+
+@code {
+
+    private void SaveUrl()
+    {
+        var savedUrl = new SavedUrlModel
+        {
+            Title = "Saved Page",
+            Url = _navigationManager.Uri,
+            Notes = "Saved from application",
+            IsExternal = false
+        };
+
+        _savedUrlDb.InsertSavedUrl(savedUrl);
+    }
+
+}

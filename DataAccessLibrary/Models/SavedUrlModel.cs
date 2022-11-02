@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLibrary.Models
 {
-    [Table("MyPersonManagerSavedUrls")]
-    public class MyPersonManagerSavedUrlModel
+    [Table("SavedUrls")]
+    public class SavedUrlModel
     {
         [Key]
         public int UrlId { get; set; }
@@ -14,5 +14,7 @@ namespace DataAccessLibrary.Models
         public string Url { get; set; }
 
         public string Notes { get; set; }
+
+        public bool IsExternal { get; set; }
     }
 }

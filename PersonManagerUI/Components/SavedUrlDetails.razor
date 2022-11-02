@@ -1,0 +1,27 @@
+﻿@using DataAccessLibrary.Models
+
+<h3>Saved Url</h3>
+
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><strong>Title</strong></td>
+        <td>@SavedUrl.Title</td>
+    </tr>
+    <tr>
+        <td><strong>Url</strong></td>
+        <td>@SavedUrl.Url</td>
+    </tr>
+    <tr>
+        <td><strong>Notes</strong></td>
+        <td>@SavedUrl.Notes</td>
+    </tr>
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public SavedUrlModel SavedUrl { get; set; }
+
+}

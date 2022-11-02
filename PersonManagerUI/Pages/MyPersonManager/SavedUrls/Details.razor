@@ -1,0 +1,27 @@
+﻿@page "/data/mypersonmanager/savedurl/details/{UrlId:int}"
+
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+@using PersonManagerUI.Components
+
+@inject ISavedUrlData _savedUrlDb;
+
+<SavedUrlDetails SavedUrl="savedUrl" />
+
+<a class="btn btn-primary" href="data/mypersonmanager/savedurl/edit/@savedUrl.UrlId">Edit</a>
+<a class="btn btn-danger" href="data/mypersonmanager/savedurl/delete/@savedUrl.UrlId">Delete</a>
+<a href="data/mypersonmanager/savedurls/index">Index</a>
+
+@code {
+
+    [Parameter]
+    public int UrlId { get; set; }
+
+    private SavedUrlModel savedUrl = new();
+
+    protected override void OnInitialized()
+    {
+        savedUrl = _savedUrlDb.GetSavedUrl(UrlId);
+    }
+
+}

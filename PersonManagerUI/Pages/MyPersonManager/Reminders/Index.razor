@@ -1,0 +1,21 @@
+﻿@page "/data/mypersonmanager/reminders/index"
+
+@using PersonManagerUI.Components
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+
+@inject IReminderData _reminderDb;
+
+<ReminderGrid ShowAllReminders="true" Reminders="reminders" />
+
+@code {
+
+    private List<ReminderModel> reminders;
+
+    protected override void OnInitialized()
+    {
+        reminders = _reminderDb.GetReminders()
+            .OrderBy(r => r.ReminderDate)
+            .ToList();
+    }
+}

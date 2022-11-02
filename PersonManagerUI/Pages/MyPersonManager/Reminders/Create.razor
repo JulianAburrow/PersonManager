@@ -1,0 +1,67 @@
+﻿@page "/data/mypersonmanager/reminder/create"
+
+@using PersonManagerUI.Models
+@using DataAccessLibrary.Models
+@using DataAccessLibrary.Interfaces
+
+@inject IReminderData _reminderDb;
+@inject NavigationManager _navigationManager;
+
+<h3>Create Reminder</h3>
+
+<EditForm Model="@newReminder" OnValidSubmit="InsertReminder">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Title</strong></td>
+                <td><InputText id="title" @bind-Value="@newReminder.Title" /></td>
+            </tr>
+            <tr>
+                <td><strong>Reminder Date</strong></td>
+                <td><InputDate id="reminderDate" @bind-Value="@newReminder.ReminderDate" /></td>
+            </tr>
+            <tr>
+                <td><strong>Notes</strong></td>
+                <td><InputTextArea id="notes" @bind-Value="@newReminder.Notes" /></td>
+            </tr>
+            <tr>
+                <td><strong>Is Current</strong></td>
+                <td><InputCheckbox id="isCurrent" @bind-Value="@newReminder.IsCurrent" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/mypersonmanager/reminders/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    private DisplayReminderModel newReminder = new();
+
+    protected override void OnInitialized()
+    {
+        newReminder.ReminderDate = DateTime.Today;
+        newReminder.IsCurrent = true;
+    }
+
+    private void InsertReminder()
+    {
+        var r = new ReminderModel
+        {
+            Title = newReminder.Title,
+            ReminderDate = newReminder.ReminderDate,
+            Notes = newReminder.Notes,
+            IsCurrent = newReminder.IsCurrent
+        };
+
+        _reminderDb.InsertReminder(r);
+
+        _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
+    }
+
+}

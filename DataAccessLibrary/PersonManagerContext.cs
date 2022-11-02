@@ -17,7 +17,10 @@ namespace DataAccessLibrary
         public DbSet<CountryModel> Countries { get; set; }
         public DbSet<PersonModel> People { get; set; }
         public DbSet<StatusModel> Statuses { get; set; }
-        public DbSet<MyPersonManagerSavedUrlModel> MyPersonManagerSavedUrls { get; set; }
+
+        // MyPersonManager objects
+        public DbSet<SavedUrlModel> SavedUrls { get; set; }
+        public DbSet<ReminderModel> Reminders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

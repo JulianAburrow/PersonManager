@@ -1,0 +1,58 @@
+﻿@page "/data/mypersonmanager/savedurl/create"
+
+@using DataAccessLibrary.Interfaces
+@using DataAccessLibrary.Models
+@using PersonManagerUI.Models
+
+@inject ISavedUrlData _savedUrlDb
+@inject NavigationManager _navigationManager
+
+<h1>Create Saved Url</h1>
+
+<EditForm Model="@newSavedUrl" OnValidSubmit="@InsertSavedUrl">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Title</strong></td>
+                <td><InputText id="title" @bind-Value="newSavedUrl.Title"></InputText></td>
+            </tr>
+            <tr>
+                <td><strong>Url</strong></td>
+                <td><InputText id="url" @bind-Value="newSavedUrl.Url"></InputText></td>
+            </tr>
+            <tr>
+                <td><strong>Notes</strong></td>
+                <td><InputTextArea id="notes" @bind-Value="newSavedUrl.Notes"></InputTextArea></td>
+            </tr>
+            <tr>
+                <td><strong>Is External</strong></td>
+                <td><InputCheckbox id="isExternal" @bind-Value="newSavedUrl.IsExternal" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/mypersonmanager/savedurls/index">Cancel</a>
+
+</EditForm>
+
+@code {
+
+    private DisplaySavedUrlModel newSavedUrl = new();
+
+    private void InsertSavedUrl()
+    {
+        var s = new SavedUrlModel
+        {
+            Title = newSavedUrl.Title,
+            Url = newSavedUrl.Url,
+            Notes = newSavedUrl.Notes
+        };
+
+        _savedUrlDb.InsertSavedUrl(s);
+
+        _navigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
+    }
+}
