@@ -53,8 +53,8 @@ else
     <table class="table table-striped">
         <thead>
             <tr>
-                <th><a @onclick="SortFirstName" style="cursor: pointer">First Name</a></th>
-                <th><a @onclick="SortLastName" style="cursor: pointer">Last Name</a></th>
+                <th><a @onclick="() => SortColumns(FirstName)" style="cursor: pointer">First Name</a></th>
+                <th><a @onclick="() => SortColumns(LastName)" style="cursor: pointer">Last Name</a></th>
                 <th></th>
             </tr>
         </thead>
@@ -91,6 +91,10 @@ else
     private bool FirstNameIsAscending { get; set; }
 
     private bool LastNameIsAscending { get; set; }
+
+    private const string FirstName = "FirstName";
+        
+    private const string LastName = "LastName";
 
     protected override void OnInitialized()
     {
@@ -147,24 +151,27 @@ else
     {
         firstInitials = _personDb.GetInitials();
     }
-    
-    private void SortFirstName()
+
+    private void SortColumns(string whichColumn)
     {
-        people = FirstNameIsAscending
-            ? people.OrderByDescending(p => p.FirstName).ToList()
-            : people.OrderBy(p => p.FirstName).ToList();
+        switch (whichColumn)
+        {
+            case FirstName:
+                people = FirstNameIsAscending
+                    ? people.OrderByDescending(p => p.FirstName).ToList()
+                    : people.OrderBy(p => p.FirstName).ToList();
 
-        FirstNameIsAscending = !FirstNameIsAscending;
-        LastNameIsAscending = false;
-    }
+                FirstNameIsAscending = !FirstNameIsAscending;
+                LastNameIsAscending = false;
+                break;
+            case LastName:
+                people = LastNameIsAscending
+                    ? people.OrderByDescending(p => p.LastName).ToList()
+                    : people = people.OrderBy(p => p.LastName).ToList();
 
-    private void SortLastName()
-    {
-        people = LastNameIsAscending
-            ? people.OrderByDescending(p => p.LastName).ToList()
-            : people = people.OrderBy(p => p.LastName).ToList();
-
-        LastNameIsAscending = !LastNameIsAscending;
-        FirstNameIsAscending = false;
+                LastNameIsAscending = !LastNameIsAscending;
+                FirstNameIsAscending = false;
+                break;
+        }
     }
 }
