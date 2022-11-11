@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PersonManagerUI.Pages.Person
 {
-    public class IndexBase : ComponentBase
+    public partial class Index : ComponentBase
     {
         [Inject] IPersonData _personDb { get; set; }
         [Inject] NavigationManager _navigationManager { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace PersonManagerUI.Pages.Person
 {
-    public class DetailsBase : ComponentBase
+    public partial class Details : ComponentBase
     {
         [Inject] private IPersonData _personDb { get; set; }
 

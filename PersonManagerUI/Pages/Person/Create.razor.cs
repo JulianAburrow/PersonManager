@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace PersonManagerUI.Pages.Person
 {
-    public class CreateBase : ComponentBase
+    public partial class Create : ComponentBase
     {
         [Inject] ICountryData _countriesDb { get; set; }
         [Inject] IPersonData _peopleDb { get; set; }

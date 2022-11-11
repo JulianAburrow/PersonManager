@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace PersonManagerUI.Pages.Person
 {
-    public class DeleteBase : ComponentBase
+    public partial class Delete : ComponentBase
     {
         [Inject] private IAddressData _addressDb { get; set; }
         [Inject] IPersonData _personDb { get; set; }

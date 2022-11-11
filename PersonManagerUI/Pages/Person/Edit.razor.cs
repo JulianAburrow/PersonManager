@@ -9,7 +9,7 @@ using PersonManagerUI.Models;
 
 namespace PersonManagerUI.Pages.Person
 {
-    public class EditBase : ComponentBase
+    public partial class Edit : ComponentBase
     {
         [Inject] private IPersonData _peopleDb { get; set; }
         [Inject] ICountryData _countriesDb { get; set; }
