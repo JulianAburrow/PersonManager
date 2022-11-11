@@ -1,17 +1,11 @@
 ﻿@page "/data/person/edit/{PersonId:int}"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
+@inherits EditBase
+
 @using PersonManagerUI.CustomControls
-@using PersonManagerUI.Models
-@using System.IO
 
 
-@inject IPersonData _peopleDb;
-@inject ICountryData _countriesDb;
-@inject IStatusData _statusesDb;
-@inject IColourData _coloursDb;
-@inject NavigationManager _navigationManager
+
 
 <h1>Edit @FullName</h1>
 
@@ -105,85 +99,4 @@
 </EditForm>
 
 @code {
-
-    [Parameter]
-    public int PersonId { get; set; }
-
-    private DisplayPersonModel person = new();
-
-    private List<CountryModel> Countries { get; set; }
-
-    private List<StatusModel> Statuses { get; set; }
-
-    private List<ColourModel> Colours { get; set; }
-
-    private string FullName { get; set; }
-
-    protected override void OnInitialized()
-    {
-        var p = _peopleDb.GetPerson(PersonId);
-
-        person.FirstName = p.FirstName;
-        person.LastName = p.LastName;
-        person.EmailAddress = p.EmailAddress;
-        person.DateOfBirth = p.DateOfBirth;
-        person.CountryId = p.CountryId;
-        person.StatusId = p.StatusId;
-        person.FavouriteColourId = p.FavouriteColourId ?? -1;
-        person.Skillset = p.Skillset;
-        person.Picture = p.Picture;
-        person.HasPicture = p.HasPicture;
-
-        FullName = $"{p.FirstName} {p.LastName}";
-
-        Countries = _countriesDb.GetCountries()
-            .OrderBy(c => c.CountryName)
-            .ToList();
-        Statuses = _statusesDb.GetStatuses()
-            .ToList();
-        Colours = _coloursDb.GetColours()
-            .OrderBy(c => c.ColourName)
-            .ToList();
-        Colours.Insert(0, new ColourModel
-        {
-            ColourId = -1,
-            ColourName = "None"
-        });
-    }
-
-    private void UpdatePerson()
-    {
-        var p = new PersonModel
-        {
-            PersonId = PersonId,
-            FirstName = person.FirstName,
-            LastName = person.LastName,
-            EmailAddress = person.EmailAddress,
-            DateOfBirth = person.DateOfBirth,
-            CountryId = person.CountryId,
-            StatusId = person.StatusId,
-            FavouriteColourId = person.FavouriteColourId != -1
-                ? person.FavouriteColourId
-                    : null,
-            Skillset = person.Skillset,
-            Picture = person.HasPicture ? person.Picture : null
-        };
-
-        _peopleDb.UpdatePerson(p);
-
-        _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
-    }
-
-    private async void LoadFile(InputFileChangeEventArgs e)
-    {
-        await using var ms = new MemoryStream();
-        await e.File.OpenReadStream().CopyToAsync(ms);
-        person.Picture = ms.ToArray();
-        person.HasPicture = true;
-    }
-
-    private void RemovePicture()
-    {
-        person.HasPicture = false;
-    }
 }

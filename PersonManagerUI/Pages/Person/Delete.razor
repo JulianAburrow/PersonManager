@@ -1,12 +1,9 @@
 ﻿@page "/data/person/delete/{PersonId:int}"
 
-@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
+@inherits DeleteBase
+
 @using PersonManagerUI.Components
 
-@inject IAddressData _addressDb
-@inject IPersonData _personDb
-@inject NavigationManager _navigationManager
 
 <h1>Delete</h1>
 
@@ -15,24 +12,3 @@
 <PersonDetails Person="person" />
 
 <button class="btn btn-danger" @onclick="DeletePerson">Delete</button> <a href="data/people/index/">Cancel</a>
-
-@code {
-
-    [Parameter]
-    public int PersonId { get; set; }
-
-    private PersonModel person = new();
-
-    protected override void OnInitialized()
-    {
-        person = _personDb.GetPerson(PersonId);
-    }
-
-    private void DeletePerson()
-    {
-        _addressDb.DeleteAddress(PersonId);
-        _personDb.DeletePerson(PersonId);
-
-        _navigationManager.NavigateTo("data/people/index");
-    }
-}
