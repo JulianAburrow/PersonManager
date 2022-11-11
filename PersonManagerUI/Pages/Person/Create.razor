@@ -3,11 +3,9 @@
 @using DataAccessLibrary.Interfaces
 @using PersonManagerUI.Models
 @using DataAccessLibrary.Models
-@using Microsoft.AspNetCore.Authentication
 @using PersonManagerUI.CustomControls
 @using System.IO
-@using System.Linq.Expressions
-@using System.Threading
+@using Microsoft.AspNetCore.Mvc.Rendering
 
 @inject ICountryData _countriesDb
 @inject IPersonData _peopleDb
@@ -85,7 +83,7 @@
 
 @code {
 
-    private DisplayPersonModel newPerson = new DisplayPersonModel();
+    private DisplayPersonModel newPerson = new();
 
     private List<CountryModel> Countries { get; set; }
 

@@ -28,11 +28,11 @@
 
 @code {
 
-    private DisplayColourModel newColour = new DisplayColourModel();
+    private DisplayColourModel newColour = new();
 
     private void InsertColour()
     {
-        var c = new ColourModel()
+        var c = new ColourModel
         {
             ColourName = newColour.ColourName
         };

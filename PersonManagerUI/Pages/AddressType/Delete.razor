@@ -2,7 +2,6 @@
 
 @using DataAccessLibrary.Interfaces
 @using DataAccessLibrary.Models
-@using System.Diagnostics
 
 @inject IAddressTypeData _addressTypeDb
 @inject NavigationManager _navigationManager
@@ -39,7 +38,7 @@ else
     [Parameter]
     public int AddressTypeId { get; set; }
 
-    private AddressTypeModel addressType = new AddressTypeModel();
+    private AddressTypeModel addressType = new();
 
     private bool OkToDelete = true;
 

@@ -50,9 +50,9 @@ else
     [Parameter]
     public int PersonId { get; set; }
 
-    private PersonModel person = new PersonModel();
+    private PersonModel person = new();
 
-    private List<AddressModel> addresses = new List<AddressModel>();
+    private List<AddressModel> addresses = new();
 
     protected override void OnInitialized()
     {

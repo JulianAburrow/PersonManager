@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLibrary.Models;
 
 namespace DataAccessLibrary.Interfaces
 {
