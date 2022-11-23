@@ -1,11 +1,5 @@
 ﻿@page "/data/addresstype/delete/{AddressTypeId:int}"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-
-@inject IAddressTypeData _addressTypeDb
-@inject NavigationManager _navigationManager
-
 <h1>Delete</h1>
 
 @if (OkToDelete)
@@ -32,30 +26,3 @@ else
 }
 
 <a href="data/addresstypes/index">Cancel</a>
-
-@code {
-
-    [Parameter]
-    public int AddressTypeId { get; set; }
-
-    private AddressTypeModel addressType = new();
-
-    private bool OkToDelete = true;
-
-    protected override void OnInitialized()
-    {
-        addressType = _addressTypeDb.GetAddressType(AddressTypeId);
-
-        if (addressType.Addresses.Count > 0)
-        {
-            OkToDelete = false;
-        }
-    }
-
-    private void DeleteAddressType()
-    {
-        _addressTypeDb.DeleteAddressType(AddressTypeId);
-
-        _navigationManager.NavigateTo("/data/addresstypes/index");
-    }
-}

@@ -1,10 +1,7 @@
 ﻿@page "/data/addresses/index/{PersonId:int}"
 
-@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
 
-@inject IAddressData _addressDb;
-@inject IPersonData _personDb;
+
 
 <h3>Addresses for @person.FirstName @person.LastName</h3>
 
@@ -43,20 +40,4 @@ else
             }
         </tbody>
     </table>
-}
-
-@code {
-
-    [Parameter]
-    public int PersonId { get; set; }
-
-    private PersonModel person = new();
-
-    private List<AddressModel> addresses = new();
-
-    protected override void OnInitialized()
-    {
-        addresses = _addressDb.GetAddresses(PersonId);
-        person = _personDb.GetPerson(PersonId);
-    }
 }

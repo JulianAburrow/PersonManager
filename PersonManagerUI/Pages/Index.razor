@@ -1,10 +1,7 @@
 ﻿@page "/"
 
-@using PersonManagerUI.Components
-@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
+@using PersonManagerUI.Components;
 
-@inject IReminderData _reminderDb;
 
 <h1>Person Manager</h1>
 
@@ -15,17 +12,3 @@
 <hr/>
 
 <ReminderGrid ShowAllReminders="false" Reminders="reminders" />
-
-@code
-{
-    private List<ReminderModel> reminders;
-
-    protected override void OnInitialized()
-    {
-        reminders = _reminderDb.GetReminders()
-            .Where(r =>
-                r.ReminderDate <= DateTime.Now &&
-                r.IsCurrent)
-            .ToList();
-    }
-}

@@ -1,12 +1,5 @@
 ﻿@page "/data/addresstype/create"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.Models
-
-@inject IAddressTypeData _addressTypeDb
-@inject NavigationManager _navigationManager
-
 <h1>Create Address</h1>
 
 @if (AddressTypeAlreadyExists)
@@ -30,31 +23,3 @@
     <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/addresstypes/index">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    private DisplayAddressTypeModel newAddressType = new();
-
-    private bool AddressTypeAlreadyExists { get; set; }
-
-    private void InsertAddressType()
-    {
-        if (_addressTypeDb.AddressTypeExists(
-            newAddressType.AddressTypeName
-                .Replace(" ", "")
-                .ToLower()))
-        {
-            AddressTypeAlreadyExists = true;
-            return;
-        }
-
-        var a = new AddressTypeModel
-        {
-            AddressTypeName = newAddressType.AddressTypeName
-        };
-
-        _addressTypeDb.InsertAddressType(a);
-
-        _navigationManager.NavigateTo("/data/addresstypes/index");
-    }
-}

@@ -17,7 +17,6 @@ namespace PersonManagerUI.Pages.Person
         [Inject] IColourData _coloursDb { get; set; }
         [Inject] NavigationManager _navigationManager { get; set; }
 
-
         [Parameter]
         public int PersonId { get; set; }
 

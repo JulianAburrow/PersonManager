@@ -1,12 +1,6 @@
 ﻿@page "/data/address/edit/{AddressId:int}"
-@using PersonManagerUI.Models
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.CustomControls
 
-@inject IAddressData _addressDb;
-@inject IAddressTypeData _addressTypeDb;
-@inject NavigationManager _navigationManager;
+@using PersonManagerUI.CustomControls
 
 <h3>Edit Address</h3>
 
@@ -49,48 +43,3 @@
     <button class="btn btn-primary" type="submit">Update</button> | <a href="/data/addresses/index/@PersonId">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    [Parameter]
-    public int AddressId { get; set; }
-
-    private DisplayAddressModel address = new();
-
-    private List<AddressTypeModel> AddressTypes { get; set; }
-
-    private int PersonId { get; set; }
-
-    protected override void OnInitialized()
-    {
-        AddressTypes = _addressTypeDb.GetAddressTypes()
-            .ToList();
-
-        var a = _addressDb.GetAddress(AddressId);
-
-        address.AddressLine1 = a.AddressLine1;
-        address.AddressLine2 = a.AddressLine2;
-        address.Town = a.Town;
-        address.Postcode = a.Postcode;
-        address.AddressTypeId = a.AddressTypeId;
-
-        PersonId = a.PersonId;
-    }
-
-    private void UpdateAddress()
-    {
-        var a = new AddressModel
-        {
-            AddressId = AddressId,
-            AddressLine1 = address.AddressLine1,
-            AddressLine2 = address.AddressLine2,
-            Town = address.Town,
-            Postcode = address.Postcode,
-            AddressTypeId = address.AddressTypeId
-        };
-
-        _addressDb.UpdateAddress(a);
-
-        _navigationManager.NavigateTo($"data/addresses/index/{PersonId}");
-    }
-}

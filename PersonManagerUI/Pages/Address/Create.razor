@@ -1,13 +1,6 @@
 ﻿@page "/data/address/create/{PersonId:int}"
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.Models
-@using PersonManagerUI.CustomControls
 
-@inject IPersonData _personDb
-@inject IAddressData _addressDb
-@inject IAddressTypeData _addressTypeDb
-@inject NavigationManager _navigationManager
+@using PersonManagerUI.CustomControls
 
 <h1>Create Address</h1>
 
@@ -50,43 +43,3 @@
     <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/person/details/@PersonId">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    [Parameter]
-    public int PersonId { get; set; }
-
-    private List<AddressTypeModel> AddressTypes { get; set; }
-
-    private DisplayAddressModel newAddress = new();
-
-    protected override void OnInitialized()
-    {
-        newAddress.AddressTypeId = -1;
-
-        AddressTypes = _addressTypeDb.GetAddressTypes()
-            .ToList();
-        AddressTypes.Insert(0, new AddressTypeModel
-        {
-            AddressTypeId = -1,
-            AddressTypeName = "Please select"
-        });
-    }
-
-    private void InsertAddress()
-    {
-        var a = new AddressModel
-        {
-            AddressLine1 = newAddress.AddressLine1,
-            AddressLine2 = newAddress.AddressLine2,
-            Town = newAddress.Town,
-            Postcode = newAddress.Postcode,
-            AddressTypeId = newAddress.AddressTypeId,
-            PersonId = PersonId
-        };
-
-        _addressDb.InsertAddress(a);
-
-        _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
-    }
-}

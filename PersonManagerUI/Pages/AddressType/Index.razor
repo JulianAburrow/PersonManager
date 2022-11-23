@@ -1,10 +1,5 @@
 ﻿@page "/data/addresstypes/index"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-
-@inject IAddressTypeData _addressTypeDb;
-
 <h1>Address Types</h1>
 
 <a href="/data/addresstype/create" class="btn btn-primary">Add New Address Type</a>
@@ -41,17 +36,4 @@ else
         }
         </tbody>
     </table>
-}
-
-@code {
-
-    private List<AddressTypeModel> addressTypes;
-
-    protected override void OnInitialized()
-    {
-        addressTypes = _addressTypeDb.GetAddressTypes()
-            .OrderBy(a => a.AddressTypeName)
-            .ToList();
-    }
-
 }
