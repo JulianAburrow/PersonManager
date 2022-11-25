@@ -5,7 +5,7 @@ using PersonManagerUI.Models;
 
 namespace PersonManagerUI.Pages.AddressType
 {
-    public partial class Edit : ComponentBase
+    public partial class Edit
     {
         [Inject] IAddressTypeData _addressTypeDb { get;set; }
         [Inject] NavigationManager _navigationManager { get; set; }

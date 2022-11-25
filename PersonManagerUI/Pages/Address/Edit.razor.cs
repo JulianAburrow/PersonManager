@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace PersonManagerUI.Pages.Address
 {
-    public partial class Edit : ComponentBase
+    public partial class Edit
     {
         [Inject] IAddressData _addressDb { get; set;}
         [Inject] IAddressTypeData _addressTypeDb { get; set; }

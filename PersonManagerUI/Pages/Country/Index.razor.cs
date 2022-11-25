@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PersonManagerUI.Pages.AddressType
+namespace PersonManagerUI.Pages.Country
 {
     public partial class Index
     {
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
-     
-        private List<AddressTypeModel> addressTypes;
+        [Inject] ICountryData _countryDb { get; set; }
+
+        private List<CountryModel> countries;
 
         protected override void OnInitialized()
         {
-            addressTypes = _addressTypeDb.GetAddressTypes()
-                .OrderBy(a => a.AddressTypeName)
+            countries = _countryDb.GetCountries()
+                .OrderBy(c => c.CountryName)
                 .ToList();
         }
     }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace PersonManagerUI.Pages.AddressType
 {
-    public partial class Delete : ComponentBase
+    public partial class Delete
     {
         [Inject] IAddressTypeData _addressTypeDb { get; set; }
         [Inject] NavigationManager _navigationManager { get; set; }

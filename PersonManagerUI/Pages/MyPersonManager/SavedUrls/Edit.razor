@@ -1,12 +1,5 @@
 ﻿@page "/data/mypersonmanager/savedurl/edit/{UrlId:int}"
 
-@using PersonManagerUI.Models
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-
-@inject ISavedUrlData _savedUrlDb;
-@inject NavigationManager _navigationManager;
-
 <h3>Edit Saved Url @savedUrl.Title</h3>
 
 <EditForm Model="@savedUrl" OnValidSubmit="@UpdateSavedUrl">
@@ -37,37 +30,3 @@
     <button type="submit" class="btn btn-primary">Update</button> | <a href="/data/mypersonmanager/savedurls/index">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    [Parameter]
-    public int UrlId { get; set; }
-
-    private DisplaySavedUrlModel savedUrl = new();
-
-    protected override void OnInitialized()
-    {
-        var s = _savedUrlDb.GetSavedUrl(UrlId);
-
-        savedUrl.Title = s.Title;
-        savedUrl.Url = s.Url;
-        savedUrl.Notes = s.Notes;
-        savedUrl.IsExternal = s.IsExternal;
-    }
-
-    private void UpdateSavedUrl()
-    {
-        var s = new SavedUrlModel
-        {
-            UrlId = UrlId,
-            Title = savedUrl.Title,
-            Url = savedUrl.Url,
-            Notes = savedUrl.Notes,
-            IsExternal = savedUrl.IsExternal
-        };
-
-        _savedUrlDb.UpdateSavedUrl(s);
-
-        _navigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
-    }
-}

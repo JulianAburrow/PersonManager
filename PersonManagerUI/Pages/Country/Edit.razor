@@ -1,13 +1,5 @@
 ﻿@page "/data/country/edit/{CountryId:int}"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.Models
-
-
-@inject ICountryData _countriesDb;
-@inject NavigationManager _navigationManager;
-
 <h1>Edit @CountryDisplayName</h1>
 
 <EditForm Model="@country" OnValidSubmit="@UpdateCountry">
@@ -26,36 +18,3 @@
     <button type="submit" class="btn btn-primary">Update</button> | <a href="/data/countries/index">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    [Parameter]
-    public int CountryId { get; set; }
-
-    private DisplayCountryModel country = new();
-
-    private string CountryDisplayName { get; set; }
-
-    protected override void OnInitialized()
-    {
-        var c = _countriesDb.GetCountry(CountryId);
-
-        country.CountryName = c.CountryName;
-
-        CountryDisplayName = country.CountryName;
-    }
-
-    private void UpdateCountry()
-    {
-        var c = new CountryModel
-        {
-            CountryId = CountryId,
-            CountryName = country.CountryName
-        };
-
-        _countriesDb.UpdateCountry(c);
-
-        _navigationManager.NavigateTo($"/data/country/details/{CountryId}");
-    }
-
-}

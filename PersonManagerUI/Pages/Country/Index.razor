@@ -1,10 +1,5 @@
 ﻿@page "/data/countries/index"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-
-@inject ICountryData _countryDb
-
 <h1>Countries Page</h1>
 
 <a href="data/country/create" class="btn btn-primary">Add New Country</a>
@@ -42,17 +37,4 @@ else
         }
         </tbody>
     </table>
-}
-
-
-@code {
-
-    private List<CountryModel> countries;
-
-    protected override void OnInitialized()
-    {
-        countries = _countryDb.GetCountries()
-            .OrderBy(c => c.CountryName)
-            .ToList();
-    }
 }

@@ -1,11 +1,6 @@
 ﻿@page "/data/mypersonmanager/reminder/delete/{ReminderId:int}"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
 @using PersonManagerUI.Components
-
-@inject IReminderData _reminderDb;
-@inject NavigationManager _navigationManager;
 
 <h3>Delete</h3>
 
@@ -14,23 +9,3 @@
 <ReminderDetails Reminder="reminder" />
 
 <button class="btn btn-danger" @onclick="DeleteReminder">Delete</button> | <a href="/data/mypersonmanager/reminders/index">Cancel</a>
-
-@code {
-
-    [Parameter]
-    public int ReminderId { get; set; }
-
-    private ReminderModel reminder = new();
-
-    protected override void OnInitialized()
-    {
-        reminder = _reminderDb.GetReminder(ReminderId);
-    }
-
-    private void DeleteReminder()
-    {
-        _reminderDb.DeleteReminder(ReminderId);
-
-        _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
-    }
-}

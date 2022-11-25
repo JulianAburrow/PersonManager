@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PersonManagerUI.Pages.AddressType
+namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Index
     {
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
-     
-        private List<AddressTypeModel> addressTypes;
+        [Inject] IReminderData _reminderDb { get; set; }
+
+        private List<ReminderModel> reminders;
 
         protected override void OnInitialized()
         {
-            addressTypes = _addressTypeDb.GetAddressTypes()
-                .OrderBy(a => a.AddressTypeName)
+            reminders = _reminderDb.GetReminders()
+                .OrderBy(r => r.ReminderDate)
                 .ToList();
         }
     }

@@ -1,12 +1,5 @@
 ﻿@page "/data/mypersonmanager/savedurl/create"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.Models
-
-@inject ISavedUrlData _savedUrlDb
-@inject NavigationManager _navigationManager
-
 <h1>Create Saved Url</h1>
 
 <EditForm Model="@newSavedUrl" OnValidSubmit="@InsertSavedUrl">
@@ -37,22 +30,3 @@
     <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/mypersonmanager/savedurls/index">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    private DisplaySavedUrlModel newSavedUrl = new();
-
-    private void InsertSavedUrl()
-    {
-        var s = new SavedUrlModel
-        {
-            Title = newSavedUrl.Title,
-            Url = newSavedUrl.Url,
-            Notes = newSavedUrl.Notes
-        };
-
-        _savedUrlDb.InsertSavedUrl(s);
-
-        _navigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
-    }
-}

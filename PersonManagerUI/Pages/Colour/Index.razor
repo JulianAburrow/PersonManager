@@ -1,10 +1,5 @@
 ﻿@page "/data/colours/index"
 
-@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
-
-@inject IColourData _colourDb
-
 <h1>Colours Page</h1>
 
 <a href="data/colour/create" class="btn btn-primary">Add New Colour</a>
@@ -42,17 +37,4 @@ else
             }
         </tbody>
     </table>
-}
-
-@code {
-
-    private List<ColourModel> colours;
-
-    protected override void OnInitialized()
-    {
-        colours = _colourDb.GetColours()
-            .OrderBy(c => c.ColourName)
-            .ToList();
-    }
-
 }

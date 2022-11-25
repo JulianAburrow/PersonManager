@@ -1,6 +1,4 @@
-﻿@using DataAccessLibrary.Models
-
-@{
+﻿@{
     if (ShowPersonName)
     {
         <h1>@Person.FirstName @Person.LastName</h1>
@@ -81,12 +79,3 @@
     </tr>
     </tbody>
 </table>
-
-@code {
-
-    [Parameter]
-    public PersonModel Person { get; set; }
-
-    [Parameter]
-    public bool ShowPersonName { get; set; }
-}

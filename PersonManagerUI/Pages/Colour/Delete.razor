@@ -1,11 +1,6 @@
 ﻿@page "/data/colour/delete/{ColourId:int}"
 
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.Components
-
-@inject IColourData _colourDb
-@inject NavigationManager _navigationManager
+@using PersonManagerUI.Components;
 
 <h1>Delete</h1>
 
@@ -25,30 +20,3 @@ else
     <button class="btn btn-danger" @onclick="DeleteColour">Delete</button>
 }
 <a href="data/colours/index/">Cancel</a>
-
-@code {
-
-    [Parameter]
-    public int ColourId { get; set; }
-
-    public ColourModel colour = new();
-
-    public bool OkToDelete = true;
-
-    protected override void OnInitialized()
-    {
-        colour = _colourDb.GetColour(ColourId);
-
-        if (colour.People.Count > 0)
-        {
-            OkToDelete = false;
-        }
-    }
-
-    private void DeleteColour()
-    {
-        _colourDb.DeleteColour(ColourId);
-
-        _navigationManager.NavigateTo("data/colours/index");
-    }
-}

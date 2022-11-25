@@ -1,26 +1,9 @@
 ﻿@page "/data/country/details/{CountryId:int}"
-@using DataAccessLibrary.Interfaces
-@using DataAccessLibrary.Models
-@using PersonManagerUI.Components
 
-@inject ICountryData _countryDb;
+@using PersonManagerUI.Components
 
 <CountryDetails Country="country" ShowCountryName="true" />
 
 <a class="btn btn-primary" href="data/country/edit/@country.CountryId">Edit</a>
 <a class="btn btn-danger" href="data/country/delete/@country.CountryId">Delete</a>
 <a href="data/countries/index">Index</a>
-
-@code {
-
-    [Parameter]
-    public int CountryId { get; set; }
-
-    private CountryModel country = new();
-
-    protected override void OnInitialized()
-    {
-        country = _countryDb.GetCountry(CountryId);
-    }
-
-}

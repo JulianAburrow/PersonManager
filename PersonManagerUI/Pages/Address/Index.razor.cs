@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PersonManagerUI.Pages.Address
 {
-    public partial class Index : ComponentBase
+    public partial class Index
     {
         [Inject] IAddressData _addressDb { get; set; }
         [Inject] IPersonData _personDb { get; set; }

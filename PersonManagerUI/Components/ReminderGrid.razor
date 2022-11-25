@@ -1,6 +1,4 @@
-﻿@using DataAccessLibrary.Models
-
-@if (ShowAllReminders)
+﻿@if (ShowAllReminders)
 {
     <h1>Reminders</h1>
 
@@ -53,13 +51,4 @@ else
             </tbody>
         </table>
     }
-}
-
-@code {
-
-    [Parameter]
-    public bool ShowAllReminders { get; set; }
-
-    [Parameter]
-    public List<ReminderModel> Reminders { get; set; }
 }

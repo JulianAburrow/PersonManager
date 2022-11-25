@@ -1,8 +1,4 @@
-﻿@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
-@inherits LayoutComponentBase
-@inject NavigationManager _navigationManager
-@inject ISavedUrlData _savedUrlDb;
+﻿@inherits LayoutComponentBase
 
 <div class="sidebar">
     <NavMenu />
@@ -18,20 +14,3 @@
         @Body
     </div>
 </div>
-
-@code {
-
-    private void SaveUrl()
-    {
-        var savedUrl = new SavedUrlModel
-        {
-            Title = "Saved Page",
-            Url = _navigationManager.Uri,
-            Notes = "Saved from application",
-            IsExternal = false
-        };
-
-        _savedUrlDb.InsertSavedUrl(savedUrl);
-    }
-
-}

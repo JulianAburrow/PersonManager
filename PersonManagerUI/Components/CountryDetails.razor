@@ -1,6 +1,4 @@
-﻿@using DataAccessLibrary.Models
-
-@{
+﻿@{
     if (ShowCountryName)
     {
         <h1>@Country.CountryName</h1>
@@ -41,14 +39,4 @@
             </tbody>
         </table>
     }
-}
-
-@code {
-
-    [Parameter]
-    public CountryModel Country { get; set; }
-
-    [Parameter]
-    public bool ShowCountryName { get; set; }
-
 }

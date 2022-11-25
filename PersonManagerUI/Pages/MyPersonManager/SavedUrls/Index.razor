@@ -1,10 +1,5 @@
 ﻿@page "/data/mypersonmanager/savedurls/index"
 
-@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
-
-@inject ISavedUrlData _myPersonManagerDb;
-
 <h1>Saved Urls</h1>
 
 <a href="data/mypersonmanager/savedurl/create" class="btn btn-primary">Add New Saved Url</a>
@@ -57,14 +52,4 @@ else
         }
         </tbody>
     </table>
-}
-
-@code {
-
-    private List<SavedUrlModel> savedUrls;
-
-    protected override void OnInitialized()
-    {
-        savedUrls = _myPersonManagerDb.GetSavedUrlModels();
-    }
 }

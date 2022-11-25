@@ -1,12 +1,5 @@
 ﻿@page "/data/mypersonmanager/reminder/create"
 
-@using PersonManagerUI.Models
-@using DataAccessLibrary.Models
-@using DataAccessLibrary.Interfaces
-
-@inject IReminderData _reminderDb;
-@inject NavigationManager _navigationManager;
-
 <h3>Create Reminder</h3>
 
 <EditForm Model="@newReminder" OnValidSubmit="InsertReminder">
@@ -38,30 +31,3 @@
     <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/mypersonmanager/reminders/index">Cancel</a>
 
 </EditForm>
-
-@code {
-
-    private DisplayReminderModel newReminder = new();
-
-    protected override void OnInitialized()
-    {
-        newReminder.ReminderDate = DateTime.Today;
-        newReminder.IsCurrent = true;
-    }
-
-    private void InsertReminder()
-    {
-        var r = new ReminderModel
-        {
-            Title = newReminder.Title,
-            ReminderDate = newReminder.ReminderDate,
-            Notes = newReminder.Notes,
-            IsCurrent = newReminder.IsCurrent
-        };
-
-        _reminderDb.InsertReminder(r);
-
-        _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
-    }
-
-}
