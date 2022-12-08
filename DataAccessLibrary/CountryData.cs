@@ -21,20 +21,21 @@ namespace DataAccessLibrary
                         .SingleOrDefaultAsync(c => c.CountryId == countryId);
         }
 
-        public List<CountryModel> GetCountries()
+        public async Task<List<CountryModel>> GetCountries()
         {
-            return _context.Countries
+            return await _context.Countries
                 .Include(c => c.People)
-                .ToList();
+                .OrderBy(c => c.CountryName)
+                .ToListAsync();
         }
 
-        public void InsertCountry(CountryModel country)
+        public async Task InsertCountry(CountryModel country)
         {
             _context.Countries.Add(country);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateCountry(CountryModel country)
+        public async Task UpdateCountry(CountryModel country)
         {
             var oldCountry = _context.Countries
                 .SingleOrDefault(c =>
@@ -43,10 +44,10 @@ namespace DataAccessLibrary
 
             oldCountry.CountryName = country.CountryName;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteCountry(int countryId)
+        public async Task DeleteCountry(int countryId)
         {
             var country = _context.Countries
                 .SingleOrDefault(c =>
@@ -54,7 +55,7 @@ namespace DataAccessLibrary
             if (country == null) return;
 
             _context.Countries.Remove(country);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

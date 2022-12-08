@@ -6,6 +6,7 @@ using PersonManagerUI.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Person
 {
@@ -25,7 +26,7 @@ namespace PersonManagerUI.Pages.Person
 
         protected List<ColourModel> Colours { get; set; }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             newPerson.CountryId = -1;
             newPerson.StatusId = -1;
@@ -33,9 +34,7 @@ namespace PersonManagerUI.Pages.Person
 
             const string pleaseSelect = "Please select";
 
-            Countries = _countriesDb.GetCountries()
-                .OrderBy(c => c.CountryName)
-                .ToList();
+            Countries = await _countriesDb.GetCountries();
             Countries.Insert(0, new CountryModel
             {
                 CountryId = -1,

@@ -2,6 +2,12 @@
 
 @using PersonManagerUI.Components;
 
+@if (country == null)
+{
+    <p>Loading...</p>
+    return;
+}
+
 <h1>Delete</h1>
 
 @if (OkToDelete)

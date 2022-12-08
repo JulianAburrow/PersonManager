@@ -8,12 +8,12 @@ namespace DataAccessLibrary.Interfaces
     {
         Task<CountryModel> GetCountry(int countryId);
 
-        List<CountryModel> GetCountries();
+        Task <List<CountryModel>> GetCountries();
 
-        void InsertCountry(CountryModel country);
+        Task InsertCountry(CountryModel country);
 
-        void UpdateCountry(CountryModel country);
+        Task UpdateCountry(CountryModel country);
 
-        void DeleteCountry(int countryId);
+        Task DeleteCountry(int countryId);
     }
 }

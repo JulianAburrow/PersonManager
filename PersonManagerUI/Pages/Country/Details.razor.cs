@@ -1,8 +1,6 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using PersonManagerUI.Components;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
@@ -20,6 +18,5 @@ namespace PersonManagerUI.Pages.Country
         {
             country = await _countryDb.GetCountry(CountryId);
         }
-
     }
 }

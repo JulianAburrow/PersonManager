@@ -14,15 +14,13 @@ namespace PersonManagerUI.Pages.Country
                 [Parameter]
         public int CountryId { get; set; }
 
-        private CountryModel country = new();
+        private CountryModel country;
 
         private bool OkToDelete = true;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            //country = await _countryDb.GetCountry(CountryId);
-            country = _countryDb.GetCountries()
-                .SingleOrDefault(c => country.CountryId == CountryId);
+            country = await _countryDb.GetCountry(CountryId);
 
             if (country.People.Count > 0)
             {
