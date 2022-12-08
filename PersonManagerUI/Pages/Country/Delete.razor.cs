@@ -28,9 +28,9 @@ namespace PersonManagerUI.Pages.Country
             }
         }
 
-        private void DeleteCountry()
+        private async Task DeleteCountry()
         {
-            _countryDb.DeleteCountry(CountryId);
+            await _countryDb.DeleteCountry(CountryId);
 
             _navigationManager.NavigateTo("data/countries/index");
         }

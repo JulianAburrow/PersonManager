@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Address
 {
@@ -17,9 +18,9 @@ namespace PersonManagerUI.Pages.Address
 
         private List<AddressModel> addresses = new();
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            addresses = _addressDb.GetAddresses(PersonId);
+            addresses = await _addressDb.GetAddresses(PersonId);
             person = _personDb.GetPerson(PersonId);
         }
     }

@@ -1,18 +1,19 @@
 ﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Interfaces
 {
     public interface IAddressData
     {
-        AddressModel GetAddress(int addressId);
+        Task<AddressModel> GetAddress(int addressId);
 
-        List<AddressModel> GetAddresses(int personId);
+        Task<List<AddressModel>> GetAddresses(int personId);
 
-        void InsertAddress(AddressModel address);
+        Task InsertAddress(AddressModel address);
 
-        void UpdateAddress(AddressModel address);
+        Task UpdateAddress(AddressModel address);
 
-        void DeleteAddress(int personId);
+        Task DeleteAddress(int personId);
     }
 }

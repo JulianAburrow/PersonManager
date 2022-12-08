@@ -25,9 +25,9 @@ namespace PersonManagerUI.Pages.Colour
                 OkToDelete = false;
         }
 
-        private void DeleteColour()
+        private async Task DeleteColour()
         {
-            _colourDb.DeleteColour(ColourId);
+            await _colourDb.DeleteColour(ColourId);
 
             _navigationManager.NavigateTo("data/colours/index");
         }

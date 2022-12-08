@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Address
 {
@@ -32,7 +33,7 @@ namespace PersonManagerUI.Pages.Address
             });
         }
 
-        private void InsertAddress()
+        private async Task InsertAddress()
         {
             var a = new AddressModel
             {
@@ -44,7 +45,7 @@ namespace PersonManagerUI.Pages.Address
                 PersonId = PersonId
             };
 
-            _addressDb.InsertAddress(a);
+            await _addressDb.InsertAddress(a);
 
             _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
         }

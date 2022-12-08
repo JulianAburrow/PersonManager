@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Colour
 {
@@ -12,14 +13,14 @@ namespace PersonManagerUI.Pages.Colour
 
         private DisplayColourModel newColour = new();
 
-        private void InsertColour()
+        private async Task InsertColour()
         {
             var c = new ColourModel
             {
                 ColourName = newColour.ColourName
             };
 
-            _coloursDb.InsertColour(c);
+            await _coloursDb.InsertColour(c);
 
             _navigationManager.NavigateTo("data/colours/index");
         }

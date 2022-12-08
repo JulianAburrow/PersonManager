@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
 {
@@ -12,14 +13,14 @@ namespace PersonManagerUI.Pages.Country
 
         private DisplayCountryModel newCountry = new();
 
-        private void InsertCountry()
+        private async Task InsertCountry()
         {
             var c = new CountryModel
             {
                 CountryName = newCountry.CountryName
             };
 
-            _countriesDb.InsertCountry(c);
+            await _countriesDb.InsertCountry(c);
 
             _navigationManager.NavigateTo("/data/countries/index");
         }
