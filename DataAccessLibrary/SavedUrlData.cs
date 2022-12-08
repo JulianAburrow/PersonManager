@@ -1,7 +1,9 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -12,24 +14,24 @@ namespace DataAccessLibrary
         public SavedUrlData(PersonManagerContext context) =>
             _context = context;
 
-        public SavedUrlModel GetSavedUrl(int savedUrlId)
+        public async Task<SavedUrlModel> GetSavedUrl(int savedUrlId)
         {
-            return _context.SavedUrls
-                .SingleOrDefault(m => m.UrlId == savedUrlId);
+            return await _context.SavedUrls
+                .SingleOrDefaultAsync(m => m.UrlId == savedUrlId);
         }
 
-        public List<SavedUrlModel> GetSavedUrlModels()
+        public async Task<List<SavedUrlModel>> GetSavedUrlModels()
         {
-            return _context.SavedUrls.ToList();
+            return await _context.SavedUrls.ToListAsync();
         }
 
-        public void InsertSavedUrl(SavedUrlModel savedUrl)
+        public async Task InsertSavedUrl(SavedUrlModel savedUrl)
         {
             _context.SavedUrls.Add(savedUrl);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateSavedUrl(SavedUrlModel savedUrl)
+        public async Task UpdateSavedUrl(SavedUrlModel savedUrl)
         {
             var oldSavedUrl = _context.SavedUrls
                 .SingleOrDefault(s => s.UrlId == savedUrl.UrlId);
@@ -40,17 +42,17 @@ namespace DataAccessLibrary
             oldSavedUrl.Notes = savedUrl.Notes;
             oldSavedUrl.IsExternal = savedUrl.IsExternal;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteSavedUrl(int savedUrlId)
+        public async Task DeleteSavedUrl(int savedUrlId)
         {
             var savedUrl = _context.SavedUrls
                 .SingleOrDefault(m => m.UrlId == savedUrlId);
             if (savedUrl == null) return;
 
             _context.SavedUrls.Remove(savedUrl);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

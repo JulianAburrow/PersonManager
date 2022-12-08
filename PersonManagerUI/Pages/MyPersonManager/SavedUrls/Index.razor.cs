@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
@@ -11,9 +12,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         private List<SavedUrlModel> savedUrls;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            savedUrls = _myPersonManagerDb.GetSavedUrlModels();
+            savedUrls = await _myPersonManagerDb.GetSavedUrlModels();
         }
     }
 }

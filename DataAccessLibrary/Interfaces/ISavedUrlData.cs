@@ -1,18 +1,19 @@
 ﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Interfaces
 {
     public interface ISavedUrlData
     {
-        SavedUrlModel GetSavedUrl(int savedUrlId);
+        Task<SavedUrlModel> GetSavedUrl(int savedUrlId);
 
-        List<SavedUrlModel> GetSavedUrlModels();
+        Task<List<SavedUrlModel>> GetSavedUrlModels();
 
-        void InsertSavedUrl(SavedUrlModel savedUrl);
+        Task InsertSavedUrl(SavedUrlModel savedUrl);
 
-        void UpdateSavedUrl(SavedUrlModel savedUrl);
+        Task UpdateSavedUrl(SavedUrlModel savedUrl);
 
-        void DeleteSavedUrl(int savedUrlId);
+        Task DeleteSavedUrl(int savedUrlId);
     }
 }

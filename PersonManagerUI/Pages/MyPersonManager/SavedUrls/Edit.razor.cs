@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
@@ -15,9 +16,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         private DisplaySavedUrlModel savedUrl = new();
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            var s = _savedUrlDb.GetSavedUrl(UrlId);
+            var s = await _savedUrlDb.GetSavedUrl(UrlId);
 
             savedUrl.Title = s.Title;
             savedUrl.Url = s.Url;
@@ -25,7 +26,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
             savedUrl.IsExternal = s.IsExternal;
         }
 
-        private void UpdateSavedUrl()
+        private async Task UpdateSavedUrl()
         {
             var s = new SavedUrlModel
             {
@@ -36,7 +37,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
                 IsExternal = savedUrl.IsExternal
             };
 
-            _savedUrlDb.UpdateSavedUrl(s);
+            await _savedUrlDb.UpdateSavedUrl(s);
 
             _navigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
         }
