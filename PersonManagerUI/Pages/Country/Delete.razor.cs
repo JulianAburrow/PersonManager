@@ -1,6 +1,8 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
 {
@@ -18,7 +20,9 @@ namespace PersonManagerUI.Pages.Country
 
         protected override void OnInitialized()
         {
-            country = _countryDb.GetCountry(CountryId);
+            //country = await _countryDb.GetCountry(CountryId);
+            country = _countryDb.GetCountries()
+                .SingleOrDefault(c => country.CountryId == CountryId);
 
             if (country.People.Count > 0)
             {

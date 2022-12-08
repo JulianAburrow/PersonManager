@@ -3,6 +3,7 @@ using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -13,11 +14,11 @@ namespace DataAccessLibrary
         public CountryData(PersonManagerContext context) =>
             _context = context;
 
-        public CountryModel GetCountry(int countryId)
+        public async Task<CountryModel> GetCountry(int countryId)
         {
-            return _context.Countries
-                .Include(c => c.People)
-                .SingleOrDefault(c => c.CountryId == countryId);
+            return await _context.Countries
+                        .Include(c => c.People)
+                        .SingleOrDefaultAsync(c => c.CountryId == countryId);
         }
 
         public List<CountryModel> GetCountries()

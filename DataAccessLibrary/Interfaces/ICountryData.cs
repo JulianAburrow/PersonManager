@@ -1,11 +1,12 @@
 ﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Interfaces
 {
     public interface ICountryData
     {
-        CountryModel GetCountry(int countryId);
+        Task<CountryModel> GetCountry(int countryId);
 
         List<CountryModel> GetCountries();
 

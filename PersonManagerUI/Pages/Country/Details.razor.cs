@@ -1,6 +1,9 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using PersonManagerUI.Components;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
 {
@@ -11,11 +14,12 @@ namespace PersonManagerUI.Pages.Country
         [Parameter]
         public int CountryId { get; set; }
 
-        private CountryModel country = new();
+        private CountryModel country;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            country = _countryDb.GetCountry(CountryId);
+            country = await _countryDb.GetCountry(CountryId);
         }
+
     }
 }

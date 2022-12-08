@@ -2,8 +2,13 @@
 
 @using PersonManagerUI.Components
 
-<CountryDetails Country="country" ShowCountryName="true" />
+@if (country == null)
+{
+    <p>Loading...</p>
+    return;
+}
 
+<CountryDetails Country="country" ShowCountryName="true" />
 <a class="btn btn-primary" href="data/country/edit/@country.CountryId">Edit</a>
 <a class="btn btn-danger" href="data/country/delete/@country.CountryId">Delete</a>
 <a href="data/countries/index">Index</a>

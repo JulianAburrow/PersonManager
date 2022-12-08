@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
 {
@@ -17,9 +18,9 @@ namespace PersonManagerUI.Pages.Country
 
         private string CountryDisplayName { get; set; }
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            var c = _countriesDb.GetCountry(CountryId);
+            var c = await _countriesDb.GetCountry(CountryId);
 
             country.CountryName = c.CountryName;
 
