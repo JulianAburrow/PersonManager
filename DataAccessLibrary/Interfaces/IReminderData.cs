@@ -1,18 +1,21 @@
 ﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Interfaces
 {
     public interface IReminderData
     {
-        ReminderModel GetReminder(int reminderId);
+        Task<ReminderModel> GetReminder(int reminderId);
 
-        List<ReminderModel> GetReminders();
+        Task<List<ReminderModel>> GetAllReminders();
 
-        void InsertReminder(ReminderModel reminder);
+        Task<List<ReminderModel>> GetCurrentReminders();
 
-        void UpdateReminder(ReminderModel reminder);
+        Task InsertReminder(ReminderModel reminder);
 
-        void DeleteReminder(int reminderId);
+        Task UpdateReminder(ReminderModel reminder);
+
+        Task DeleteReminder(int reminderId);
     }
 }

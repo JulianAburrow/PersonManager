@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
@@ -15,9 +16,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         private DisplayReminderModel reminder = new();
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            var r = _reminderDb.GetReminder(ReminderId);
+            var r = await _reminderDb.GetReminder(ReminderId);
 
             reminder.Title = r.Title;
             reminder.ReminderDate = r.ReminderDate;
@@ -25,7 +26,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
             reminder.IsCurrent = r.IsCurrent;
         }
 
-        private void UpdateReminder()
+        private async Task UpdateReminder()
         {
             var r = new ReminderModel
             {
@@ -36,7 +37,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
                 IsCurrent = reminder.IsCurrent
             };
 
-            _reminderDb.UpdateReminder(r);
+            await _reminderDb.UpdateReminder(r);
 
             _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
         }

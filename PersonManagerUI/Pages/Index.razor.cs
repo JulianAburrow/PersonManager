@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages
 {
@@ -14,13 +15,9 @@ namespace PersonManagerUI.Pages
 
         private List<ReminderModel> reminders;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            reminders = _reminderDb.GetReminders()
-                .Where(r =>
-                    r.ReminderDate <= DateTime.Now &&
-                    r.IsCurrent)
-                .ToList();
+            reminders = await _reminderDb.GetCurrentReminders();
         }
     }
 }

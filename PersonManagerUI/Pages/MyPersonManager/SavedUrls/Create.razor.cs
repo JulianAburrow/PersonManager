@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
@@ -12,7 +13,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         private DisplaySavedUrlModel newSavedUrl = new();
 
-        private void InsertSavedUrl()
+        private async Task InsertSavedUrl()
         {
             var s = new SavedUrlModel
             {
@@ -21,7 +22,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
                 Notes = newSavedUrl.Notes
             };
 
-            _savedUrlDb.InsertSavedUrl(s);
+            await _savedUrlDb.InsertSavedUrl(s);
 
             _navigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
         }

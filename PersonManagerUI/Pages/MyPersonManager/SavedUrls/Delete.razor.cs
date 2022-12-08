@@ -20,9 +20,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
             savedUrl = await _savedUrlDb.GetSavedUrl(UrlId);
         }
 
-        private void DeleteSavedUrl()
+        private async Task DeleteSavedUrl()
         {
-            _savedUrlDb.DeleteSavedUrl(UrlId);
+            await _savedUrlDb.DeleteSavedUrl(UrlId);
 
             _navigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
         }

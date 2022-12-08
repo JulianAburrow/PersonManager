@@ -1,7 +1,10 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -13,25 +16,35 @@ namespace DataAccessLibrary
         public ReminderData(PersonManagerContext context) =>
             _context = context;
 
-        public ReminderModel GetReminder(int reminderId)
+        public async Task<ReminderModel> GetReminder(int reminderId)
         {
-            return _context.Reminders
-                .SingleOrDefault(r => r.ReminderId == reminderId);
+            return await _context.Reminders
+                .SingleOrDefaultAsync(r => r.ReminderId == reminderId);
         }
 
-        public List<ReminderModel> GetReminders()
+        public async Task<List<ReminderModel>> GetAllReminders()
         {
-            return _context.Reminders
-                .ToList();
+            return await _context.Reminders
+                .OrderBy(r => r.ReminderDate)
+                .ToListAsync();
         }
 
-        public void InsertReminder(ReminderModel reminder)
+        public async Task<List<ReminderModel>> GetCurrentReminders()
+        {
+            return await _context.Reminders
+            .Where(r =>
+                    r.ReminderDate <= DateTime.Now &&
+                    r.IsCurrent)
+            .ToListAsync();
+        }
+
+        public async Task InsertReminder(ReminderModel reminder)
         {
             _context.Reminders.Add(reminder);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateReminder(ReminderModel reminder)
+        public async Task UpdateReminder(ReminderModel reminder)
         {
             var oldReminder = _context.Reminders
                 .SingleOrDefault(
@@ -43,10 +56,10 @@ namespace DataAccessLibrary
             oldReminder.Notes = reminder.Notes;
             oldReminder.IsCurrent = reminder.IsCurrent;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteReminder(int reminderId)
+        public async Task DeleteReminder(int reminderId)
         {
             var reminder = _context.Reminders
                 .SingleOrDefault(
@@ -54,7 +67,7 @@ namespace DataAccessLibrary
             if (reminder == null) return;
 
             _context.Reminders.Remove(reminder);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
@@ -14,14 +15,14 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         private ReminderModel reminder = new();
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            reminder = _reminderDb.GetReminder(ReminderId);
+            reminder = await _reminderDb.GetReminder(ReminderId);
         }
 
-        private void DeleteReminder()
+        private async Task DeleteReminder()
         {
-            _reminderDb.DeleteReminder(ReminderId);
+            await _reminderDb.DeleteReminder(ReminderId);
 
             _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
         }

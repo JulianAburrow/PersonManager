@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
@@ -30,7 +31,7 @@ namespace PersonManagerUI.Pages.Person
 
         protected string FullName { get; set; }
 
-        protected override async void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
             var p = _peopleDb.GetPerson(PersonId);
 

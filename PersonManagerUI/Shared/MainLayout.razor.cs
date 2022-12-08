@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Shared
 {
@@ -9,7 +10,7 @@ namespace PersonManagerUI.Shared
         [Inject] NavigationManager _navigationManager { get; set; }
         [Inject] ISavedUrlData _savedUrlDb { get; set; }
 
-        private void SaveUrl()
+        private async Task SaveUrl()
         {
             var savedUrl = new SavedUrlModel
             {
@@ -19,7 +20,7 @@ namespace PersonManagerUI.Shared
                 IsExternal = false
             };
 
-            _savedUrlDb.InsertSavedUrl(savedUrl);
+            await _savedUrlDb.InsertSavedUrl(savedUrl);
         }
     }
 }
