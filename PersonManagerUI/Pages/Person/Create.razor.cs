@@ -47,9 +47,7 @@ namespace PersonManagerUI.Pages.Person
                 StatusId = -1,
                 StatusName = pleaseSelect
             });
-            Colours = _colourDb.GetColours()
-                .OrderBy(c => c.ColourName)
-                .ToList();
+            Colours = await _colourDb.GetColours();
             Colours.Insert(0, new ColourModel
             {
                 ColourId = -1,

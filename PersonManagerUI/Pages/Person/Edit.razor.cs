@@ -50,9 +50,7 @@ namespace PersonManagerUI.Pages.Person
             Countries = await _countriesDb.GetCountries();
             Statuses = _statusesDb.GetStatuses()
                 .ToList();
-            Colours = _coloursDb.GetColours()
-                .OrderBy(c => c.ColourName)
-                .ToList();
+            Colours = await _coloursDb.GetColours();
             Colours.Insert(0, new ColourModel
             {
                 ColourId = -1,

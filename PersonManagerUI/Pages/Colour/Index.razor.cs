@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Net.NetworkInformation;
-
+﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
-using DataAccessLibrary.Interfaces;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Colour
 {
@@ -14,11 +12,9 @@ namespace PersonManagerUI.Pages.Colour
 
         private List<ColourModel> colours;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            colours = _colourDb.GetColours()
-                .OrderBy(c => c.ColourName)
-                .ToList();
+            colours = await _colourDb.GetColours();
         }
     }
 }

@@ -3,6 +3,7 @@ using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -13,27 +14,28 @@ namespace DataAccessLibrary
         public ColourData(PersonManagerContext context) =>
             _context = context;
 
-        public ColourModel GetColour(int colourId)
+        public async Task<ColourModel> GetColour(int colourId)
         {
-            return _context.Colours
+            return await _context.Colours
                 .Include(c => c.People)
-                .SingleOrDefault(c => c.ColourId == colourId);
+                .SingleOrDefaultAsync(c => c.ColourId == colourId);
         }
 
-        public List<ColourModel> GetColours()
+        public async Task<List<ColourModel>> GetColours()
         {
-            return _context.Colours
+            return await _context.Colours
                 .Include(c => c.People)
-                .ToList();
+                .OrderBy(c => c.ColourName)
+                .ToListAsync();
         }
 
-        public void InsertColour(ColourModel colour)
+        public async Task InsertColour(ColourModel colour)
         {
             _context.Colours.Add(colour);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateColour(ColourModel colour)
+        public async Task UpdateColour(ColourModel colour)
         {
             var oldColour = _context.Colours
                 .SingleOrDefault(c =>
@@ -42,10 +44,10 @@ namespace DataAccessLibrary
 
             oldColour.ColourName = colour.ColourName;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteColour(int colourId)
+        public async Task DeleteColour(int colourId)
         {
             var colour = _context.Colours
                 .SingleOrDefault(c =>
@@ -53,7 +55,7 @@ namespace DataAccessLibrary
             if (colour == null) return;
 
             _context.Colours.Remove(colour);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

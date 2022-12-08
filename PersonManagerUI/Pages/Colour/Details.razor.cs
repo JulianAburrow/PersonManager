@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Colour
 {
@@ -11,11 +12,11 @@ namespace PersonManagerUI.Pages.Colour
         [Parameter]
         public int ColourId { get; set; }
 
-        private ColourModel colour = new();
+        private ColourModel colour;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            colour = _colourDb.GetColour(ColourId);
+            colour = await _colourDb.GetColour(ColourId);
         }
     }
 }

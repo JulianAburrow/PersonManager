@@ -27,7 +27,7 @@ namespace PersonManagerUI.Pages.Country
             CountryDisplayName = country.CountryName;
         }
 
-        private void UpdateCountry()
+        private async Task UpdateCountry()
         {
             var c = new CountryModel
             {
@@ -35,7 +35,7 @@ namespace PersonManagerUI.Pages.Country
                 CountryName = country.CountryName
             };
 
-            _countriesDb.UpdateCountry(c);
+            await _countriesDb.UpdateCountry(c);
 
             _navigationManager.NavigateTo($"/data/country/details/{CountryId}");
         }

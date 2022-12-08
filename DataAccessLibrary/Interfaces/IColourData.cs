@@ -1,18 +1,19 @@
 ﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Interfaces
 {
     public interface IColourData
     {
-        ColourModel GetColour(int colourId);
+        Task<ColourModel> GetColour(int colourId);
 
-        List<ColourModel> GetColours();
+        Task<List<ColourModel>> GetColours();
 
-        void InsertColour(ColourModel colour);
+        Task InsertColour(ColourModel colour);
 
-        void UpdateColour(ColourModel colour);
+        Task UpdateColour(ColourModel colour);
 
-        void DeleteColour(int colourId);
+        Task DeleteColour(int colourId);
     }
 }

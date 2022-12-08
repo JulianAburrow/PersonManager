@@ -2,6 +2,8 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
+
 namespace PersonManagerUI.Pages.Colour;
 
 public partial class Edit
@@ -16,16 +18,16 @@ public partial class Edit
 
     private string ColourDisplayName { get; set; }
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        var c = _coloursDb.GetColour(ColourId);
+        var c = await _coloursDb.GetColour(ColourId);
 
         colour.ColourName = c.ColourName;
 
         ColourDisplayName = colour.ColourName;
     }
 
-    private void UpdateColour()
+    private async Task UpdateColour()
     {
         var c = new ColourModel
         {
@@ -33,7 +35,7 @@ public partial class Edit
             ColourName = colour.ColourName
         };
 
-        _coloursDb.UpdateColour(c);
+        await _coloursDb.UpdateColour(c);
 
         _navigationManager.NavigateTo($"/data/colour/details/{ColourId}");
     }

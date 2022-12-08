@@ -2,6 +2,12 @@
 
 @using PersonManagerUI.Components
 
+@if (colour == null)
+{
+    <p>Loading...</p>
+    return;
+}
+
 <ColourDetails Colour="colour" ShowColourName="true" />
 
 <a class="btn btn-primary" href="data/colour/edit/@colour.ColourId">Edit</a>

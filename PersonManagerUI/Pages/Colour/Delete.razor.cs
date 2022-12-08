@@ -1,6 +1,8 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
+
 namespace PersonManagerUI.Pages.Colour
 {
     public partial class Delete
@@ -11,13 +13,13 @@ namespace PersonManagerUI.Pages.Colour
         [Parameter]
         public int ColourId { get; set; }
 
-        public ColourModel colour = new();
+        public ColourModel colour;
 
         public bool OkToDelete = true;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            colour = _colourDb.GetColour(ColourId);
+            colour = await _colourDb.GetColour(ColourId);
 
             if (colour.People.Count > 0)
                 OkToDelete = false;
