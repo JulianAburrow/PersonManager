@@ -25,8 +25,7 @@ namespace PersonManagerUI.Pages.Address
 
         protected async override Task OnInitializedAsync()
         {
-            AddressTypes = _addressTypeDb.GetAddressTypes()
-                .ToList();
+            AddressTypes = await _addressTypeDb.GetAddressTypes();
 
             var a = await _addressDb.GetAddress(AddressId);
 

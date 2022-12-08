@@ -1,6 +1,7 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.AddressType
 {
@@ -16,9 +17,9 @@ namespace PersonManagerUI.Pages.AddressType
 
         private bool OkToDelete = true;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            addressType = _addressTypeDb.GetAddressType(AddressTypeId);
+            addressType = await _addressTypeDb.GetAddressType(AddressTypeId);
 
             if (addressType.Addresses.Count > 0)
             {
@@ -26,9 +27,9 @@ namespace PersonManagerUI.Pages.AddressType
             }
         }
 
-        private void DeleteAddressType()
+        private async Task DeleteAddressType()
         {
-            _addressTypeDb.DeleteAddressType(AddressTypeId);
+            await _addressTypeDb.DeleteAddressType(AddressTypeId);
 
             _navigationManager.NavigateTo("/data/addresstypes/index");
         }

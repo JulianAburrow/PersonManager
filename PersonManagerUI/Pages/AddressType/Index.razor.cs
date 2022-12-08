@@ -2,7 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.AddressType
 {
@@ -12,11 +12,9 @@ namespace PersonManagerUI.Pages.AddressType
      
         private List<AddressTypeModel> addressTypes;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            addressTypes = _addressTypeDb.GetAddressTypes()
-                .OrderBy(a => a.AddressTypeName)
-                .ToList();
+            addressTypes = await _addressTypeDb.GetAddressTypes();
         }
     }
 }

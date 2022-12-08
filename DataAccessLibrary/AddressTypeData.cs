@@ -3,6 +3,7 @@ using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -13,27 +14,28 @@ namespace DataAccessLibrary
         public AddressTypeData(PersonManagerContext context) =>
             _context = context;
 
-        public AddressTypeModel GetAddressType(int addressTypeId)
+        public async Task<AddressTypeModel> GetAddressType(int addressTypeId)
         {
-            return _context.AddressTypes
+            return await _context.AddressTypes
                 .Include(a => a.Addresses)
-                .SingleOrDefault(a => a.AddressTypeId == addressTypeId);
+                .SingleOrDefaultAsync(a => a.AddressTypeId == addressTypeId);
         }
 
-        public List<AddressTypeModel> GetAddressTypes()
+        public async Task<List<AddressTypeModel>> GetAddressTypes()
         {
-            return _context.AddressTypes
+            return await _context.AddressTypes
                 .Include(a => a.Addresses)
-                .ToList();
+                .OrderBy(a => a.AddressTypeName)
+                .ToListAsync();
         }
 
-        public void InsertAddressType(AddressTypeModel addressType)
+        public async Task InsertAddressType(AddressTypeModel addressType)
         {
             _context.AddressTypes.Add(addressType);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateAddressType(AddressTypeModel addressType)
+        public async Task UpdateAddressType(AddressTypeModel addressType)
         {
             var oldAddressType = _context.AddressTypes
                 .SingleOrDefault(a => a.AddressTypeId == addressType.AddressTypeId);
@@ -41,22 +43,25 @@ namespace DataAccessLibrary
 
             oldAddressType.AddressTypeName = addressType.AddressTypeName;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteAddressType(int addressTypeId)
+        public async Task DeleteAddressType(int addressTypeId)
         {
             var addressType = _context.AddressTypes
                 .SingleOrDefault(a => a.AddressTypeId == addressTypeId);
             if (addressType == null) return;
 
             _context.AddressTypes.Remove(addressType);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public bool AddressTypeExists(string addressTypeName)
         {
-            return _context.AddressTypes.Any(a => a.AddressTypeName.ToLower() == addressTypeName);
+            return _context.AddressTypes
+                .Any(a =>
+                        a.AddressTypeName
+                        .ToLower() == addressTypeName);
         }
     }
 }

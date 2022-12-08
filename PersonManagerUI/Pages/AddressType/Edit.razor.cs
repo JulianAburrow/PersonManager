@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.AddressType
 {
@@ -17,16 +18,16 @@ namespace PersonManagerUI.Pages.AddressType
 
         private DisplayAddressTypeModel addressType = new();
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            var a = _addressTypeDb.GetAddressType(AddressTypeId);
+            var a = await _addressTypeDb.GetAddressType(AddressTypeId);
 
             addressType.AddressTypeName = a.AddressTypeName;
 
             AddressTypeDisplayName = addressType.AddressTypeName;
         }
 
-        private void UpdateAddressType()
+        private async Task UpdateAddressType()
         {
             var a = new AddressTypeModel
             {
@@ -34,7 +35,7 @@ namespace PersonManagerUI.Pages.AddressType
                 AddressTypeName = addressType.AddressTypeName
             };
 
-            _addressTypeDb.UpdateAddressType(a);
+            await _addressTypeDb.UpdateAddressType(a);
 
             _navigationManager.NavigateTo("/data/addresstypes/index");
         }

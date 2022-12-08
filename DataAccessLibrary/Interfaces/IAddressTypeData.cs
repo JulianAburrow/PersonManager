@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DataAccessLibrary.Models;
 
 namespace DataAccessLibrary.Interfaces
 {
     public interface IAddressTypeData
     {
-        AddressTypeModel GetAddressType(int addressTypeId);
+        Task<AddressTypeModel> GetAddressType(int addressTypeId);
 
-        List<AddressTypeModel> GetAddressTypes();
+        Task<List<AddressTypeModel>> GetAddressTypes();
 
-        void InsertAddressType(AddressTypeModel addressType);
+        Task InsertAddressType(AddressTypeModel addressType);
 
-        void UpdateAddressType(AddressTypeModel addressType);
+        Task UpdateAddressType(AddressTypeModel addressType);
 
-        void DeleteAddressType(int addressTypeId);
+        Task DeleteAddressType(int addressTypeId);
 
         bool AddressTypeExists(string addressTypeName);
     }

@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
+using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.AddressType
 {
@@ -14,7 +15,7 @@ namespace PersonManagerUI.Pages.AddressType
 
         private bool AddressTypeAlreadyExists { get; set; }
 
-        private void InsertAddressType()
+        private async Task InsertAddressType()
         {
             if (_addressTypeDb.AddressTypeExists(
                 newAddressType.AddressTypeName
@@ -30,7 +31,7 @@ namespace PersonManagerUI.Pages.AddressType
                 AddressTypeName = newAddressType.AddressTypeName
             };
 
-            _addressTypeDb.InsertAddressType(a);
+            await _addressTypeDb.InsertAddressType(a);
 
             _navigationManager.NavigateTo("/data/addresstypes/index");
         }

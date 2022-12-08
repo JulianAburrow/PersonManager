@@ -20,12 +20,11 @@ namespace PersonManagerUI.Pages.Address
 
         private DisplayAddressModel newAddress = new();
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
             newAddress.AddressTypeId = -1;
 
-            AddressTypes = _addressTypeDb.GetAddressTypes()
-                .ToList();
+            AddressTypes = await _addressTypeDb.GetAddressTypes();
             AddressTypes.Insert(0, new AddressTypeModel
             {
                 AddressTypeId = -1,
