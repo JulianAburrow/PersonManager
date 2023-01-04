@@ -40,8 +40,7 @@ namespace PersonManagerUI.Pages.Person
                 CountryId = -1,
                 CountryName = pleaseSelect
             });
-            Statuses = _statusesDb.GetStatuses()
-                .ToList();
+            Statuses = await _statusesDb.GetStatuses();
             Statuses.Insert(0, new StatusModel
             {
                 StatusId = -1,

@@ -31,7 +31,7 @@ namespace PersonManagerUI.Pages.Person
 
         protected string FullName { get; set; }
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             var p = _peopleDb.GetPerson(PersonId);
 
@@ -49,8 +49,7 @@ namespace PersonManagerUI.Pages.Person
             FullName = $"{p.FirstName} {p.LastName}";
 
             Countries = await _countriesDb.GetCountries();
-            Statuses = _statusesDb.GetStatuses()
-                .ToList();
+            Statuses = await _statusesDb.GetStatuses();
             Colours = await _coloursDb.GetColours();
             Colours.Insert(0, new ColourModel
             {

@@ -1,7 +1,9 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -12,9 +14,9 @@ namespace DataAccessLibrary
         public StatusData(PersonManagerContext context) =>
             _context = context;
 
-        public List<StatusModel> GetStatuses()
+        public Task<List<StatusModel>> GetStatuses()
         {
-            return _context.Statuses.ToList();
+            return _context.Statuses.ToListAsync();
         }
     }
 }

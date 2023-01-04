@@ -1,7 +1,11 @@
 ﻿@page "/data/person/create"
 
 @using PersonManagerUI.CustomControls
-@using Microsoft.AspNetCore.Mvc.Rendering
+
+@if (Countries == null || Colours == null || Statuses == null)
+{
+    return;
+}
 
 <h1>Create Person</h1>
 
