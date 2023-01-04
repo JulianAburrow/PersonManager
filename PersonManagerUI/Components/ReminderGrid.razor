@@ -11,7 +11,7 @@ else
 }
 <br />
 @{
-    if (Reminders.Count == 0)
+    if (Reminders == null || Reminders.Count == 0)
     {
         <p>No reminders found</p>
     }

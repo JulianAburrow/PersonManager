@@ -20,7 +20,6 @@ namespace PersonManagerUI.CustomControls
             result = default;
             validationErrorMessage = "The chosen value is not a valid number";
             return false;
-
         }
     }
 }
