@@ -8,6 +8,8 @@ namespace DataAccessLibrary.Configuration
     {
         public void Configure(EntityTypeBuilder<CountryModel> builder)
         {
+            builder.ToTable("Countries");
+            builder.HasKey(e => e.CountryId);
             builder.Property(e => e.CountryName)
                 .IsUnicode(false);
             builder.HasMany(e => e.People)

@@ -10,9 +10,9 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Create
     {
-        [Inject] IAddressData _addressDb { get; set; }
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressData _addressDb { get; set; }
+        [Inject] private IAddressTypeData _addressTypeDb { get; set; }
+        [Inject] private NavigationManager _navigationManager { get; set; }
 
         [Parameter]
         public int PersonId { get; set; }

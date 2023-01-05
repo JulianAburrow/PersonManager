@@ -2,6 +2,7 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using PersonManagerUI.Models;
 using System.Collections.Generic;
 using System.IO;
@@ -12,19 +13,19 @@ namespace PersonManagerUI.Pages.Person
 {
     public partial class Create : ComponentBase
     {
-        [Inject] ICountryData _countriesDb { get; set; }
-        [Inject] IPersonData _peopleDb { get; set; }
-        [Inject] IStatusData _statusesDb { get; set; }
-        [Inject] IColourData _colourDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private ICountryData CountriesDb { get; set; }
+        [Inject] private IPersonData PeopleDb { get; set; }
+        [Inject] private IStatusData StatusesDb { get; set; }
+        [Inject] private IColourData ColourDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
-        protected DisplayPersonModel newPerson = new();
+        private readonly DisplayPersonModel newPerson = new();
 
-        protected List<CountryModel> Countries { get; set; }
+        private List<CountryModel> Countries { get; set; }
 
-        protected List<StatusModel> Statuses { get; set; }
+        private List<StatusModel> Statuses { get; set; }
 
-        protected List<ColourModel> Colours { get; set; }
+        private List<ColourModel> Colours { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -34,19 +35,19 @@ namespace PersonManagerUI.Pages.Person
 
             const string pleaseSelect = "Please select";
 
-            Countries = await _countriesDb.GetCountries();
+            Countries = await CountriesDb.GetCountries();
             Countries.Insert(0, new CountryModel
             {
                 CountryId = -1,
                 CountryName = pleaseSelect
             });
-            Statuses = await _statusesDb.GetStatuses();
+            Statuses = await StatusesDb.GetStatuses();
             Statuses.Insert(0, new StatusModel
             {
                 StatusId = -1,
                 StatusName = pleaseSelect
             });
-            Colours = await _colourDb.GetColours();
+            Colours = await ColourDb.GetColours();
             Colours.Insert(0, new ColourModel
             {
                 ColourId = -1,
@@ -54,12 +55,13 @@ namespace PersonManagerUI.Pages.Person
             });
         }
 
-        protected void InsertPerson()
+        private async Task InsertPerson()
         {
             var p = new PersonModel
             {
                 FirstName = newPerson.FirstName,
                 LastName = newPerson.LastName,
+                Skillset = newPerson.Skillset,
                 EmailAddress = newPerson.EmailAddress,
                 DateOfBirth = newPerson.DateOfBirth,
                 CountryId = newPerson.CountryId,
@@ -70,12 +72,12 @@ namespace PersonManagerUI.Pages.Person
                 Picture = newPerson.Picture
             };
 
-            _peopleDb.InsertPerson(p);
+            await PeopleDb.InsertPerson(p);
 
-            _navigationManager.NavigateTo("/data/people/index");
+            NavigationManager.NavigateTo("/data/people/index");
         }
 
-        protected async void LoadFile(InputFileChangeEventArgs e)
+        private async void LoadFile(InputFileChangeEventArgs e)
         {
             await using var ms = new MemoryStream();
             await e.File.OpenReadStream().CopyToAsync(ms);

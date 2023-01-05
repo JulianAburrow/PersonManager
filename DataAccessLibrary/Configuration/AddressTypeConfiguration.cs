@@ -8,6 +8,8 @@ namespace DataAccessLibrary.Configuration
     {
         public void Configure(EntityTypeBuilder<AddressTypeModel> builder)
         {
+            builder.ToTable("Addresses");
+            builder.HasKey(e => e.AddressTypeId);
             builder.Property(e => e.AddressTypeName)    
                 .IsUnicode(false);
             builder.HasMany(e => e.Addresses)

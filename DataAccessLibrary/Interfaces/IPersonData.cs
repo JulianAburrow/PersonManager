@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Interfaces
 {
@@ -9,11 +10,11 @@ namespace DataAccessLibrary.Interfaces
 
         List<PersonModel> GetPeople();
 
-        void InsertPerson(PersonModel person);
+        Task InsertPerson(PersonModel person);
 
-        void UpdatePerson(PersonModel person);
+        Task UpdatePerson(PersonModel person);
 
-        void DeletePerson(int personId);
+        Task DeletePerson(int personId);
 
         List<string> GetInitials();
     }

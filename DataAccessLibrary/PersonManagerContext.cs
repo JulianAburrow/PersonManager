@@ -29,6 +29,8 @@ namespace DataAccessLibrary
             builder.ApplyConfiguration(new ColourConfiguration());
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new PersonConfiguration());
+            builder.ApplyConfiguration(new ReminderConfiguration());
+            builder.ApplyConfiguration(new SavedUrlConfiguration());
             builder.ApplyConfiguration(new StatusConfiguration());
         }
     }

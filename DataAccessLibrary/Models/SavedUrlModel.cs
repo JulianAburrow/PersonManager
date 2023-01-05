@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataAccessLibrary.Models
+﻿namespace DataAccessLibrary.Models
 {
-    [Table("SavedUrls")]
     public class SavedUrlModel
     {
-        [Key]
         public int UrlId { get; set; }
 
         public string Title { get; set; }

@@ -8,6 +8,8 @@ namespace DataAccessLibrary.Configuration
     {
         public void Configure(EntityTypeBuilder<ColourModel> builder)
         {
+            builder.ToTable("Colours");
+            builder.HasKey(e => e.ColourId);
             builder.Property(e => e.ColourName)
                 .IsUnicode(false);
             builder.HasMany(e => e.People)

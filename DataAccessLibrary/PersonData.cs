@@ -3,6 +3,7 @@ using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLibrary
 {
@@ -28,13 +29,13 @@ namespace DataAccessLibrary
             return _context.People.ToList();
         }
 
-        public void InsertPerson(PersonModel person)
+        public async Task InsertPerson(PersonModel person)
         {
             _context.People.Add(person);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdatePerson(PersonModel person)
+        public async Task UpdatePerson(PersonModel person)
         {
             var oldPerson = _context.People
                 .SingleOrDefault(p =>
@@ -51,10 +52,10 @@ namespace DataAccessLibrary
             oldPerson.Skillset = person.Skillset;
             oldPerson.Picture = person.Picture;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeletePerson(int personId)
+        public async Task DeletePerson(int personId)
         {
             var person = _context.People
                 .SingleOrDefault(p =>
@@ -65,7 +66,7 @@ namespace DataAccessLibrary
                 _context.Remove(person.Address);
 
             _context.People.Remove(person);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public List<string> GetInitials()

@@ -12,28 +12,28 @@ namespace PersonManagerUI.Pages.Person
 {
     public partial class Edit : ComponentBase
     {
-        [Inject] private IPersonData _peopleDb { get; set; }
-        [Inject] ICountryData _countriesDb { get; set; }
-        [Inject] IStatusData _statusesDb { get; set; }
-        [Inject] IColourData _coloursDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IPersonData PeopleDb { get; set; }
+        [Inject] private ICountryData CountriesDb { get; set; }
+        [Inject] private IStatusData StatusesDb { get; set; }
+        [Inject] private IColourData ColoursDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int PersonId { get; set; }
 
-        protected DisplayPersonModel person = new();
+        private readonly DisplayPersonModel person = new();
 
-        protected List<CountryModel> Countries { get; set; }
+        private List<CountryModel> Countries { get; set; }
 
-        protected List<StatusModel> Statuses { get; set; }
+        private List<StatusModel> Statuses { get; set; }
 
-        protected List<ColourModel> Colours { get; set; }
+        private List<ColourModel> Colours { get; set; }
 
-        protected string FullName { get; set; }
+        private string FullName { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            var p = _peopleDb.GetPerson(PersonId);
+            var p = PeopleDb.GetPerson(PersonId);
 
             person.FirstName = p.FirstName;
             person.LastName = p.LastName;
@@ -48,9 +48,9 @@ namespace PersonManagerUI.Pages.Person
 
             FullName = $"{p.FirstName} {p.LastName}";
 
-            Countries = await _countriesDb.GetCountries();
-            Statuses = await _statusesDb.GetStatuses();
-            Colours = await _coloursDb.GetColours();
+            Countries = await CountriesDb.GetCountries();
+            Statuses = await StatusesDb.GetStatuses();
+            Colours = await ColoursDb.GetColours();
             Colours.Insert(0, new ColourModel
             {
                 ColourId = -1,
@@ -58,7 +58,7 @@ namespace PersonManagerUI.Pages.Person
             });
         }
 
-        protected void UpdatePerson()
+        private void UpdatePerson()
         {
             var p = new PersonModel
             {
@@ -76,12 +76,12 @@ namespace PersonManagerUI.Pages.Person
                 Picture = person.HasPicture ? person.Picture : null
             };
 
-            _peopleDb.UpdatePerson(p);
+            PeopleDb.UpdatePerson(p);
 
-            _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
+            NavigationManager.NavigateTo($"/data/person/details/{PersonId}");
         }
 
-        protected async void LoadFile(InputFileChangeEventArgs e)
+        private async void LoadFile(InputFileChangeEventArgs e)
         {
             await using var ms = new MemoryStream();
             await e.File.OpenReadStream().CopyToAsync(ms);
@@ -89,7 +89,7 @@ namespace PersonManagerUI.Pages.Person
             person.HasPicture = true;
         }
 
-        protected void RemovePicture()
+        private void RemovePicture()
         {
             person.HasPicture = false;
         }
