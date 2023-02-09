@@ -2,7 +2,6 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.Reminders
@@ -13,7 +12,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         private List<ReminderModel> reminders;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             reminders = await _reminderDb.GetAllReminders();
         }

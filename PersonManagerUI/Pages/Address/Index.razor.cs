@@ -18,7 +18,7 @@ namespace PersonManagerUI.Pages.Address
 
         private List<AddressModel> addresses = new();
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             addresses = await _addressDb.GetAddresses(PersonId);
             person = _personDb.GetPerson(PersonId);

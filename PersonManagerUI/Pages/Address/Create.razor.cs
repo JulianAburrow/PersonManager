@@ -3,7 +3,6 @@ using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Address
@@ -20,7 +19,7 @@ namespace PersonManagerUI.Pages.Address
 
         private DisplayAddressModel newAddress = new();
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             newAddress.AddressTypeId = -1;
 

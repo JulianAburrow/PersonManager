@@ -3,7 +3,6 @@ using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Address
@@ -23,7 +22,7 @@ namespace PersonManagerUI.Pages.Address
 
         private int PersonId { get; set; }
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             AddressTypes = await _addressTypeDb.GetAddressTypes();
 

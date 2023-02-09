@@ -18,7 +18,7 @@ public partial class Edit
 
     private string ColourDisplayName { get; set; }
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         var c = await _coloursDb.GetColour(ColourId);
 

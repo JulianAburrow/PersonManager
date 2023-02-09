@@ -12,7 +12,7 @@ namespace PersonManagerUI.Pages.Colour
 
         private List<ColourModel> colours;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             colours = await _colourDb.GetColours();
         }
