@@ -14,7 +14,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         private SavedUrlModel savedUrl = new();
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             savedUrl = await _savedUrlDb.GetSavedUrl(UrlId);
         }

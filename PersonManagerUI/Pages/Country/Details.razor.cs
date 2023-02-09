@@ -14,7 +14,7 @@ namespace PersonManagerUI.Pages.Country
 
         private CountryModel country;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             country = await _countryDb.GetCountry(CountryId);
         }

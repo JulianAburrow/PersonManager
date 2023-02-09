@@ -2,7 +2,6 @@
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
@@ -13,7 +12,7 @@ namespace PersonManagerUI.Pages.Country
 
         private List<CountryModel> countries;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             countries = await _countryDb.GetCountries();
         }

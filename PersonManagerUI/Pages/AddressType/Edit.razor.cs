@@ -18,7 +18,7 @@ namespace PersonManagerUI.Pages.AddressType
 
         private DisplayAddressTypeModel addressType = new();
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             var a = await _addressTypeDb.GetAddressType(AddressTypeId);
 

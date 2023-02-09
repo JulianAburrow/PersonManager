@@ -17,7 +17,7 @@ namespace PersonManagerUI.Pages.Colour
 
         public bool OkToDelete = true;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             colour = await _colourDb.GetColour(ColourId);
 

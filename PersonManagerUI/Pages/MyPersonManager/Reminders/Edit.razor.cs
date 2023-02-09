@@ -16,7 +16,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         private DisplayReminderModel reminder = new();
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             var r = await _reminderDb.GetReminder(ReminderId);
 

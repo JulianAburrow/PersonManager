@@ -12,7 +12,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         private List<SavedUrlModel> savedUrls;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             savedUrls = await _myPersonManagerDb.GetSavedUrlModels();
         }

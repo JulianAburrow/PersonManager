@@ -12,7 +12,7 @@ namespace PersonManagerUI.Pages.AddressType
      
         private List<AddressTypeModel> addressTypes;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             addressTypes = await _addressTypeDb.GetAddressTypes();
         }

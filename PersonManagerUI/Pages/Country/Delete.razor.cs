@@ -1,7 +1,6 @@
 ﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.Country
@@ -18,7 +17,7 @@ namespace PersonManagerUI.Pages.Country
 
         private bool OkToDelete = true;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             country = await _countryDb.GetCountry(CountryId);
 

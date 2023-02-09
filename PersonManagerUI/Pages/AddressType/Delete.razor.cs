@@ -17,7 +17,7 @@ namespace PersonManagerUI.Pages.AddressType
 
         private bool OkToDelete = true;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             addressType = await _addressTypeDb.GetAddressType(AddressTypeId);
 

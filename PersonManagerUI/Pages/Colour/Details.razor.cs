@@ -14,7 +14,7 @@ namespace PersonManagerUI.Pages.Colour
 
         private ColourModel colour;
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             colour = await _colourDb.GetColour(ColourId);
         }

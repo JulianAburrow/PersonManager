@@ -18,7 +18,7 @@ namespace PersonManagerUI.Pages.Country
 
         private string CountryDisplayName { get; set; }
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             var c = await _countriesDb.GetCountry(CountryId);
 
