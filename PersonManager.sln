@@ -12,7 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{
 		DbScripts\PersonManager.sql = DbScripts\PersonManager.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonManagerTests", "PersonManagerTests\PersonManagerTests.csproj", "{C6EDFB0D-DD06-4DE3-B270-889BCE328C40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonManagerTests", "PersonManagerTests\PersonManagerTests.csproj", "{C6EDFB0D-DD06-4DE3-B270-889BCE328C40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DCAB6A27-DA27-4BFD-8EC0-0FE3477512CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{DADE743E-C913-4833-8B13-2410631650F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4BC2F08D-89D1-4560-90B0-83A3FEF0A1C6} = {DCAB6A27-DA27-4BFD-8EC0-0FE3477512CB}
+		{67F75864-46B8-465F-A2B4-423D8DA043C0} = {DCAB6A27-DA27-4BFD-8EC0-0FE3477512CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C6C00772-1B73-42B8-B11F-11C344716856}
