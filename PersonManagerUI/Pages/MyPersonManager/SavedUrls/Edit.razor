@@ -1,5 +1,7 @@
 ﻿@page "/data/mypersonmanager/savedurl/edit/{UrlId:int}"
 
+<PageTitle>Edit @savedUrl.Title</PageTitle>
+
 <h3>Edit Saved Url @savedUrl.Title</h3>
 
 <EditForm Model="@savedUrl" OnValidSubmit="@UpdateSavedUrl">

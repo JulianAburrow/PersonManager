@@ -1,5 +1,7 @@
 ﻿@page "/data/country/edit/{CountryId:int}"
 
+<PageTitle>Edit @country.CountryName</PageTitle>
+
 <h1>Edit @CountryDisplayName</h1>
 
 <EditForm Model="@country" OnValidSubmit="@UpdateCountry">

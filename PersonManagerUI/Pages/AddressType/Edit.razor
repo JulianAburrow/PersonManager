@@ -1,5 +1,7 @@
 ﻿@page "/data/addresstype/edit/{AddressTypeId:int}"
 
+<PageTitle>Edit @addressType.AddressTypeName</PageTitle>
+
 <h3>Edit @AddressTypeDisplayName</h3>
 
 <EditForm Model="@addressType" OnValidSubmit="@UpdateAddressType">

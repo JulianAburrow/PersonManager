@@ -1,5 +1,7 @@
 ﻿@page "/data/mypersonmanager/reminder/edit/{ReminderId:int}"
 
+<PageTitle>Edit @reminder.Title</PageTitle>
+
 <h3>Edit Reminder</h3>
 
 <EditForm Model="@reminder" OnValidSubmit="UpdateReminder">

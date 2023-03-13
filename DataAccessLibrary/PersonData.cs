@@ -19,6 +19,7 @@ namespace DataAccessLibrary
             return _context.People
                 .Include(p => p.Country)
                 .Include(p => p.Status)
+                .Include(p => p.FavouriteColour)
                 .Include(p => p.Address)
                     .ThenInclude(a => a.AddressType)
                 .SingleOrDefault(p => p.PersonId == personId);

@@ -1,5 +1,7 @@
 ﻿@page "/data/person/edit/{PersonId:int}"
 
+<PageTitle>Edit @person.FirstName @person.LastName</PageTitle>
+
 @using PersonManagerUI.CustomControls
 
 @if (Countries == null || Colours == null || Statuses == null)

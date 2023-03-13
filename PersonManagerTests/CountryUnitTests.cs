@@ -1,5 +1,4 @@
-
-
+using System.Transactions;
 using DataAccessLibrary.Models;
 
 namespace PersonManagerTests
@@ -10,10 +9,9 @@ namespace PersonManagerTests
         private readonly PersonManagerContext _context;
 
         public CountryUnitTests(PersonManagerContext context)
-        { 
+        {
             _context = context;
         }
-            
 
         // Needs refining to account for no countries returned
         [TestMethod]
@@ -25,7 +23,7 @@ namespace PersonManagerTests
 
             // Act
             var country = cd.GetCountry(firstCountry.CountryId);
-            
+
             // Assert
             Assert.IsTrue(country != null);
         }
@@ -57,20 +55,41 @@ namespace PersonManagerTests
             Assert.IsTrue(countryCount == allCountries.Count);
         }
 
-    //    [TestMethod]
-    //    public async Task AddCountryAddsCountry()
-    //    {
-    //        // Arrange
-    //        var cd = new CountryData(_context);
-    //        var newCountry = new CountryModel
-    //        {
-    //            CountryName = "TestCountry"
-    //        };
+        [TestMethod]
+        public async Task AddCountryAddsCountry()
+        {
+            // Arrange
+            var cd = new CountryData(_context);
+            var countryCount = _context.Countries.Count();
+            var newCountry = new CountryModel
+            {
+                CountryName = "TestCountry"
+            };
 
+            using var trans = new TransactionScope();
 
-    //        // Act
+            // Act
+            await cd.InsertCountry(newCountry);
+            var newCountryCount = _context.Countries.Count();
 
+            // Assert
+            Assert.IsTrue(newCountryCount == countryCount + 1);
 
-    //        // Assert
+            trans.Dispose();
+        }
+
+        // Needs refining to account for no countries returned
+        [TestMethod]
+        public async Task DeleteCountryDeletesCountry()
+        {
+            // Arrange
+            var cd = new CountryData(_context);
+            var countryCount = _context.Countries.Count();
+            var firstCountry = _context.Countries.First();
+
+            using var trans = new TransactionScope();
+
+            // Act
+        }
     }
 }

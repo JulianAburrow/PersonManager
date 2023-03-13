@@ -1,5 +1,7 @@
 ﻿@page "/data/colour/edit/{ColourId:int}"
 
+<PageTitle>Edit @colour.ColourName</PageTitle>
+
 <h1>Edit @ColourDisplayName</h1>
 
 <EditForm Model="@colour" OnValidSubmit="@UpdateColour">

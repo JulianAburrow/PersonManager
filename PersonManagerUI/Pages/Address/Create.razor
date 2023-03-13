@@ -1,6 +1,13 @@
 ﻿@page "/data/address/create/{PersonId:int}"
 
+<PageTitle>Create Address</PageTitle>
+
 @using PersonManagerUI.CustomControls
+
+@if (AddressTypes == null)
+{
+    return;
+}
 
 <h1>Create Address</h1>
 

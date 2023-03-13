@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLibrary.Models
 {
-    [Table("Addresses")]
     public class AddressModel
     {
-        [Key]
         public int AddressId { get; set; }
 
         public string AddressLine1 { get; set; }

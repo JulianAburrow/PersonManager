@@ -1,4 +1,5 @@
-﻿using DataAccessLibrary.Models;
+﻿using System.Text.RegularExpressions;
+using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -36,6 +37,10 @@ namespace DataAccessLibrary.Configuration
                 .HasForeignKey<PersonModel>(e => e.AddressId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
+            // testing
+            builder.Property(e => e.FirstName).HasAnnotation("Regex", new Regex("^[0-9]{5}$"));
         }
     }
 }
