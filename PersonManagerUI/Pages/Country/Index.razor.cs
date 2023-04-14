@@ -8,13 +8,13 @@ namespace PersonManagerUI.Pages.Country
 {
     public partial class Index
     {
-        [Inject] ICountryData _countryDb { get; set; }
+        [Inject] private ICountryData CountryDb { get; set; }
 
         private List<CountryModel> countries;
 
         protected override async Task OnInitializedAsync()
         {
-            countries = await _countryDb.GetCountries();
+            countries = await CountryDb.GetCountries();
         }
     }
 }

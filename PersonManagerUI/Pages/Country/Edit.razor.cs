@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.Country
 {
     public partial class Edit
     {
-        [Inject] ICountryData _countriesDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private ICountryData CountryDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int CountryId { get; set; }
@@ -20,7 +20,7 @@ namespace PersonManagerUI.Pages.Country
 
         protected override async Task OnInitializedAsync()
         {
-            var c = await _countriesDb.GetCountry(CountryId);
+            var c = await CountryDb.GetCountry(CountryId);
 
             country.CountryName = c.CountryName;
 
@@ -35,9 +35,9 @@ namespace PersonManagerUI.Pages.Country
                 CountryName = country.CountryName
             };
 
-            await _countriesDb.UpdateCountry(c);
+            await CountryDb.UpdateCountry(c);
 
-            _navigationManager.NavigateTo($"/data/country/details/{CountryId}");
+            NavigationManager.NavigateTo($"/data/country/details/{CountryId}");
         }
     }
 }

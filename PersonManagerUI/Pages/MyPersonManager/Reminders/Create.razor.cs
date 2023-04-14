@@ -9,8 +9,8 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Create
     {
-        [Inject] IReminderData _reminderDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IReminderData ReminderDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         private DisplayReminderModel newReminder = new();
 
@@ -30,9 +30,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
                 IsCurrent = newReminder.IsCurrent
             };
 
-            await _reminderDb.InsertReminder(r);
+            await ReminderDb.InsertReminder(r);
 
-            _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
+            NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
         }
     }
 }

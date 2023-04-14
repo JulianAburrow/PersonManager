@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
     public partial class Create
     {
-        [Inject] ISavedUrlData _savedUrlDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private ISavedUrlData SavedUrlDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         private DisplaySavedUrlModel newSavedUrl = new();
 
@@ -22,9 +22,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
                 Notes = newSavedUrl.Notes
             };
 
-            await _savedUrlDb.InsertSavedUrl(s);
+            await SavedUrlDb.InsertSavedUrl(s);
 
-            _navigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
+            NavigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
         }
     }
 }

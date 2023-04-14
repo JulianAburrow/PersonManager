@@ -7,8 +7,8 @@ namespace PersonManagerUI.Pages.AddressType
 {
     public partial class Delete
     {
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressTypeData AddressTypeDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int AddressTypeId { get; set; }
@@ -19,7 +19,7 @@ namespace PersonManagerUI.Pages.AddressType
 
         protected override async Task OnInitializedAsync()
         {
-            addressType = await _addressTypeDb.GetAddressType(AddressTypeId);
+            addressType = await AddressTypeDb.GetAddressType(AddressTypeId);
 
             if (addressType.Addresses.Count > 0)
             {
@@ -29,9 +29,9 @@ namespace PersonManagerUI.Pages.AddressType
 
         private async Task DeleteAddressType()
         {
-            await _addressTypeDb.DeleteAddressType(AddressTypeId);
+            await AddressTypeDb.DeleteAddressType(AddressTypeId);
 
-            _navigationManager.NavigateTo("/data/addresstypes/index");
+            NavigationManager.NavigateTo("/data/addresstypes/index");
         }
     }
 }

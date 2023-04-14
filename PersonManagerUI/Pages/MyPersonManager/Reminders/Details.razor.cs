@@ -7,7 +7,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Details
     {
-        [Inject] IReminderData _reminderDb { get; set; }
+        [Inject] private IReminderData ReminderDb { get; set; }
 
         [Parameter]
         public int ReminderId { get; set; }
@@ -16,7 +16,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         protected override async Task OnInitializedAsync()
         {
-            reminder = await _reminderDb.GetReminder(ReminderId);
+            reminder = await ReminderDb.GetReminder(ReminderId);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Edit
     {
-        [Inject] IAddressData _addressDb { get; set;}
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressData AddressDb { get; set;}
+        [Inject] private IAddressTypeData AddressTypeDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int AddressId { get; set; }
@@ -24,9 +24,9 @@ namespace PersonManagerUI.Pages.Address
 
         protected override async Task OnInitializedAsync()
         {
-            AddressTypes = await _addressTypeDb.GetAddressTypes();
+            AddressTypes = await AddressTypeDb.GetAddressTypes();
 
-            var a = await _addressDb.GetAddress(AddressId);
+            var a = await AddressDb.GetAddress(AddressId);
 
             address.AddressLine1 = a.AddressLine1;
             address.AddressLine2 = a.AddressLine2;
@@ -49,9 +49,9 @@ namespace PersonManagerUI.Pages.Address
                 AddressTypeId = address.AddressTypeId
             };
 
-            await _addressDb.UpdateAddress(a);
+            await AddressDb.UpdateAddress(a);
 
-            _navigationManager.NavigateTo($"data/addresses/index/{PersonId}");
+            NavigationManager.NavigateTo($"data/addresses/index/{PersonId}");
         }
     }
 }

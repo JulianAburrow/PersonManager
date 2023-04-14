@@ -4,39 +4,40 @@ using Microsoft.AspNetCore.Components;
 using PersonManagerUI.Models;
 using System.Threading.Tasks;
 
-namespace PersonManagerUI.Pages.Colour;
-
-public partial class Edit
+namespace PersonManagerUI.Pages.Colour
 {
-    [Inject] IColourData _coloursDb { get; set; }
-    [Inject] NavigationManager _navigationManager { get; set; }
-
-    [Parameter]
-    public int ColourId { get; set; }
-
-    private DisplayColourModel colour = new();
-
-    private string ColourDisplayName { get; set; }
-
-    protected override async Task OnInitializedAsync()
+    public partial class Edit
     {
-        var c = await _coloursDb.GetColour(ColourId);
+        [Inject] private IColourData ColourDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
-        colour.ColourName = c.ColourName;
+        [Parameter]
+        public int ColourId { get; set; }
 
-        ColourDisplayName = colour.ColourName;
-    }
+        private DisplayColourModel colour = new();
 
-    private async Task UpdateColour()
-    {
-        var c = new ColourModel
+        private string ColourDisplayName { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            ColourId = ColourId,
-            ColourName = colour.ColourName
-        };
+            var c = await ColourDb.GetColour(ColourId);
 
-        await _coloursDb.UpdateColour(c);
+            colour.ColourName = c.ColourName;
 
-        _navigationManager.NavigateTo($"/data/colour/details/{ColourId}");
+            ColourDisplayName = colour.ColourName;
+        }
+
+        private async Task UpdateColour()
+        {
+            var c = new ColourModel
+            {
+                ColourId = ColourId,
+                ColourName = colour.ColourName
+            };
+
+            await ColourDb.UpdateColour(c);
+
+            NavigationManager.NavigateTo($"/data/colour/details/{ColourId}");
+        }
     }
 }

@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.Country
 {
     public partial class Create
     {
-        [Inject] ICountryData _countriesDb { get; set; }
-        [Inject] NavigationManager _navigationManager {get;set;}
+        [Inject] private ICountryData CountryDb { get; set; }
+        [Inject] private NavigationManager NavigationManager {get;set;}
 
         private DisplayCountryModel newCountry = new();
 
@@ -20,9 +20,9 @@ namespace PersonManagerUI.Pages.Country
                 CountryName = newCountry.CountryName
             };
 
-            await _countriesDb.InsertCountry(c);
+            await CountryDb.InsertCountry(c);
 
-            _navigationManager.NavigateTo("/data/countries/index");
+            NavigationManager.NavigateTo("/data/countries/index");
         }
     }
 }

@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Edit
     {
-        [Inject] IReminderData _reminderDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IReminderData ReminderDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int ReminderId { get; set; }
@@ -18,7 +18,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         protected override async Task OnInitializedAsync()
         {
-            var r = await _reminderDb.GetReminder(ReminderId);
+            var r = await ReminderDb.GetReminder(ReminderId);
 
             reminder.Title = r.Title;
             reminder.ReminderDate = r.ReminderDate;
@@ -37,9 +37,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
                 IsCurrent = reminder.IsCurrent
             };
 
-            await _reminderDb.UpdateReminder(r);
+            await ReminderDb.UpdateReminder(r);
 
-            _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
+            NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
         }
     }
 }

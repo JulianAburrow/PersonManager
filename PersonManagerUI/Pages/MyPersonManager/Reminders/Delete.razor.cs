@@ -7,8 +7,8 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Delete
     {
-        [Inject] IReminderData _reminderDb {get;set;}
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IReminderData ReminderDb {get;set;}
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int ReminderId { get; set; }
@@ -17,14 +17,14 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 
         protected override async Task OnInitializedAsync()
         {
-            reminder = await _reminderDb.GetReminder(ReminderId);
+            reminder = await ReminderDb.GetReminder(ReminderId);
         }
 
         private async Task DeleteReminder()
         {
-            await _reminderDb.DeleteReminder(ReminderId);
+            await ReminderDb.DeleteReminder(ReminderId);
 
-            _navigationManager.NavigateTo("data/mypersonmanager/reminders/index");
+            NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
         }
     }
 }

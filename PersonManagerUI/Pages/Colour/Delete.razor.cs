@@ -7,8 +7,8 @@ namespace PersonManagerUI.Pages.Colour
 {
     public partial class Delete
     {
-        [Inject] IColourData _colourDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IColourData ColourDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int ColourId { get; set; }
@@ -19,7 +19,7 @@ namespace PersonManagerUI.Pages.Colour
 
         protected override async Task OnInitializedAsync()
         {
-            colour = await _colourDb.GetColour(ColourId);
+            colour = await ColourDb.GetColour(ColourId);
 
             if (colour.People.Count > 0)
                 OkToDelete = false;
@@ -27,9 +27,9 @@ namespace PersonManagerUI.Pages.Colour
 
         private async Task DeleteColour()
         {
-            await _colourDb.DeleteColour(ColourId);
+            await ColourDb.DeleteColour(ColourId);
 
-            _navigationManager.NavigateTo("data/colours/index");
+            NavigationManager.NavigateTo("data/colours/index");
         }
     }
 }

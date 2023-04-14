@@ -9,9 +9,9 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Create
     {
-        [Inject] private IAddressData _addressDb { get; set; }
-        [Inject] private IAddressTypeData _addressTypeDb { get; set; }
-        [Inject] private NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressData AddressDb { get; set; }
+        [Inject] private IAddressTypeData AddressTypeDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int PersonId { get; set; }
@@ -23,7 +23,7 @@ namespace PersonManagerUI.Pages.Address
         {
             newAddress.AddressTypeId = -1;
 
-            AddressTypes = await _addressTypeDb.GetAddressTypes();
+            AddressTypes = await AddressTypeDb.GetAddressTypes();
             AddressTypes.Insert(0, new AddressTypeModel
             {
                 AddressTypeId = -1,
@@ -43,9 +43,9 @@ namespace PersonManagerUI.Pages.Address
                 PersonId = PersonId
             };
 
-            await _addressDb.InsertAddress(a);
+            await AddressDb.InsertAddress(a);
 
-            _navigationManager.NavigateTo($"/data/person/details/{PersonId}");
+            NavigationManager.NavigateTo($"/data/person/details/{PersonId}");
         }
     }
 }

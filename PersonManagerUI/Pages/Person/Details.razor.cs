@@ -6,7 +6,7 @@ namespace PersonManagerUI.Pages.Person
 {
     public partial class Details : ComponentBase
     {
-        [Inject] private IPersonData _personDb { get; set; }
+        [Inject] private IPersonData PersonDb { get; set; }
 
         [Parameter]
         public int PersonId { get; set; }
@@ -15,7 +15,7 @@ namespace PersonManagerUI.Pages.Person
 
         protected override void OnInitialized()
         {
-            person = _personDb.GetPerson(PersonId);
+            person = PersonDb.GetPerson(PersonId);
         }
     }
 }

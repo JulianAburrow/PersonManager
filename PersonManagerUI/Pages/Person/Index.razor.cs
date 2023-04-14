@@ -3,14 +3,13 @@ using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace PersonManagerUI.Pages.Person
 {
     public partial class Index : ComponentBase
     {
-        [Inject] IPersonData _personDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IPersonData PersonDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public string firstInitial { get; set; }
@@ -43,7 +42,7 @@ namespace PersonManagerUI.Pages.Person
 
             searchTerm = searchTerm.ToLower();
 
-            people = _personDb.GetPeople()
+            people = PersonDb.GetPeople()
                 .Where(p =>
                     p.FirstName.ToLower().Contains(searchTerm) ||
                     p.LastName.ToLower().Contains(searchTerm))
@@ -59,12 +58,12 @@ namespace PersonManagerUI.Pages.Person
             searchTerm = null;
             GetPeople();
             header = "People";
-            _navigationManager.NavigateTo("/data/people/index");
+            NavigationManager.NavigateTo("/data/people/index");
         }
 
         private void GetPeople()
         {
-            people = _personDb.GetPeople()
+            people = PersonDb.GetPeople()
                 .ToList();
 
             if (firstInitial != null)
@@ -84,7 +83,7 @@ namespace PersonManagerUI.Pages.Person
 
         private void GetInitials()
         {
-            firstInitials = _personDb.GetInitials();
+            firstInitials = PersonDb.GetInitials();
         }
 
         protected void SortGrid(string whichColumn)

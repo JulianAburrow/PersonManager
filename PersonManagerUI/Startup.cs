@@ -27,7 +27,7 @@ namespace PersonManagerUI
             services.AddDbContext<PersonManagerContext>(
                 options =>
                     options.UseSqlServer(
-                        Configuration.GetConnectionString("default")));
+                        Configuration.GetConnectionString("PersonManager")));
             services.AddTransient<IPersonData, PersonData>();
             services.AddTransient<ICountryData, CountryData>();
             services.AddTransient<IStatusData, StatusData>();

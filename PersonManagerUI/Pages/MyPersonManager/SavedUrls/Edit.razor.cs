@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
     public partial class Edit
     {
-        [Inject] ISavedUrlData _savedUrlDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private ISavedUrlData SavedUrlDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int UrlId { get; set; }
@@ -18,7 +18,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         protected override async Task OnInitializedAsync()
         {
-            var s = await _savedUrlDb.GetSavedUrl(UrlId);
+            var s = await SavedUrlDb.GetSavedUrl(UrlId);
 
             savedUrl.Title = s.Title;
             savedUrl.Url = s.Url;
@@ -37,9 +37,9 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
                 IsExternal = savedUrl.IsExternal
             };
 
-            await _savedUrlDb.UpdateSavedUrl(s);
+            await SavedUrlDb.UpdateSavedUrl(s);
 
-            _navigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
+            NavigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
         }
     }
 }

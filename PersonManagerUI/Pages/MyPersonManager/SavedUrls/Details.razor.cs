@@ -7,7 +7,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
     public partial class Details
     {
-        [Inject] ISavedUrlData _savedUrlDb { get; set; }
+        [Inject] private ISavedUrlData SavedUrlDb { get; set; }
 
         [Parameter]
         public int UrlId { get; set; }
@@ -16,7 +16,7 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         protected override async Task OnInitializedAsync()
         {
-            savedUrl = await _savedUrlDb.GetSavedUrl(UrlId);
+            savedUrl = await SavedUrlDb.GetSavedUrl(UrlId);
         }
     }
 }

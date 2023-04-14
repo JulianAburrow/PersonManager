@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Index
     {
-        [Inject] IAddressData _addressDb { get; set; }
-        [Inject] IPersonData _personDb { get; set; }
+        [Inject] private IAddressData AddressDb { get; set; }
+        [Inject] private IPersonData PersonDb { get; set; }
 
         [Parameter]
         public int PersonId { get; set; }
@@ -20,8 +20,8 @@ namespace PersonManagerUI.Pages.Address
 
         protected override async Task OnInitializedAsync()
         {
-            addresses = await _addressDb.GetAddresses(PersonId);
-            person = _personDb.GetPerson(PersonId);
+            addresses = await AddressDb.GetAddresses(PersonId);
+            person = PersonDb.GetPerson(PersonId);
         }
     }
 }

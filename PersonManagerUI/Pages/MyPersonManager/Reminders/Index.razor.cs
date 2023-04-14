@@ -8,13 +8,13 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Index
     {
-        [Inject] IReminderData _reminderDb { get; set; }
+        [Inject] private IReminderData ReminderDb { get; set; }
 
         private List<ReminderModel> reminders;
 
         protected override async Task OnInitializedAsync()
         {
-            reminders = await _reminderDb.GetAllReminders();
+            reminders = await ReminderDb.GetAllReminders();
         }
     }
 }

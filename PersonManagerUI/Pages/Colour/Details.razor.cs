@@ -7,7 +7,7 @@ namespace PersonManagerUI.Pages.Colour
 {
     public partial class Details
     {
-        [Inject] IColourData _colourDb { get; set; }
+        [Inject] private IColourData ColourDb { get; set; }
 
         [Parameter]
         public int ColourId { get; set; }
@@ -16,7 +16,7 @@ namespace PersonManagerUI.Pages.Colour
 
         protected override async Task OnInitializedAsync()
         {
-            colour = await _colourDb.GetColour(ColourId);
+            colour = await ColourDb.GetColour(ColourId);
         }
     }
 }

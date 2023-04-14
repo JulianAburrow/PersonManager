@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.AddressType
 {
     public partial class Edit
     {
-        [Inject] IAddressTypeData _addressTypeDb { get;set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressTypeData AddressTypeDb { get;set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int AddressTypeId { get; set; }
@@ -20,7 +20,7 @@ namespace PersonManagerUI.Pages.AddressType
 
         protected override async Task OnInitializedAsync()
         {
-            var a = await _addressTypeDb.GetAddressType(AddressTypeId);
+            var a = await AddressTypeDb.GetAddressType(AddressTypeId);
 
             addressType.AddressTypeName = a.AddressTypeName;
 
@@ -35,9 +35,9 @@ namespace PersonManagerUI.Pages.AddressType
                 AddressTypeName = addressType.AddressTypeName
             };
 
-            await _addressTypeDb.UpdateAddressType(a);
+            await AddressTypeDb.UpdateAddressType(a);
 
-            _navigationManager.NavigateTo("/data/addresstypes/index");
+            NavigationManager.NavigateTo("/data/addresstypes/index");
         }
     }
 }

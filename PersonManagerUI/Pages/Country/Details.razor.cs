@@ -7,7 +7,7 @@ namespace PersonManagerUI.Pages.Country
 {
     public partial class Details
     {
-        [Inject] ICountryData _countryDb { get; set; }
+        [Inject] private ICountryData CountryDb { get; set; }
 
         [Parameter]
         public int CountryId { get; set; }
@@ -16,7 +16,7 @@ namespace PersonManagerUI.Pages.Country
 
         protected override async Task OnInitializedAsync()
         {
-            country = await _countryDb.GetCountry(CountryId);
+            country = await CountryDb.GetCountry(CountryId);
         }
     }
 }

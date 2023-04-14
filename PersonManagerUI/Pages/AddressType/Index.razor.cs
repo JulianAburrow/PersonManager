@@ -8,13 +8,13 @@ namespace PersonManagerUI.Pages.AddressType
 {
     public partial class Index
     {
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
+        [Inject] private IAddressTypeData AddressTypeDb { get; set; }
      
         private List<AddressTypeModel> addressTypes;
 
         protected override async Task OnInitializedAsync()
         {
-            addressTypes = await _addressTypeDb.GetAddressTypes();
+            addressTypes = await AddressTypeDb.GetAddressTypes();
         }
     }
 }

@@ -7,8 +7,8 @@ namespace PersonManagerUI.Pages.Country
 {
     public partial class Delete
     {
-        [Inject] ICountryData _countryDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private ICountryData CountryDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
                 [Parameter]
         public int CountryId { get; set; }
@@ -19,7 +19,7 @@ namespace PersonManagerUI.Pages.Country
 
         protected override async Task OnInitializedAsync()
         {
-            country = await _countryDb.GetCountry(CountryId);
+            country = await CountryDb.GetCountry(CountryId);
 
             if (country.People.Count > 0)
             {
@@ -29,9 +29,9 @@ namespace PersonManagerUI.Pages.Country
 
         private async Task DeleteCountry()
         {
-            await _countryDb.DeleteCountry(CountryId);
+            await CountryDb.DeleteCountry(CountryId);
 
-            _navigationManager.NavigateTo("data/countries/index");
+            NavigationManager.NavigateTo("data/countries/index");
         }
     }
 }

@@ -6,9 +6,9 @@ namespace PersonManagerUI.Pages.Person
 {
     public partial class Delete : ComponentBase
     {
-        [Inject] private IAddressData _addressDb { get; set; }
-        [Inject] IPersonData _personDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressData AddressDb { get; set; }
+        [Inject] private IPersonData PersonDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int PersonId { get; set; }
@@ -17,15 +17,15 @@ namespace PersonManagerUI.Pages.Person
 
         protected override void OnInitialized()
         {
-            person = _personDb.GetPerson(PersonId);
+            person = PersonDb.GetPerson(PersonId);
         }
 
         protected void DeletePerson()
         {
-            _addressDb.DeleteAddress(PersonId);
-            _personDb.DeletePerson(PersonId);
+            AddressDb.DeleteAddress(PersonId);
+            PersonDb.DeletePerson(PersonId);
 
-            _navigationManager.NavigateTo("data/people/index");
+            NavigationManager.NavigateTo("data/people/index");
         }
     }
 }

@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.AddressType
 {
     public partial class Create
     {
-        [Inject] IAddressTypeData _addressTypeDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private IAddressTypeData AddressTypeDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         private DisplayAddressTypeModel newAddressType = new();
 
@@ -17,7 +17,7 @@ namespace PersonManagerUI.Pages.AddressType
 
         private async Task InsertAddressType()
         {
-            if (_addressTypeDb.AddressTypeExists(
+            if (AddressTypeDb.AddressTypeExists(
                 newAddressType.AddressTypeName
                     .Replace(" ", "")
                     .ToLower()))
@@ -31,9 +31,9 @@ namespace PersonManagerUI.Pages.AddressType
                 AddressTypeName = newAddressType.AddressTypeName
             };
 
-            await _addressTypeDb.InsertAddressType(a);
+            await AddressTypeDb.InsertAddressType(a);
 
-            _navigationManager.NavigateTo("/data/addresstypes/index");
+            NavigationManager.NavigateTo("/data/addresstypes/index");
         }
     }
 }

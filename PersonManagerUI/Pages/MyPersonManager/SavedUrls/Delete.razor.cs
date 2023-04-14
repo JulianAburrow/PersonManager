@@ -7,8 +7,8 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
     public partial class Delete
     {
-        [Inject] ISavedUrlData _savedUrlDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] private ISavedUrlData SavedUrlDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get; set; }
 
         [Parameter]
         public int UrlId { get; set; }
@@ -17,14 +17,14 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 
         protected override async Task OnInitializedAsync()
         {
-            savedUrl = await _savedUrlDb.GetSavedUrl(UrlId);
+            savedUrl = await SavedUrlDb.GetSavedUrl(UrlId);
         }
 
         private async Task DeleteSavedUrl()
         {
-            await _savedUrlDb.DeleteSavedUrl(UrlId);
+            await SavedUrlDb.DeleteSavedUrl(UrlId);
 
-            _navigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
+            NavigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
         }
     }
 }

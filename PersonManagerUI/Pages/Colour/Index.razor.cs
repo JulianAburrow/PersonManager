@@ -8,13 +8,13 @@ namespace PersonManagerUI.Pages.Colour
 {
     public partial class Index
     {
-        [Inject] IColourData _colourDb { get; set; }
+        [Inject] private IColourData ColourDb { get; set; }
 
         private List<ColourModel> colours;
 
         protected override async Task OnInitializedAsync()
         {
-            colours = await _colourDb.GetColours();
+            colours = await ColourDb.GetColours();
         }
     }
 }

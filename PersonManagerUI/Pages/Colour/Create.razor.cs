@@ -8,8 +8,8 @@ namespace PersonManagerUI.Pages.Colour
 {
     public partial class Create
     {
-        [Inject] IColourData _coloursDb { get; set; }
-        [Inject] NavigationManager _navigationManager { get;set; }
+        [Inject] private IColourData ColourDb { get; set; }
+        [Inject] private NavigationManager NavigationManager { get;set; }
 
         private DisplayColourModel newColour = new();
 
@@ -20,9 +20,9 @@ namespace PersonManagerUI.Pages.Colour
                 ColourName = newColour.ColourName
             };
 
-            await _coloursDb.InsertColour(c);
+            await ColourDb.InsertColour(c);
 
-            _navigationManager.NavigateTo("data/colours/index");
+            NavigationManager.NavigateTo("data/colours/index");
         }
     }
 }
