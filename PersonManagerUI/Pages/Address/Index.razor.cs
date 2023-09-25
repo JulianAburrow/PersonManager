@@ -8,19 +8,15 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Index
     {
-        [Inject] private IAddressData AddressDb { get; set; }
         [Inject] private IPersonData PersonDb { get; set; }
-
-        [Parameter]
-        public int PersonId { get; set; }
 
         private PersonModel person = new();
 
-        private List<AddressModel> addresses = new();
+        private List<AddressModel> Addresses = new();
 
         protected override async Task OnInitializedAsync()
         {
-            addresses = await AddressDb.GetAddresses(PersonId);
+            Addresses = await AddressDb.GetAddresses(PersonId);
             person = PersonDb.GetPerson(PersonId);
         }
     }

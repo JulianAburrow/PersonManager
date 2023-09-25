@@ -1,12 +1,15 @@
 ﻿@page "/data/address/edit/{AddressId:int}"
 
+@using PersonManagerUI.BasePageClasses
+@inherits AddressBasePageClass
+
 <PageTitle>Edit Address</PageTitle>
 
 @using PersonManagerUI.CustomControls
 
 <h3>Edit Address</h3>
 
-<EditForm Model="@address" OnValidSubmit="@UpdateAddress">
+<EditForm Model="@DisplayAddress" OnValidSubmit="@UpdateAddress">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -14,24 +17,24 @@
         <tbody>
             <tr>
                 <td><strong>Address Line 1</strong></td>
-                <td><InputText id="addressLine1" @bind-Value="address.AddressLine1" /></td>
+                <td><InputText id="addressLine1" @bind-Value="DisplayAddress.AddressLine1" /></td>
             </tr>
             <tr>
                 <td><strong>Address Line 1</strong></td>
-                <td><InputText id="addressLine2" @bind-Value="address.AddressLine2" /></td>
+                <td><InputText id="addressLine2" @bind-Value="DisplayAddress.AddressLine2" /></td>
             </tr>
             <tr>
                 <td><strong>Address Line 1</strong></td>
-                <td><InputText id="town" @bind-Value="address.Town" /></td>
+                <td><InputText id="town" @bind-Value="DisplayAddress.Town" /></td>
             </tr>
             <tr>
                 <td><strong>Address Line 1</strong></td>
-                <td><InputText id="postcode" @bind-Value="address.Postcode" /></td>
+                <td><InputText id="postcode" @bind-Value="DisplayAddress.Postcode" /></td>
             </tr>
             <tr>
                 <td><strong>Address Type</strong></td>
                 <td>
-                    <InputSelectNumber id="addressType" @bind-Value="address.AddressTypeId">
+                    <InputSelectNumber id="addressType" @bind-Value="DisplayAddress.AddressTypeId">
                         @foreach (var addressType in AddressTypes)
                         {
                             <option value="@addressType.AddressTypeId">@addressType.AddressTypeName</option>
