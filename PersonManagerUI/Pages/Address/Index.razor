@@ -1,11 +1,14 @@
 ﻿@page "/data/addresses/index/{PersonId:int}"
 
+@using BasePageClasses
+@inherits AddressBasePageClass
+
 <PageTitle>Addresses</PageTitle>
 
 
 <h3>Addresses for @person.FirstName @person.LastName</h3>
 
-@if (addresses.Count == 0)
+@if (Addresses.Count == 0)
 {
     <strong>No addresses found</strong>
     <br /><br />
@@ -25,7 +28,7 @@ else
         </tr>
         </thead>
         <tbody>
-            @foreach (var address in addresses)
+            @foreach (var address in Addresses)
             {
                 <tr>
                     <td>@address.AddressLine1</td>
