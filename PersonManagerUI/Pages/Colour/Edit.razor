@@ -1,10 +1,12 @@
 ﻿@page "/data/colour/edit/{ColourId:int}"
 
-<PageTitle>Edit @colour.ColourName</PageTitle>
+@inherits ColourBasePageClass
+
+<PageTitle>Edit @Colour.ColourName</PageTitle>
 
 <h1>Edit @ColourDisplayName</h1>
 
-<EditForm Model="@colour" OnValidSubmit="@UpdateColour">
+<EditForm Model="@Colour" OnValidSubmit="@UpdateColour">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -12,7 +14,7 @@
         <tbody>
         <tr>
             <td><strong>Country Name</strong></td>
-            <td><InputText id="colourName" @bind-Value="colour.ColourName" /></td>
+            <td><InputText id="colourName" @bind-Value="Colour.ColourName" /></td>
         </tr>
         </tbody>
     </table>

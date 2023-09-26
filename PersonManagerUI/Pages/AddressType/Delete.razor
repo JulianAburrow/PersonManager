@@ -1,6 +1,8 @@
 ﻿@page "/data/addresstype/delete/{AddressTypeId:int}"
 
-<PageTitle>Delete @addressType.AddressTypeName</PageTitle>
+@inherits AddressTypeBasePageClass
+
+<PageTitle>Delete @AddressType.AddressTypeName</PageTitle>
 
 <h1>Delete</h1>
 
@@ -17,7 +19,7 @@ else
     <tbody>
     <tr>
         <td><strong>Address Type Name</strong></td>
-        <td>@addressType.AddressTypeName</td>
+        <td>@AddressType.AddressTypeName</td>
     </tr>
     </tbody>
 </table>

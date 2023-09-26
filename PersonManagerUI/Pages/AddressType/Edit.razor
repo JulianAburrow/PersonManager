@@ -1,10 +1,13 @@
 ﻿@page "/data/addresstype/edit/{AddressTypeId:int}"
 
-<PageTitle>Edit @addressType.AddressTypeName</PageTitle>
+@using BasePageClasses
+@inherits AddressTypeBasePageClass
+
+<PageTitle>Edit @DisplayAddressType.AddressTypeName</PageTitle>
 
 <h3>Edit @AddressTypeDisplayName</h3>
 
-<EditForm Model="@addressType" OnValidSubmit="@UpdateAddressType">
+<EditForm Model="@DisplayAddressType" OnValidSubmit="@UpdateAddressType">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -12,7 +15,7 @@
         <tbody>
             <tr>
                 <td><strong>Address Type Name</strong></td>
-                <td><InputText id="colourName" @bind-Value="addressType.AddressTypeName" /></td>
+                <td><InputText id="colourName" @bind-Value="DisplayAddressType.AddressTypeName" /></td>
             </tr>
         </tbody>
     </table>

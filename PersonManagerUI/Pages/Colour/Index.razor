@@ -1,5 +1,7 @@
 ﻿@page "/data/colours/index"
 
+@inherits ColourBasePageClass
+
 <PageTitle>Colours</PageTitle>
 
 <h1>Colours Page</h1>
@@ -10,7 +12,7 @@
 
 <h4>Current Colours</h4>
 
-@if (colours == null)
+@if (Colours == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -25,15 +27,15 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var colour in colours)
+            @foreach (var Colour in Colours)
             {
                 <tr>
-                    <td>@colour.ColourName</td>
-                    <td>@colour.People.Count</td>
+                    <td>@Colour.ColourName</td>
+                    <td>@Colour.People.Count</td>
                     <td>
-                        <a class="btn btn-primary" href="/data/colour/details/@colour.ColourId">Details</a>
-                        <a class="btn btn-primary" href="/data/colour/edit/@colour.ColourId">Edit</a>
-                        <a class="btn btn-danger" href="/data/colour/delete/@colour.ColourId">Delete</a>
+                        <a class="btn btn-primary" href="/data/colour/details/@Colour.ColourId">Details</a>
+                        <a class="btn btn-primary" href="/data/colour/edit/@Colour.ColourId">Edit</a>
+                        <a class="btn btn-danger" href="/data/colour/delete/@Colour.ColourId">Delete</a>
                     </td>
                 </tr>
             }

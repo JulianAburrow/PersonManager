@@ -1,5 +1,8 @@
 ﻿@page "/data/addresstype/create"
 
+@using BasePageClasses
+@inherits AddressTypeBasePageClass
+
 <PageTitle>Create Address Type</PageTitle>
 
 <h1>Create Address</h1>
@@ -9,7 +12,7 @@
     <h4 style="color: red">An address type with this name already exists</h4>
 }
 
-<EditForm Model="@newAddressType" OnValidSubmit="@InsertAddressType">
+<EditForm Model="@DisplayAddressType" OnValidSubmit="@InsertAddressType">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -17,7 +20,7 @@
         <tbody>
             <tr>
                 <td><strong>Address Type Name</strong></td>
-                <td><InputText id="addressTypeName" @bind-Value="newAddressType.AddressTypeName" /></td>
+                <td><InputText id="addressTypeName" @bind-Value="DisplayAddressType.AddressTypeName" /></td>
             </tr>
         </tbody>
     </table>

@@ -8,17 +8,12 @@ namespace PersonManagerUI.Pages.AddressType
 {
     public partial class Create
     {
-        [Inject] private IAddressTypeData AddressTypeDb { get; set; }
-        [Inject] private NavigationManager NavigationManager { get; set; }
-
-        private DisplayAddressTypeModel newAddressType = new();
-
         private bool AddressTypeAlreadyExists { get; set; }
 
         private async Task InsertAddressType()
         {
             if (AddressTypeDb.AddressTypeExists(
-                newAddressType.AddressTypeName
+                DisplayAddressType.AddressTypeName
                     .Replace(" ", "")
                     .ToLower()))
             {
@@ -28,7 +23,7 @@ namespace PersonManagerUI.Pages.AddressType
 
             var a = new AddressTypeModel
             {
-                AddressTypeName = newAddressType.AddressTypeName
+                AddressTypeName = DisplayAddressType.AddressTypeName
             };
 
             await AddressTypeDb.InsertAddressType(a);

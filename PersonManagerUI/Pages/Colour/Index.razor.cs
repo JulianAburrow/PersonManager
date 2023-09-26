@@ -1,6 +1,4 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
+﻿using DataAccessLibrary.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,13 +6,11 @@ namespace PersonManagerUI.Pages.Colour
 {
     public partial class Index
     {
-        [Inject] private IColourData ColourDb { get; set; }
-
-        private List<ColourModel> colours;
+        private List<ColourModel> Colours;
 
         protected override async Task OnInitializedAsync()
         {
-            colours = await ColourDb.GetColours();
+            Colours = await ColourDb.GetColours();
         }
     }
 }

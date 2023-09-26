@@ -1,5 +1,7 @@
 ﻿@page "/data/addresstypes/index"
 
+@inherits AddressTypeBasePageClass
+
 <PageTitle>Address Types</PageTitle>
 
 <h1>Address Types</h1>
@@ -10,7 +12,7 @@
 
 <h4>Current Address Types</h4>
 
-@if (addressTypes == null)
+@if (AddressTypes == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -25,7 +27,7 @@ else
         </tr>
         </thead>
         <tbody>
-        @foreach (var addressType in addressTypes)
+        @foreach (var addressType in AddressTypes)
         {
             <tr>
                 <td>@addressType.AddressTypeName</td>

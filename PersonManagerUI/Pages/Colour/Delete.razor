@@ -1,14 +1,14 @@
 ﻿@page "/data/colour/delete/{ColourId:int}"
 
-@using PersonManagerUI.Components;
+@inherits ColourBasePageClass
 
-@if (colour == null)
+@if (Colour == null)
 {
     <p>Loading...</p>
     return;
 }
 
-<PageTitle>Delete @colour.ColourName</PageTitle>
+<PageTitle>Delete @Colour.ColourName</PageTitle>
 
 <h1>Delete</h1>
 
@@ -21,7 +21,7 @@ else
     <h4 style="color: red">Cannot delete colour when people have it as their favourite</h4>
 }
 
-<ColourDetails Colour="colour" />
+<ColourDetails Colour="Colour" />
 
 @if (OkToDelete)
 {
