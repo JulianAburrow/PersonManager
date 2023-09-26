@@ -1,14 +1,16 @@
 ﻿@page "/data/country/delete/{CountryId:int}"
 
+@inherits CountryBasePageClass
+
 @using PersonManagerUI.Components;
 
-@if (country == null)
+@if (Country == null)
 {
     <p>Loading...</p>
     return;
 }
 
-<PageTitle>Delete @country.CountryName</PageTitle>
+<PageTitle>Delete @Country.CountryName</PageTitle>
 
 <h1>Delete</h1>
 
@@ -21,7 +23,7 @@ else
     <h4 style="color: red">Cannot delete country when people have it as their location</h4>
 }
 
-<CountryDetails Country="country" />
+<CountryDetails Country="Country" />
 
 @if (OkToDelete)
 {

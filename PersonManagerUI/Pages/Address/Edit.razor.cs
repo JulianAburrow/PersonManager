@@ -6,8 +6,6 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Edit
     {
-        [Parameter] public int AddressId { get; set; }
-
         protected override async Task OnInitializedAsync()
         {
             AddressTypes = await AddressTypeDb.GetAddressTypes();

@@ -1,9 +1,11 @@
 ﻿@page "/data/people/index"
 @page "/data/people/index/{firstInitial}"
 
+@inherits PersonBasePageClass
+
 <PageTitle>People</PageTitle>
 
-<h1>@header</h1>
+<h1>@Header</h1>
 
 <a href="/data/person/create" class="btn btn-primary">Add New Person</a>
 
@@ -19,11 +21,11 @@ Filter:
             <a href="/data/people/index" target="_top">All</a>
             </li>
 
-            foreach (var initial in firstInitials)
+            foreach (var FirstInitial in FirstInitials)
             {
                 <li class="list-group-item small active p-3" style="background-color: lightgray; border-color: black">
-                <a href="/data/people/index/@initial" style="cursor: pointer" target="_top">
-                        @initial
+                <a href="/data/people/index/@FirstInitial" style="cursor: pointer" target="_top">
+                        @FirstInitial
                     </a>
                 </li>
             }
@@ -35,11 +37,11 @@ Filter:
 
 <h4>Current People</h4>
 
-<input type="text" @bind-value="@searchTerm" />
+<input type="text" @bind-value="@SearchTerm" />
 <input type="button" value="Search" @onclick="@SearchPeople" />
 <input type="button" value="Clear" @onclick="@ClearSearch" />
 
-@if (people == null)
+@if (People == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -54,15 +56,15 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var person in people)
+            @foreach (var Person in People)
             {
                 <tr>
-                    <td>@person.FirstName</td>
-                    <td>@person.LastName</td>
+                    <td>@Person.FirstName</td>
+                    <td>@Person.LastName</td>
                     <td>
-                        <a class="btn btn-primary" href="/data/person/details/@person.PersonId">Details</a>
-                        <a class="btn btn-primary" href="/data/person/edit/@person.PersonId">Edit</a>
-                        <a class="btn btn-danger" href="/data/person/delete/@person.PersonId">Delete</a>
+                        <a class="btn btn-primary" href="/data/person/details/@Person.PersonId">Details</a>
+                        <a class="btn btn-primary" href="/data/person/edit/@Person.PersonId">Edit</a>
+                        <a class="btn btn-danger" href="/data/person/delete/@Person.PersonId">Delete</a>
                     </td>
                 </tr>
             }

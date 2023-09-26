@@ -1,29 +1,19 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
-using PersonManagerUI.Models;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
 {
     public partial class Edit
     {
-        [Inject] private ISavedUrlData SavedUrlDb { get; set; }
-        [Inject] private NavigationManager NavigationManager { get; set; }
-
-        [Parameter]
-        public int UrlId { get; set; }
-
-        private DisplaySavedUrlModel savedUrl = new();
-
         protected override async Task OnInitializedAsync()
         {
             var s = await SavedUrlDb.GetSavedUrl(UrlId);
 
-            savedUrl.Title = s.Title;
-            savedUrl.Url = s.Url;
-            savedUrl.Notes = s.Notes;
-            savedUrl.IsExternal = s.IsExternal;
+            DisplaySavedUrl.Title = s.Title;
+            DisplaySavedUrl.Url = s.Url;
+            DisplaySavedUrl.Notes = s.Notes;
+            DisplaySavedUrl.IsExternal = s.IsExternal;
         }
 
         private async Task UpdateSavedUrl()
@@ -31,10 +21,10 @@ namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
             var s = new SavedUrlModel
             {
                 UrlId = UrlId,
-                Title = savedUrl.Title,
-                Url = savedUrl.Url,
-                Notes = savedUrl.Notes,
-                IsExternal = savedUrl.IsExternal
+                Title = DisplaySavedUrl.Title,
+                Url = DisplaySavedUrl.Url,
+                Notes = DisplaySavedUrl.Notes,
+                IsExternal = DisplaySavedUrl.IsExternal
             };
 
             await SavedUrlDb.UpdateSavedUrl(s);

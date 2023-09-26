@@ -1,5 +1,4 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -7,21 +6,13 @@ namespace PersonManagerUI.Pages.Country
 {
     public partial class Delete
     {
-        [Inject] private ICountryData CountryDb { get; set; }
-        [Inject] private NavigationManager NavigationManager { get; set; }
-
-                [Parameter]
-        public int CountryId { get; set; }
-
-        private CountryModel country;
-
         private bool OkToDelete = true;
 
         protected override async Task OnInitializedAsync()
         {
-            country = await CountryDb.GetCountry(CountryId);
+            Country = await CountryDb.GetCountry(CountryId);
 
-            if (country.People.Count > 0)
+            if (Country.People.Count > 0)
             {
                 OkToDelete = false;
             }

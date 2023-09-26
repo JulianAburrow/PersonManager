@@ -1,26 +1,21 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PersonManagerUI.Pages.Person
 {
-    public partial class Index : ComponentBase
+    public partial class Index
     {
-        [Inject] private IPersonData PersonDb { get; set; }
-        [Inject] private NavigationManager NavigationManager { get; set; }
+        [Parameter] public string FirstInitial { get; set; }
 
-        [Parameter]
-        public string firstInitial { get; set; }
+        protected string Header = "People";
 
-        protected string header = "People";
+        protected List<PersonModel> People;
 
-        protected List<PersonModel> people;
+        protected string SearchTerm;
 
-        protected string searchTerm;
-
-        protected List<string> firstInitials;
+        protected List<string> FirstInitials;
 
         private bool FirstNameIsAscending { get; set; }
 
@@ -38,44 +33,44 @@ namespace PersonManagerUI.Pages.Person
 
         protected void SearchPeople()
         {
-            if (searchTerm == null) return;
+            if (SearchTerm == null) return;
 
-            searchTerm = searchTerm.ToLower();
+            SearchTerm = SearchTerm.ToLower();
 
-            people = PersonDb.GetPeople()
+            People = PersonDb.GetPeople()
                 .Where(p =>
-                    p.FirstName.ToLower().Contains(searchTerm) ||
-                    p.LastName.ToLower().Contains(searchTerm))
+                    p.FirstName.ToLower().Contains(SearchTerm) ||
+                    p.LastName.ToLower().Contains(SearchTerm))
                 .OrderBy(p => p.FirstName)
                 .ToList();
 
-            header = $"People with names containing '{searchTerm}'";
+            Header = $"People with names containing '{SearchTerm}'";
         }
 
         protected void ClearSearch()
         {
-            firstInitial = null;
-            searchTerm = null;
+            FirstInitial = null;
+            SearchTerm = null;
             GetPeople();
-            header = "People";
+            Header = "People";
             NavigationManager.NavigateTo("/data/people/index");
         }
 
         private void GetPeople()
         {
-            people = PersonDb.GetPeople()
+            People = PersonDb.GetPeople()
                 .ToList();
 
-            if (firstInitial != null)
+            if (FirstInitial != null)
             {
-                people = people
-                    .Where(p => p.FirstName.StartsWith(firstInitial))
+                People = People
+                    .Where(p => p.FirstName.StartsWith(FirstInitial))
                     .ToList();
 
-                header = $"People beginning with {firstInitial.ToUpper()}";
+                Header = $"People beginning with {FirstInitial.ToUpper()}";
             }
 
-            people = people.OrderBy(p => p.FirstName).ToList();
+            People = People.OrderBy(p => p.FirstName).ToList();
 
             FirstNameIsAscending = true;
             LastNameIsAscending = false;
@@ -83,7 +78,7 @@ namespace PersonManagerUI.Pages.Person
 
         private void GetInitials()
         {
-            firstInitials = PersonDb.GetInitials();
+            FirstInitials = PersonDb.GetInitials();
         }
 
         protected void SortGrid(string whichColumn)
@@ -91,17 +86,17 @@ namespace PersonManagerUI.Pages.Person
             switch (whichColumn)
             {
                 case FirstName:
-                    people = FirstNameIsAscending
-                        ? people.OrderByDescending(p => p.FirstName).ToList()
-                        : people.OrderBy(p => p.FirstName).ToList();
+                    People = FirstNameIsAscending
+                        ? People.OrderByDescending(p => p.FirstName).ToList()
+                        : People.OrderBy(p => p.FirstName).ToList();
 
                     FirstNameIsAscending = !FirstNameIsAscending;
                     LastNameIsAscending = false;
                     break;
                 case LastName:
-                    people = LastNameIsAscending
-                        ? people.OrderByDescending(p => p.LastName).ToList()
-                        : people = people.OrderBy(p => p.LastName).ToList();
+                    People = LastNameIsAscending
+                        ? People.OrderByDescending(p => p.LastName).ToList()
+                        : People = People.OrderBy(p => p.LastName).ToList();
 
                     LastNameIsAscending = !LastNameIsAscending;
                     FirstNameIsAscending = false;

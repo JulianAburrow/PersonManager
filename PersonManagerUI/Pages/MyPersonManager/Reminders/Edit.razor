@@ -1,10 +1,12 @@
 ﻿@page "/data/mypersonmanager/reminder/edit/{ReminderId:int}"
 
-<PageTitle>Edit @reminder.Title</PageTitle>
+@inherits ReminderBasePageClass
+
+<PageTitle>Edit @DisplayReminder.Title</PageTitle>
 
 <h3>Edit Reminder</h3>
 
-<EditForm Model="@reminder" OnValidSubmit="UpdateReminder">
+<EditForm Model="@DisplayReminder" OnValidSubmit="UpdateReminder">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -13,19 +15,19 @@
         <tbody>
         <tr>
             <td><strong>Title</strong></td>
-            <td><InputText id="title" @bind-Value="@reminder.Title" /></td>
+            <td><InputText id="title" @bind-Value="@DisplayReminder.Title" /></td>
         </tr>
         <tr>
             <td><strong>Reminder Date</strong></td>
-            <td><InputDate id="reminderDate" @bind-Value="@reminder.ReminderDate" /></td>
+            <td><InputDate id="reminderDate" @bind-Value="@DisplayReminder.ReminderDate" /></td>
         </tr>
         <tr>
             <td><strong>Notes</strong></td>
-            <td><InputTextArea id="notes" @bind-Value="@reminder.Notes" /></td>
+            <td><InputTextArea id="notes" @bind-Value="@DisplayReminder.Notes" /></td>
         </tr>
         <tr>
             <td><strong>Is Current</strong></td>
-            <td><InputCheckbox id="isCurrent" @bind-Value="@reminder.IsCurrent" /></td>
+            <td><InputCheckbox id="isCurrent" @bind-Value="@DisplayReminder.IsCurrent" /></td>
         </tr>
         </tbody>
     </table>

@@ -1,10 +1,12 @@
 ﻿@page "/data/mypersonmanager/savedurl/edit/{UrlId:int}"
 
-<PageTitle>Edit @savedUrl.Title</PageTitle>
+@inherits SavedUrlBasePageClass
 
-<h3>Edit Saved Url @savedUrl.Title</h3>
+<PageTitle>Edit @DisplaySavedUrl.Title</PageTitle>
 
-<EditForm Model="@savedUrl" OnValidSubmit="@UpdateSavedUrl">
+<h3>Edit Saved Url @DisplaySavedUrl.Title</h3>
+
+<EditForm Model="@DisplaySavedUrl" OnValidSubmit="@UpdateSavedUrl">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -12,19 +14,19 @@
         <tbody>
             <tr>
                 <td><strong>Title</strong></td>
-                <td><InputText id="title" @bind-Value="savedUrl.Title" /></td>
+                <td><InputText id="title" @bind-Value="DisplaySavedUrl.Title" /></td>
             </tr>
             <tr>
                 <td><strong>Url</strong></td>
-                <td><InputText id="url" @bind-Value="savedUrl.Url" /></td>
+                <td><InputText id="url" @bind-Value="DisplaySavedUrl.Url" /></td>
             </tr>
             <tr>
                 <td><strong>Notes</strong></td>
-                <td><InputTextArea id="notes" @bind-Value="savedUrl.Notes" /></td>
+                <td><InputTextArea id="notes" @bind-Value="DisplaySavedUrl.Notes" /></td>
             </tr>
             <tr>
                 <td><strong>Is External</strong></td>
-                <td><InputCheckbox id="isExternal" @bind-Value="savedUrl.IsExternal" /></td>
+                <td><InputCheckbox id="isExternal" @bind-Value="DisplaySavedUrl.IsExternal" /></td>
             </tr>
         </tbody>
     </table>

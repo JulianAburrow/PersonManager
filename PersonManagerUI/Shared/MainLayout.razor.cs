@@ -7,20 +7,21 @@ namespace PersonManagerUI.Shared
 {
     public partial class MainLayout
     {
-        [Inject] NavigationManager _navigationManager { get; set; }
-        [Inject] ISavedUrlData _savedUrlDb { get; set; }
+        [Inject] NavigationManager NavigationManager { get; set; }
+
+        [Inject] ISavedUrlData SavedUrlDb { get; set; }
 
         private async Task SaveUrl()
         {
             var savedUrl = new SavedUrlModel
             {
                 Title = "Saved Page",
-                Url = _navigationManager.Uri,
+                Url = NavigationManager.Uri,
                 Notes = "Saved from application",
                 IsExternal = false
             };
 
-            await _savedUrlDb.InsertSavedUrl(savedUrl);
+            await SavedUrlDb.InsertSavedUrl(savedUrl);
         }
     }
 }

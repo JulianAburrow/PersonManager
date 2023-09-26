@@ -1,10 +1,12 @@
 ﻿@page "/data/country/create"
 
+@inherits CountryBasePageClass
+
 <PageTitle>Create Country</PageTitle>
 
 <h1>Create Country</h1>
 
-<EditForm Model="@newCountry" OnValidSubmit="@InsertCountry">
+<EditForm Model="@DisplayCountry" OnValidSubmit="@InsertCountry">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -12,7 +14,7 @@
         <tbody>
             <tr>
                 <td><strong>Country Name</strong></td>
-                <td><InputText id="countryName" @bind-Value="newCountry.CountryName" /></td>
+                <td><InputText id="countryName" @bind-Value="DisplayCountry.CountryName" /></td>
             </tr>
         </tbody>
     </table>

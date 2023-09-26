@@ -1,5 +1,7 @@
 ﻿@page "/data/countries/index"
 
+@inherits CountryBasePageClass
+
 <PageTitle>Countries</PageTitle>
 
 <h1>Countries Page</h1>
@@ -10,7 +12,7 @@
 
 <h4>Current Countries</h4>
 
-@if (countries == null)
+@if (Countries == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -25,7 +27,7 @@ else
         </tr>
         </thead>
         <tbody>
-        @foreach (var country in countries)
+        @foreach (var country in Countries)
         {
             <tr>
                 <td>@country.CountryName</td>

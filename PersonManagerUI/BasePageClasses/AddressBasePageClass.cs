@@ -17,5 +17,7 @@ namespace PersonManagerUI.BasePageClasses
         protected DisplayAddressModel DisplayAddress = new();
 
         [Parameter] public int PersonId { get; set; }
+
+        [Parameter] public int AddressId { get; set; }
     }
 }

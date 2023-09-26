@@ -1,5 +1,7 @@
 ﻿@page "/data/person/create"
 
+@inherits PersonBasePageClass
+
 <PageTitle>Create Person</PageTitle>
 
 @using PersonManagerUI.CustomControls
@@ -11,7 +13,7 @@
 
 <h1>Create Person</h1>
 
-<EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
+<EditForm Model="@DisplayPerson" OnValidSubmit="@InsertPerson">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -19,28 +21,28 @@
         <tbody>
         <tr>
             <td><strong>First Name</strong></td>
-            <td><InputText id="firstName" @bind-Value="newPerson.FirstName" /></td>
+            <td><InputText id="firstName" @bind-Value="DisplayPerson.FirstName" /></td>
         </tr>
         <tr>
             <td><strong>Last Name</strong></td>
-            <td><InputText id="lastName" @bind-Value="newPerson.LastName" /></td>
+            <td><InputText id="lastName" @bind-Value="DisplayPerson.LastName" /></td>
         </tr>
         <tr>
             <td><strong>Skillset</strong></td>
-            <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="newPerson.Skillset" /></td>
+            <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="DisplayPerson.Skillset" /></td>
         </tr>
         <tr>
             <td><strong>Email Address</strong></td>
-            <td><InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" /></td>
+            <td><InputText id="emailAddress" @bind-Value="DisplayPerson.EmailAddress" /></td>
         </tr>
         <tr>
             <td><strong>Date of Birth</strong></td>
-            <td><InputDate @bind-Value="newPerson.DateOfBirth" /></td>
+            <td><InputDate @bind-Value="DisplayPerson.DateOfBirth" /></td>
         </tr>
         <tr>
             <td><strong>Country</strong></td>
             <td>
-                <InputSelectNumber id="country" @bind-Value="newPerson.CountryId">
+                <InputSelectNumber id="country" @bind-Value="DisplayPerson.CountryId">
                     @foreach (var country in Countries)
                     {
                         <option value="@country.CountryId">@country.CountryName</option>
@@ -51,7 +53,7 @@
         <tr>
             <td><strong>Status</strong></td>
             <td>
-                <InputSelectNumber id="status" @bind-Value="newPerson.StatusId">
+                <InputSelectNumber id="status" @bind-Value="DisplayPerson.StatusId">
                     @foreach (var status in Statuses)
                     {
                         <option value="@status.StatusId">@status.StatusName</option>
@@ -62,7 +64,7 @@
         <tr>
             <td><strong>Favourite Colour</strong></td>
             <td>
-                <InputSelectNumber id="favouriteColour" @bind-Value="newPerson.FavouriteColourId">
+                <InputSelectNumber id="favouriteColour" @bind-Value="DisplayPerson.FavouriteColourId">
                     @foreach (var colour in Colours)
                     {
                         <option value="@colour.ColourId">@colour.ColourName</option>

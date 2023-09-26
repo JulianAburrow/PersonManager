@@ -1,29 +1,19 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
-using PersonManagerUI.Models;
 using System.Threading.Tasks;
 
 namespace PersonManagerUI.Pages.MyPersonManager.Reminders
 {
     public partial class Edit
     {
-        [Inject] private IReminderData ReminderDb { get; set; }
-        [Inject] private NavigationManager NavigationManager { get; set; }
-
-        [Parameter]
-        public int ReminderId { get; set; }
-
-        private DisplayReminderModel reminder = new();
-
         protected override async Task OnInitializedAsync()
         {
             var r = await ReminderDb.GetReminder(ReminderId);
 
-            reminder.Title = r.Title;
-            reminder.ReminderDate = r.ReminderDate;
-            reminder.Notes = r.Notes;
-            reminder.IsCurrent = r.IsCurrent;
+            DisplayReminder.Title = r.Title;
+            DisplayReminder.ReminderDate = r.ReminderDate;
+            DisplayReminder.Notes = r.Notes;
+            DisplayReminder.IsCurrent = r.IsCurrent;
         }
 
         private async Task UpdateReminder()
@@ -31,10 +21,10 @@ namespace PersonManagerUI.Pages.MyPersonManager.Reminders
             var r = new ReminderModel
             {
                 ReminderId = ReminderId,
-                Title = reminder.Title,
-                ReminderDate = reminder.ReminderDate,
-                Notes = reminder.Notes,
-                IsCurrent = reminder.IsCurrent
+                Title = DisplayReminder.Title,
+                ReminderDate = DisplayReminder.ReminderDate,
+                Notes = DisplayReminder.Notes,
+                IsCurrent = DisplayReminder.IsCurrent
             };
 
             await ReminderDb.UpdateReminder(r);

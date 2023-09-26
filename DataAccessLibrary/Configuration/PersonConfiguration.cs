@@ -37,10 +37,6 @@ namespace DataAccessLibrary.Configuration
                 .HasForeignKey<PersonModel>(e => e.AddressId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
-
-
-            // testing
-            builder.Property(e => e.FirstName).HasAnnotation("Regex", new Regex("^[0-9]{5}$"));
         }
     }
 }

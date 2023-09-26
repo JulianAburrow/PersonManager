@@ -1,6 +1,8 @@
 ﻿@page "/data/person/edit/{PersonId:int}"
 
-<PageTitle>Edit @person.FirstName @person.LastName</PageTitle>
+@inherits PersonBasePageClass
+
+<PageTitle>Edit @DisplayPerson.FirstName @DisplayPerson.LastName</PageTitle>
 
 @using PersonManagerUI.CustomControls
 
@@ -11,7 +13,7 @@
 
 <h1>Edit @FullName</h1>
 
-<EditForm Model="@person" OnValidSubmit="@UpdatePerson">
+<EditForm Model="@DisplayPerson" OnValidSubmit="@UpdatePerson">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -19,28 +21,28 @@
         <tbody>
             <tr>
                 <td><strong>First Name</strong></td>
-                <td><InputText id="firstName" @bind-Value="person.FirstName" /></td>
+                <td><InputText id="firstName" @bind-Value="DisplayPerson.FirstName" /></td>
             </tr>
             <tr>
                 <td><strong>Last Name</strong></td>
-                <td><InputText id="lastName" @bind-Value="person.LastName" /></td>
+                <td><InputText id="lastName" @bind-Value="DisplayPerson.LastName" /></td>
             </tr>
             <tr>
                 <td><strong>Skillset</strong></td>
-                <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="person.Skillset" /></td>
+                <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="DisplayPerson.Skillset" /></td>
             </tr>
             <tr>
                 <td><strong>Email Address</strong></td>
-                <td><InputText id="emailAddress" @bind-Value="person.EmailAddress" /></td>
+                <td><InputText id="emailAddress" @bind-Value="DisplayPerson.EmailAddress" /></td>
             </tr>
             <tr>
                 <td><strong>Date of Birth</strong></td>
-                <td><InputDate @bind-Value="person.DateOfBirth" /></td>
+                <td><InputDate @bind-Value="DisplayPerson.DateOfBirth" /></td>
             </tr>
             <tr>
                 <td><strong>Country</strong></td>
                 <td>
-                    <InputSelectNumber id="country" @bind-Value="person.CountryId">
+                    <InputSelectNumber id="country" @bind-Value="DisplayPerson.CountryId">
                         @foreach (var country in Countries)
                         {
                             <option value="@country.CountryId">@country.CountryName</option>
@@ -51,7 +53,7 @@
             <tr>
                 <td><strong>Status</strong></td>
                 <td>
-                    <InputSelectNumber id="status" @bind-Value="person.StatusId">
+                    <InputSelectNumber id="status" @bind-Value="DisplayPerson.StatusId">
                         @foreach (var status in Statuses)
                         {
                             <option value="@status.StatusId">@status.StatusName</option>
@@ -62,7 +64,7 @@
             <tr>
                 <td><strong>Favourite Colour</strong></td>
                 <td>
-                    <InputSelectNumber id="favouriteColour" @bind-Value="person.FavouriteColourId">
+                    <InputSelectNumber id="favouriteColour" @bind-Value="DisplayPerson.FavouriteColourId">
                         @foreach (var colour in Colours)
                         {
                             <option value="@colour.ColourId">@colour.ColourName</option>
@@ -80,9 +82,9 @@
             <td><strong>Current Picture</strong></td>
             <td>
                 @{
-                    if (person.Picture != null)
+                    if (DisplayPerson.Picture != null)
                     {
-                        <img src=@($"data:image/jpg;base64,{Convert.ToBase64String(person.Picture)}") alt="Picture" />
+                        <img src=@($"data:image/jpg;base64,{Convert.ToBase64String(DisplayPerson.Picture)}") alt="Picture" />
                         <br />
                         <button class="btn btn-secondary" @onclick="@RemovePicture">Remove picture</button>
                     }

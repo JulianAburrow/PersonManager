@@ -1,16 +1,17 @@
 ﻿@page "/data/country/details/{CountryId:int}"
 
-@using PersonManagerUI.Components
+@inherits CountryBasePageClass
 
-@if (country == null)
+@if (Country == null)
 {
     <p>Loading...</p>
     return;
 }
 
-<PageTitle>View @country.CountryName</PageTitle>
+<PageTitle>View @Country.CountryName</PageTitle>
 
-<CountryDetails Country="country" ShowCountryName="true" />
-<a class="btn btn-primary" href="data/country/edit/@country.CountryId">Edit</a>
-<a class="btn btn-danger" href="data/country/delete/@country.CountryId">Delete</a>
+<CountryDetails Country="Country" ShowCountryName="true" />
+
+<a class="btn btn-primary" href="data/country/edit/@Country.CountryId">Edit</a>
+<a class="btn btn-danger" href="data/country/delete/@Country.CountryId">Delete</a>
 <a href="data/countries/index">Index</a>

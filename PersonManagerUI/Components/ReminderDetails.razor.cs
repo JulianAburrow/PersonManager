@@ -5,7 +5,6 @@ namespace PersonManagerUI.Components
 {
     public partial class ReminderDetails
     {
-        [Parameter]
-        public ReminderModel Reminder { get; set; }
+        [Parameter] public ReminderModel Reminder { get; set; }
     }
 }

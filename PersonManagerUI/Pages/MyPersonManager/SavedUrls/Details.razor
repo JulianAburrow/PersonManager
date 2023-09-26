@@ -1,11 +1,11 @@
 ﻿@page "/data/mypersonmanager/savedurl/details/{UrlId:int}"
 
-<PageTitle>View @savedUrl.Title</PageTitle>
+@inherits SavedUrlBasePageClass
 
-@using PersonManagerUI.Components
+<PageTitle>View @SavedUrl.Title</PageTitle>
 
-<SavedUrlDetails SavedUrl="savedUrl" />
+<SavedUrlDetails SavedUrl="SavedUrl" />
 
-<a class="btn btn-primary" href="data/mypersonmanager/savedurl/edit/@savedUrl.UrlId">Edit</a>
-<a class="btn btn-danger" href="data/mypersonmanager/savedurl/delete/@savedUrl.UrlId">Delete</a>
+<a class="btn btn-primary" href="data/mypersonmanager/savedurl/edit/@SavedUrl.UrlId">Edit</a>
+<a class="btn btn-danger" href="data/mypersonmanager/savedurl/delete/@SavedUrl.UrlId">Delete</a>
 <a href="data/mypersonmanager/savedurls/index">Index</a>

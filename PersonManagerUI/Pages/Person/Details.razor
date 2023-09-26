@@ -1,11 +1,13 @@
 ﻿@page "/data/person/details/{PersonId:int}"
 
-<PageTitle>View @person.FirstName @person.LastName</PageTitle>
+@inherits PersonBasePageClass
+
+<PageTitle>View @Person.FirstName @Person.LastName</PageTitle>
 
 @using PersonManagerUI.Components
 
-<PersonDetails Person="person" ShowPersonName="true" />
+<PersonDetails Person="Person" ShowPersonName="true" />
 
-<a class="btn btn-primary" href="data/person/edit/@person.PersonId">Edit</a> 
-<a class="btn btn-danger" href="data/person/delete/@person.PersonId">Delete</a>
+<a class="btn btn-primary" href="data/person/edit/@Person.PersonId">Edit</a> 
+<a class="btn btn-danger" href="data/person/delete/@Person.PersonId">Delete</a>
 <a href="data/people/index">Index</a>

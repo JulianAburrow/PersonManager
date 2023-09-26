@@ -1,10 +1,12 @@
 ﻿@page "/data/country/edit/{CountryId:int}"
 
-<PageTitle>Edit @country.CountryName</PageTitle>
+@inherits CountryBasePageClass
+
+<PageTitle>Edit @DisplayCountry.CountryName</PageTitle>
 
 <h1>Edit @CountryDisplayName</h1>
 
-<EditForm Model="@country" OnValidSubmit="@UpdateCountry">
+<EditForm Model="@DisplayCountry" OnValidSubmit="@UpdateCountry">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -12,7 +14,7 @@
         <tbody>
             <tr>
                 <td><strong>Country Name</strong></td>
-                <td><InputText id="firstName" @bind-Value="country.CountryName" /></td>
+                <td><InputText id="firstName" @bind-Value="DisplayCountry.CountryName" /></td>
             </tr>
         </tbody>
     </table>

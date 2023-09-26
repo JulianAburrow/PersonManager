@@ -1,5 +1,7 @@
 ﻿@page "/data/mypersonmanager/savedurls/index"
 
+@inherits SavedUrlBasePageClass
+
 <PageTitle>Saved Urls</PageTitle>
 
 <h1>Saved Urls</h1>
@@ -10,7 +12,7 @@
 
 <h4>Current Saved Urls</h4>
 
-@if (savedUrls == null)
+@if (SavedUrls == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -26,29 +28,29 @@ else
             </tr>
         </thead>
         <tbody>
-        @foreach (var savedUrl in savedUrls)
+        @foreach (var SavedUrl in SavedUrls)
         {
             <tr>
-                <td>@savedUrl.Title</td>
+                    <td>@SavedUrl.Title</td>
                 <td>
                     @{
-                        if (savedUrl.IsExternal)
+                            if (SavedUrl.IsExternal)
                         {
-                            <a href="@savedUrl.Url" target="_blank">@savedUrl.Url</a>
+                                <a href="@SavedUrl.Url" target="_blank">@SavedUrl.Url</a>
                         }
                         else
                         {
-                            <a href="@savedUrl.Url">@savedUrl.Url</a>
+                                <a href="@SavedUrl.Url">@SavedUrl.Url</a>
                         }
                     }
                 </td>
                 <td>
-                    @(savedUrl.IsExternal ? "Yes" : "No")
+                        @(SavedUrl.IsExternal ? "Yes" : "No")
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="/data/mypersonmanager/savedurl/details/@savedUrl.UrlId">Details</a>
-                    <a class="btn btn-primary" href="/data/mypersonmanager/savedurl/edit/@savedUrl.UrlId">Edit</a>
-                    <a class="btn btn-danger" href="/data/mypersonmanager/savedurl/delete/@savedUrl.UrlId">Delete</a>
+                        <a class="btn btn-primary" href="/data/mypersonmanager/savedurl/details/@SavedUrl.UrlId">Details</a>
+                        <a class="btn btn-primary" href="/data/mypersonmanager/savedurl/edit/@SavedUrl.UrlId">Edit</a>
+                        <a class="btn btn-danger" href="/data/mypersonmanager/savedurl/delete/@SavedUrl.UrlId">Delete</a>
                 </td>
             </tr>
         }
