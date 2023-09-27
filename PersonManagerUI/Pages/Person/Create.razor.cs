@@ -14,19 +14,19 @@ namespace PersonManagerUI.Pages.Person
             DisplayPerson.StatusId = -1;
             DisplayPerson.FavouriteColourId = -1;
 
-            const string pleaseSelect = "Please select";
+            const string PleaseSelect = "Please select";
 
             Countries = await CountryDb.GetCountries();
             Countries.Insert(0, new CountryModel
             {
                 CountryId = -1,
-                CountryName = pleaseSelect
+                CountryName = PleaseSelect
             });
             Statuses = await StatusDb.GetStatuses();
             Statuses.Insert(0, new StatusModel
             {
                 StatusId = -1,
-                StatusName = pleaseSelect
+                StatusName = PleaseSelect
             });
             Colours = await ColourDb.GetColours();
             Colours.Insert(0, new ColourModel
