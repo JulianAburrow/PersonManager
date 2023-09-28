@@ -1,98 +1,89 @@
-using System.Transactions;
+﻿using DataAccessLibrary.Interfaces;
 using DataAccessLibrary.Models;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace PersonManagerTests
 {
-    [TestClass]
     public class CountryUnitTests
     {
-        private readonly PersonManagerContext _context;
+        private readonly PersonManagerContext _personManagerContext;
+        private readonly ICountryData _countryData;
 
-        public CountryUnitTests(PersonManagerContext context)
+        public CountryUnitTests()
         {
-            _context = context;
+            var options = new DbContextOptionsBuilder<PersonManagerContext>()
+                .UseInMemoryDatabase(databaseName: "TestDb")
+                .Options;
+            _personManagerContext = new PersonManagerContext(options);
+            _countryData = new CountryData(_personManagerContext);
         }
 
-        [TestMethod]
-        public void GetCountryReturnsACountryWhenValidIdIsProvided()
+        readonly CountryModel country1 = new() { CountryName = "Bolivia", };
+        readonly CountryModel country2 = new() { CountryName = "Peru", };
+        readonly CountryModel country3 = new() { CountryName = "Guatemala", };
+
+        [Fact]
+        public async void AddCountryAddsCountry()
         {
-            // Arrange
-            var firstCountry = _context.Countries.FirstOrDefault();
-            if (firstCountry == null)
-            {
-                return;
-            }
-            var cd = new CountryData(_context);
+            var initialCount = _personManagerContext.Countries.Count();
 
-            // Act
-            var country = cd.GetCountry(firstCountry.CountryId);
+            await _countryData.InsertCountry(country1);
+            await _countryData.InsertCountry(country2);
+            await _countryData.InsertCountry(country3);
+            _personManagerContext.SaveChanges();
 
-            // Assert
-            Assert.IsTrue(country != null);
+            _personManagerContext.Countries.Count().Should().Be(initialCount + 3);
         }
 
-        [TestMethod]
-        public async Task GetCountryDoesNotReturnACountryWhenInvalidIdIsProvided()
+        [Fact]
+        public async void GetCountriesGetsCountries()
         {
-            // Arrange
-            var cd = new CountryData(_context);
+            var initialCount = _personManagerContext.Countries.Count();
 
-            // Act
-            var country = await cd.GetCountry(1000000);
+            await _countryData.InsertCountry(country1);
+            await _countryData.InsertCountry(country2);
+            await _countryData.InsertCountry(country3);
+            _personManagerContext.SaveChanges();
 
-            // Assert
-            Assert.IsTrue(country == null);
+            var currentCountries = await _countryData.GetCountries();
+            currentCountries.Count().Should().Be(initialCount + 3);
         }
 
-        [TestMethod]
-        public async Task GetCountriesReturnsAllCountries()
+        [Fact]
+        public async void DeleteCountryDeletesCountry()
         {
-            // Arrange
-            var cd = new CountryData(_context);
-            var countryCount = _context.Countries.Count();
+            var initialCount = _personManagerContext.Countries.Count();
 
-            // Act
-            var allCountries = await cd.GetCountries();
+            await _countryData.InsertCountry(country1);
+            _personManagerContext.SaveChanges();
+            await _countryData.DeleteCountry(country1.CountryId);
+            _personManagerContext.SaveChanges();
 
-            // Assert
-            Assert.IsTrue(countryCount == allCountries.Count);
+            _personManagerContext.Countries.Count().Should().Be(initialCount);
         }
 
-        [TestMethod]
-        public async Task AddCountryAddsCountry()
+        [Fact]
+        public async void GetCountryByIdGetsCountryById()
         {
-            // Arrange
-            var cd = new CountryData(_context);
-            var countryCount = _context.Countries.Count();
-            var newCountry = new CountryModel
-            {
-                CountryName = "TestCountry"
-            };
-
-            using var trans = new TransactionScope();
-
-            // Act
-            await cd.InsertCountry(newCountry);
-            var newCountryCount = _context.Countries.Count();
-
-            // Assert
-            Assert.IsTrue(newCountryCount == countryCount + 1);
-
-            trans.Dispose();
+            await _countryData.InsertCountry(country1);
+            _personManagerContext.SaveChanges();
+            var country = await _countryData.GetCountry(country1.CountryId);
+            country.Should().Be(country1);
         }
 
-        // Needs refining to account for no countries returned
-        //[TestMethod]
-        //public async Task DeleteCountryDeletesCountry()
-        //{
-        //    // Arrange
-        //    var cd = new CountryData(_context);
-        //    var countryCount = _context.Countries.Count();
-        //    var firstCountry = _context.Countries.First();
+        [Fact]
+        public async void UpdateCountryUpdatesCountry()
+        {
+            var newCountryName = "Brazil";
+            await _countryData.InsertCountry(country1);
+            var country = await _countryData.GetCountry(country1.CountryId);
+            country.CountryName = newCountryName;
+            await _countryData.UpdateCountry(country);
+            country = await _countryData.GetCountry(country1.CountryId);
 
-        //    using var trans = new TransactionScope();
-
-        //    // Act
-        //}
+            country.CountryName.Should().Be(newCountryName);
+        }
     }
 }
