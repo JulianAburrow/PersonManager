@@ -1,0 +1,22 @@
+﻿@page "/data/addresstype/edit/{AddressTypeId:int}"
+@inherits PersonManagerUI.Shared.BasePageClasses.AddressTypeBasePageClass
+
+<PageTitle>Edit @DisplayAddressType.AddressTypeName</PageTitle>
+
+<h3>Edit @AddressTypeDisplayName</h3>
+
+<EditForm Model="@DisplayAddressType" OnValidSubmit="@UpdateAddressType">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Address Type Name</strong></td>
+                <td><InputText id="colourName" @bind-Value="DisplayAddressType.AddressTypeName" /></td>
+            </tr>
+        </tbody>
+    </table>
+</EditForm>
+
+<button class="btn btn-primary" @onclick="UpdateAddressType">Update</button> | <a href="/data/addresstypes/index">Cancel</a>

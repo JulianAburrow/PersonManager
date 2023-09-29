@@ -1,0 +1,52 @@
+﻿@page "/data/address/create/{PersonId:int}"
+@using PersonManagerUI.Shared.CustomControls
+@inherits PersonManagerUI.Shared.BasePageClasses.AddressBasePageClass
+
+<PageTitle>Create Address</PageTitle>
+
+@if (AddressTypes == null)
+{
+    return;
+}
+
+<h1>Create Address</h1>
+
+<EditForm Model="@DisplayAddress" OnValidSubmit="@InsertAddress">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>Address Line 1</strong></td>
+                <td><InputText id="addressLine1" @bind-Value="DisplayAddress.AddressLine1" /></td>
+            </tr>
+            <tr>
+                <td><strong>Address Line 2</strong></td>
+                <td><InputText id="addressLine2" @bind-Value="DisplayAddress.AddressLine2" /></td>
+            </tr>
+            <tr>
+                <td><strong>Town</strong></td>
+                <td><InputText id="town" @bind-Value="DisplayAddress.Town" /></td>
+            </tr>
+            <tr>
+                <td><strong>Postcode</strong></td>
+                <td><InputText id="postcode" @bind-Value="DisplayAddress.Postcode" /></td>
+            </tr>
+            <tr>
+                <td><strong>Address Type</strong></td>
+                <td>
+                    <InputSelectNumber id="addressType" @bind-Value="DisplayAddress.AddressTypeId">
+                        @foreach (var addressType in AddressTypes)
+                        {
+                            <option value="@addressType.AddressTypeId">@addressType.AddressTypeName</option>
+                        }
+                    </InputSelectNumber>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Submit</button> <a href="/data/person/details/@PersonId">Cancel</a>
+
+</EditForm>

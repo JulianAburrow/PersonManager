@@ -1,0 +1,43 @@
+﻿@page "/data/addresses/index/{PersonId:int}"
+@inherits PersonManagerUI.Shared.BasePageClasses.AddressBasePageClass
+
+<PageTitle>Addresses</PageTitle>
+
+<h3>Addresses for @personModel.FirstName @personModel.LastName</h3>
+
+@if (Addresses.Count == 0)
+{
+    <strong>No addresses found</strong>
+    <br /><br />
+    <a href="/data/address/create/@PersonId" class="btn btn-primary">Add New Address</a>
+}
+else
+{
+    <table class="table-striped">
+        <thead>
+        <tr>
+            <th>Address Line 1</th>
+            <th>Address Line 2</th>
+            <th>Town</th>
+            <th>Postcode</th>
+            <th>Address Type</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var address in Addresses)
+            {
+                <tr>
+                    <td>@address.AddressLine1</td>
+                    <td>@address.AddressLine2</td>
+                    <td>@address.Town</td>
+                    <td>@address.Postcode</td>
+                    <td>@address.AddressType.AddressTypeName</td>
+                    <td>
+                        <a class="btn btn-primary" href="/data/address/edit/@address.AddressId">Edit</a> <a href="/data/person/details/@PersonId">Cancel</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -36,7 +36,7 @@ namespace PersonManagerUI
             services.AddTransient<IAddressHandler, AddressHandler>();
             services.AddTransient<IAddressTypeHandler, AddressTypeHandler>();
             services.AddTransient<ISavedUrlHandler, SavedUrlHandler>();
-            services.AddTransient<IReminderData, ReminderHandler>();
+            services.AddTransient<IReminderHandler, ReminderHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,42 @@
+﻿@page "/data/addresstypes/index"
+@inherits PersonManagerUI.Shared.BasePageClasses.AddressTypeBasePageClass
+
+<PageTitle>Address Types</PageTitle>
+
+<h1>Address Types</h1>
+
+<a href="/data/addresstype/create" class="btn btn-primary">Add New Address Type</a>
+
+<br /><br />
+
+<h4>Current Address Types</h4>
+
+@if (AddressTypes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Address Type Name</th>
+            <th>Usage</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var addressType in AddressTypes)
+        {
+            <tr>
+                <td>@addressType.AddressTypeName</td>
+                <td>@addressType.Addresses.Count</td>
+                <td>
+                    <a class="btn btn-primary" href="/data/addresstype/edit/@addressType.AddressTypeId">Edit</a>
+                    <a class="btn btn-danger" href="/data/addresstype/delete/@addressType.AddressTypeId">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

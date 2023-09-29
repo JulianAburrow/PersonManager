@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLibrary.Handlers;
 
-public class ReminderHandler : IReminderData
+public class ReminderHandler : IReminderHandler
 {
 
     private readonly PersonManagerContext _context;

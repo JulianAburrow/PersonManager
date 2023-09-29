@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLibrary.Interfaces;
 
-public interface IReminderData
+public interface IReminderHandler
 {
     Task<ReminderModel> GetReminder(int reminderId);
 

@@ -1,0 +1,106 @@
+﻿@page "/data/person/edit/{PersonId:int}"
+
+@inherits PersonBasePageClass
+
+<PageTitle>Edit @DisplayPerson.FirstName @DisplayPerson.LastName</PageTitle>
+
+@    using PersonManagerUI.CustomControls
+
+@if (Countries == null || Colours == null || Statuses == null)
+{
+    return;
+}
+
+<h1>Edit @FullName</h1>
+
+<EditForm Model="@DisplayPerson" OnValidSubmit="@UpdatePerson">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td><strong>First Name</strong></td>
+                <td><InputText id="firstName" @bind-Value="DisplayPerson.FirstName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Last Name</strong></td>
+                <td><InputText id="lastName" @bind-Value="DisplayPerson.LastName" /></td>
+            </tr>
+            <tr>
+                <td><strong>Skillset</strong></td>
+                <td><InputTextArea id="skillset" style="width: 200px; height: 150px" @bind-Value="DisplayPerson.Skillset" /></td>
+            </tr>
+            <tr>
+                <td><strong>Email Address</strong></td>
+                <td><InputText id="emailAddress" @bind-Value="DisplayPerson.EmailAddress" /></td>
+            </tr>
+            <tr>
+                <td><strong>Date of Birth</strong></td>
+                <td><InputDate @bind-Value="DisplayPerson.DateOfBirth" /></td>
+            </tr>
+            <tr>
+                <td><strong>Country</strong></td>
+                <td>
+                    <InputSelectNumber id="country" @bind-Value="DisplayPerson.CountryId">
+                        @foreach (var country in Countries)
+                        {
+                            <option value="@country.CountryId">@country.CountryName</option>
+                        }
+                    </InputSelectNumber>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                <td>
+                    <InputSelectNumber id="status" @bind-Value="DisplayPerson.StatusId">
+                        @foreach (var status in Statuses)
+                        {
+                            <option value="@status.StatusId">@status.StatusName</option>
+                        }
+                    </InputSelectNumber>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Favourite Colour</strong></td>
+                <td>
+                    <InputSelectNumber id="favouriteColour" @bind-Value="DisplayPerson.FavouriteColourId">
+                        @foreach (var colour in Colours)
+                        {
+                            <option value="@colour.ColourId">@colour.ColourName</option>
+                        }
+                    </InputSelectNumber>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Picture</strong></td>
+                <td>
+                    <InputFile id="picture" OnChange="@LoadFile"/>
+                </td>
+            </tr>
+        <tr>
+            <td><strong>Current Picture</strong></td>
+            <td>
+                @{
+                    if (DisplayPerson.Picture != null)
+                    {
+                        <img src=@($"data:image/jpg;base64,{Convert.ToBase64String(DisplayPerson.Picture)}") alt="Picture" />
+                        <br />
+                        <button class="btn btn-secondary" @onclick="@RemovePicture">Remove picture</button>
+                    }
+                    else
+                    {
+                        @("No picture uploaded")
+                    }
+                }
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary" @onclick="UpdatePerson">Update</button> | <a href="/data/people/index">Cancel</a>
+
+</EditForm>
+
+@code {
+}
