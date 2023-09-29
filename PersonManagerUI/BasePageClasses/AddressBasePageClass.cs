@@ -8,9 +8,9 @@ namespace PersonManagerUI.BasePageClasses
 {
     public class AddressBasePageClass : BasePageClass
     {
-        [Inject] protected IAddressData AddressDb { get; set; }
+        [Inject] protected IAddressHandler AddressDb { get; set; }
 
-        [Inject] protected IAddressTypeData AddressTypeDb { get; set; }
+        [Inject] protected IAddressTypeHandler AddressTypeDb { get; set; }
 
         protected List<AddressTypeModel> AddressTypes { get; set; }
 

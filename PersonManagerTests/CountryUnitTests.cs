@@ -1,11 +1,12 @@
 ﻿using DataAccessLibrary.Data;
+using DataAccessLibrary.Handlers;
 
 namespace PersonManagerTests
 {
     public class CountryUnitTests
     {
         private readonly PersonManagerContext _personManagerContext;
-        private readonly ICountryData _countryData;
+        private readonly ICountryHandler _countryData;
 
         public CountryUnitTests()
         {
@@ -13,7 +14,7 @@ namespace PersonManagerTests
                 .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
             _personManagerContext = new PersonManagerContext(options);
-            _countryData = new CountryData(_personManagerContext);
+            _countryData = new CountryHandler(_personManagerContext);
         }
 
         private readonly CountryModel country1 = new() { CountryName = "Bolivia", };

@@ -8,7 +8,7 @@ namespace PersonManagerUI.Pages.Address
 {
     public partial class Index
     {
-        [Inject] private IPersonData PersonDb { get; set; }
+        [Inject] private IPersonHandler PersonDb { get; set; }
 
         private PersonModel person = new();
 

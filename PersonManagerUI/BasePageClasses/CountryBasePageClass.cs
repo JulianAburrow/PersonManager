@@ -7,7 +7,7 @@ namespace PersonManagerUI.BasePageClasses
 {
     public class CountryBasePageClass : BasePageClass
     {
-        [Inject] protected ICountryData CountryDb { get; set; }
+        [Inject] protected ICountryHandler CountryDb { get; set; }
 
         protected DisplayCountryModel DisplayCountry = new();
 

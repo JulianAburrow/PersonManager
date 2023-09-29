@@ -9,7 +9,7 @@ namespace PersonManagerUI.Shared
     {
         [Inject] NavigationManager NavigationManager { get; set; }
 
-        [Inject] ISavedUrlData SavedUrlDb { get; set; }
+        [Inject] ISavedUrlHandler SavedUrlDb { get; set; }
 
         private async Task SaveUrl()
         {

@@ -1,5 +1,5 @@
-using DataAccessLibrary;
 using DataAccessLibrary.Data;
+using DataAccessLibrary.Handlers;
 using DataAccessLibrary.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,14 +29,14 @@ namespace PersonManagerUI
                 options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("PersonManager")));
-            services.AddTransient<IPersonData, PersonData>();
-            services.AddTransient<ICountryData, CountryData>();
-            services.AddTransient<IStatusData, StatusData>();
-            services.AddTransient<IColourData, ColourData>();
-            services.AddTransient<IAddressData, AddressData>();
-            services.AddTransient<IAddressTypeData, AddressTypeData>();
-            services.AddTransient<ISavedUrlData, SavedUrlData>();
-            services.AddTransient<IReminderData, ReminderData>();
+            services.AddTransient<IPersonHandler, PersonHandler>();
+            services.AddTransient<ICountryHandler, CountryHandler>();
+            services.AddTransient<IStatusHandler, StatusHandler>();
+            services.AddTransient<IColourHandler, ColourHandler>();
+            services.AddTransient<IAddressHandler, AddressHandler>();
+            services.AddTransient<IAddressTypeHandler, AddressTypeHandler>();
+            services.AddTransient<ISavedUrlHandler, SavedUrlHandler>();
+            services.AddTransient<IReminderData, ReminderHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

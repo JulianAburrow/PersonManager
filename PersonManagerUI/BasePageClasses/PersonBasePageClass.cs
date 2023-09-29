@@ -8,15 +8,15 @@ namespace PersonManagerUI.BasePageClasses
 {
     public class PersonBasePageClass : BasePageClass
     {
-        [Inject] protected ICountryData CountryDb { get; set; }
+        [Inject] protected ICountryHandler CountryDb { get; set; }
 
-        [Inject] protected IPersonData PersonDb { get; set; }
+        [Inject] protected IPersonHandler PersonDb { get; set; }
 
-        [Inject] protected IStatusData StatusDb { get; set; }
+        [Inject] protected IStatusHandler StatusDb { get; set; }
 
-        [Inject] protected IColourData ColourDb { get; set; }
+        [Inject] protected IColourHandler ColourDb { get; set; }
 
-        [Inject] protected IAddressData AddressDb { get; set; }
+        [Inject] protected IAddressHandler AddressDb { get; set; }
 
         protected DisplayPersonModel DisplayPerson = new();
 

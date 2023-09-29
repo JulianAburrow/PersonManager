@@ -7,7 +7,7 @@ namespace PersonManagerUI.BasePageClasses
 {
     public class ColourBasePageClass : BasePageClass
     {
-        [Inject] protected IColourData ColourDb { get; set; }
+        [Inject] protected IColourHandler ColourDb { get; set; }
 
         protected DisplayColourModel DisplayColour = new();
 

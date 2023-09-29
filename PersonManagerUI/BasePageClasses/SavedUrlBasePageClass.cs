@@ -7,7 +7,7 @@ namespace PersonManagerUI.BasePageClasses
 {
     public class SavedUrlBasePageClass : BasePageClass
     {
-        [Inject] protected ISavedUrlData SavedUrlDb { get; set; }
+        [Inject] protected ISavedUrlHandler SavedUrlDb { get; set; }
 
         protected DisplaySavedUrlModel DisplaySavedUrl = new();
         

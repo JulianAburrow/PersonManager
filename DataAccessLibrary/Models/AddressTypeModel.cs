@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
+﻿namespace DataAccessLibrary.Models;
 
-namespace DataAccessLibrary.Models
+public class AddressTypeModel
 {
-    public class AddressTypeModel
-    {
-        public int AddressTypeId { get; set;}
+    public int AddressTypeId { get; set;}
 
-        public string AddressTypeName { get; set; }
+    public string AddressTypeName { get; set; }
 
-        public ICollection<AddressModel> Addresses { get; set; }
-    }
+    public ICollection<AddressModel> Addresses { get; set; }
 }

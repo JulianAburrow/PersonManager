@@ -6,7 +6,7 @@ namespace PersonManagerUI.BasePageClasses
 {
     public class AddressTypeBasePageClass : BasePageClass
     { 
-        [Inject] protected IAddressTypeData AddressTypeDb { get; set; }
+        [Inject] protected IAddressTypeHandler AddressTypeDb { get; set; }
 
         protected DisplayAddressTypeModel DisplayAddressType = new();
 
