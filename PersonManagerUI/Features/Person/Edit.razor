@@ -1,10 +1,8 @@
 ﻿@page "/data/person/edit/{PersonId:int}"
-
 @inherits PersonBasePageClass
+@using PersonManagerUI.Shared.CustomControls
 
 <PageTitle>Edit @DisplayPerson.FirstName @DisplayPerson.LastName</PageTitle>
-
-@    using PersonManagerUI.CustomControls
 
 @if (Countries == null || Colours == null || Statuses == null)
 {

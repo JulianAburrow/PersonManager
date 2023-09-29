@@ -1,76 +1,69 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using System.IO;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Person;
 
-namespace PersonManagerUI.Pages.Person
+public partial class Edit
 {
-    public partial class Edit
+    private string FullName { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        private string FullName { get; set; }
+        var personModel = PersonDb.GetPerson(PersonId);
 
-        protected override async Task OnInitializedAsync()
+        DisplayPerson.FirstName = personModel.FirstName;
+        DisplayPerson.LastName = personModel.LastName;
+        DisplayPerson.EmailAddress = personModel.EmailAddress;
+        DisplayPerson.DateOfBirth = personModel.DateOfBirth;
+        DisplayPerson.CountryId = personModel.CountryId;
+        DisplayPerson.StatusId = personModel.StatusId;
+        DisplayPerson.FavouriteColourId = personModel.FavouriteColourId ?? -1;
+        DisplayPerson.Skillset = personModel.Skillset;
+        DisplayPerson.Picture = personModel.Picture;
+        DisplayPerson.HasPicture = personModel.HasPicture;
+
+        FullName = $"{personModel.FirstName} {personModel.LastName}";
+
+        Countries = await CountryDb.GetCountries();
+        Statuses = await StatusDb.GetStatuses();
+        Colours = await ColourDb.GetColours();
+        Colours.Insert(0, new ColourModel
         {
-            var p = PersonDb.GetPerson(PersonId);
+            ColourId = -1,
+            ColourName = "None"
+        });
+    }
 
-            DisplayPerson.FirstName = p.FirstName;
-            DisplayPerson.LastName = p.LastName;
-            DisplayPerson.EmailAddress = p.EmailAddress;
-            DisplayPerson.DateOfBirth = p.DateOfBirth;
-            DisplayPerson.CountryId = p.CountryId;
-            DisplayPerson.StatusId = p.StatusId;
-            DisplayPerson.FavouriteColourId = p.FavouriteColourId ?? -1;
-            DisplayPerson.Skillset = p.Skillset;
-            DisplayPerson.Picture = p.Picture;
-            DisplayPerson.HasPicture = p.HasPicture;
-
-            FullName = $"{p.FirstName} {p.LastName}";
-
-            Countries = await CountryDb.GetCountries();
-            Statuses = await StatusDb.GetStatuses();
-            Colours = await ColourDb.GetColours();
-            Colours.Insert(0, new ColourModel
-            {
-                ColourId = -1,
-                ColourName = "None"
-            });
-        }
-
-        private void UpdatePerson()
+    private void UpdatePerson()
+    {
+        var personModel = new PersonModel
         {
-            var p = new PersonModel
-            {
-                PersonId = PersonId,
-                FirstName = DisplayPerson.FirstName,
-                LastName = DisplayPerson.LastName,
-                EmailAddress = DisplayPerson.EmailAddress,
-                DateOfBirth = DisplayPerson.DateOfBirth,
-                CountryId = DisplayPerson.CountryId,
-                StatusId = DisplayPerson.StatusId,
-                FavouriteColourId = DisplayPerson.FavouriteColourId != -1
-                    ? DisplayPerson.FavouriteColourId
-                        : null,
-                Skillset = DisplayPerson.Skillset,
-                Picture = DisplayPerson.HasPicture ? DisplayPerson.Picture : null
-            };
+            PersonId = PersonId,
+            FirstName = DisplayPerson.FirstName,
+            LastName = DisplayPerson.LastName,
+            EmailAddress = DisplayPerson.EmailAddress,
+            DateOfBirth = DisplayPerson.DateOfBirth,
+            CountryId = DisplayPerson.CountryId,
+            StatusId = DisplayPerson.StatusId,
+            FavouriteColourId = DisplayPerson.FavouriteColourId != -1
+                ? DisplayPerson.FavouriteColourId
+                    : null,
+            Skillset = DisplayPerson.Skillset,
+            Picture = DisplayPerson.HasPicture ? DisplayPerson.Picture : null
+        };
 
-            PersonDb.UpdatePerson(p);
+        PersonDb.UpdatePerson(personModel);
 
-            NavigationManager.NavigateTo($"/data/person/details/{PersonId}");
-        }
+        NavigationManager.NavigateTo($"/data/person/details/{PersonId}");
+    }
 
-        private async void LoadFile(InputFileChangeEventArgs e)
-        {
-            await using var ms = new MemoryStream();
-            await e.File.OpenReadStream().CopyToAsync(ms);
-            DisplayPerson.Picture = ms.ToArray();
-            DisplayPerson.HasPicture = true;
-        }
+    private async void LoadFile(InputFileChangeEventArgs e)
+    {
+        await using var ms = new MemoryStream();
+        await e.File.OpenReadStream().CopyToAsync(ms);
+        DisplayPerson.Picture = ms.ToArray();
+        DisplayPerson.HasPicture = true;
+    }
 
-        private void RemovePicture()
-        {
-            DisplayPerson.HasPicture = false;
-        }
+    private void RemovePicture()
+    {
+        DisplayPerson.HasPicture = false;
     }
 }

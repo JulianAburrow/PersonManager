@@ -1,35 +1,30 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.SavedUrls;
 
-namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
+public partial class Edit
 {
-    public partial class Edit
+    protected override async Task OnInitializedAsync()
     {
-        protected override async Task OnInitializedAsync()
+        var savedUrl = await SavedUrlDb.GetSavedUrl(UrlId);
+
+        DisplaySavedUrl.Title = savedUrl.Title;
+        DisplaySavedUrl.Url = savedUrl.Url;
+        DisplaySavedUrl.Notes = savedUrl.Notes;
+        DisplaySavedUrl.IsExternal = savedUrl.IsExternal;
+    }
+
+    private async Task UpdateSavedUrl()
+    {
+        var savedUrlModel = new SavedUrlModel
         {
-            var s = await SavedUrlDb.GetSavedUrl(UrlId);
+            UrlId = UrlId,
+            Title = DisplaySavedUrl.Title,
+            Url = DisplaySavedUrl.Url,
+            Notes = DisplaySavedUrl.Notes,
+            IsExternal = DisplaySavedUrl.IsExternal
+        };
 
-            DisplaySavedUrl.Title = s.Title;
-            DisplaySavedUrl.Url = s.Url;
-            DisplaySavedUrl.Notes = s.Notes;
-            DisplaySavedUrl.IsExternal = s.IsExternal;
-        }
+        await SavedUrlDb.UpdateSavedUrl(savedUrlModel);
 
-        private async Task UpdateSavedUrl()
-        {
-            var s = new SavedUrlModel
-            {
-                UrlId = UrlId,
-                Title = DisplaySavedUrl.Title,
-                Url = DisplaySavedUrl.Url,
-                Notes = DisplaySavedUrl.Notes,
-                IsExternal = DisplaySavedUrl.IsExternal
-            };
-
-            await SavedUrlDb.UpdateSavedUrl(s);
-
-            NavigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
-        }
+        NavigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
     }
 }

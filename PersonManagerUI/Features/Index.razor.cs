@@ -1,20 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using DataAccessLibrary.Models;
-using DataAccessLibrary.Interfaces;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features;
 
-namespace PersonManagerUI.Pages
+public partial class Index : ComponentBase
 {
-    public partial class Index : ComponentBase
-    {
-        [Inject] IReminderHandler _reminderDb { get; set; }
+    [Inject] IReminderHandler _reminderDb { get; set; }
 
-        private List<ReminderModel> reminders;
+    private List<ReminderModel> reminders;
 
-        protected override async Task OnInitializedAsync()
-        {
-            reminders = await _reminderDb.GetCurrentReminders();
-        }
-    }
+    protected override async Task OnInitializedAsync() =>
+        reminders = await _reminderDb.GetCurrentReminders();
 }

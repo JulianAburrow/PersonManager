@@ -1,12 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.SavedUrls;
 
-namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
+public partial class Details
 {
-    public partial class Details
-    {
-        protected override async Task OnInitializedAsync()
-        {
-            SavedUrl = await SavedUrlDb.GetSavedUrl(UrlId);
-        }
-    }
+    protected override async Task OnInitializedAsync() =>
+        SavedUrl = await SavedUrlDb.GetSavedUrl(UrlId);
 }

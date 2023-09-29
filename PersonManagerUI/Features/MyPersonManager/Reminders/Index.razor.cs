@@ -1,18 +1,9 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.Reminders;
 
-namespace PersonManagerUI.Pages.MyPersonManager.Reminders
+public partial class Index
 {
-    public partial class Index
-    {
-        private List<ReminderModel> Reminders;
+    private List<ReminderModel> Reminders;
 
-        protected override async Task OnInitializedAsync()
-        {
-            Reminders = await ReminderDb.GetAllReminders();
-        }
-    }
+    protected override async Task OnInitializedAsync() =>
+        Reminders = await ReminderDb.GetAllReminders();
 }

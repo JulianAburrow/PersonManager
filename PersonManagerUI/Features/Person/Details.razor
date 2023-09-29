@@ -1,10 +1,9 @@
 ﻿@page "/data/person/details/{PersonId:int}"
-
 @inherits PersonBasePageClass
 
 <PageTitle>View @Person.FirstName @Person.LastName</PageTitle>
 
-@    using PersonManagerUI.Components
+@using PersonManagerUI.Shared.Components
 
 <PersonDetails Person="Person" ShowPersonName="true" />
 

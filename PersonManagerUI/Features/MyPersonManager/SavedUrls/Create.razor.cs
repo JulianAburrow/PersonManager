@@ -1,23 +1,18 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.SavedUrls;
 
-namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
+public partial class Create
 {
-    public partial class Create
+    private async Task InsertSavedUrl()
     {
-        private async Task InsertSavedUrl()
+        var savedUrl = new SavedUrlModel
         {
-            var s = new SavedUrlModel
-            {
-                Title = DisplaySavedUrl.Title,
-                Url = DisplaySavedUrl.Url,
-                Notes = DisplaySavedUrl.Notes
-            };
+            Title = DisplaySavedUrl.Title,
+            Url = DisplaySavedUrl.Url,
+            Notes = DisplaySavedUrl.Notes
+        };
 
-            await SavedUrlDb.InsertSavedUrl(s);
+        await SavedUrlDb.InsertSavedUrl(savedUrl);
 
-            NavigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
-        }
+        NavigationManager.NavigateTo("data/mypersonmanager/savedurls/index");
     }
 }

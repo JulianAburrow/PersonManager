@@ -1,16 +1,9 @@
-﻿using DataAccessLibrary.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.SavedUrls;
 
-namespace PersonManagerUI.Pages.MyPersonManager.SavedUrls
+public partial class Index
 {
-    public partial class Index
-    {
-        private List<SavedUrlModel> SavedUrls;
+    private List<SavedUrlModel> SavedUrls;
 
-        protected override async Task OnInitializedAsync()
-        {
-            SavedUrls = await SavedUrlDb.GetSavedUrlModels();
-        }
-    }
+    protected override async Task OnInitializedAsync() =>
+        SavedUrls = await SavedUrlDb.GetSavedUrlModels();
 }

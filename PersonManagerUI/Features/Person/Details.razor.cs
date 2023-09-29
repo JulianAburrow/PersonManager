@@ -1,10 +1,7 @@
-﻿namespace PersonManagerUI.Pages.Person
+﻿namespace PersonManagerUI.Features.Person;
+
+public partial class Details
 {
-    public partial class Details
-    {
-        protected override void OnInitialized()
-        {
-            Person = PersonDb.GetPerson(PersonId);
-        }
-    }
+    protected override void OnInitialized() =>
+        Person = PersonDb.GetPerson(PersonId);
 }

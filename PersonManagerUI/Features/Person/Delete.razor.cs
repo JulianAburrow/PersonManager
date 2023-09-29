@@ -1,20 +1,15 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace PersonManagerUI.Features.Person;
 
-namespace PersonManagerUI.Pages.Person
+public partial class Delete
 {
-    public partial class Delete
+    protected override void OnInitialized() =>
+        Person = PersonDb.GetPerson(PersonId);
+
+    protected void DeletePerson()
     {
-        protected override void OnInitialized()
-        {
-            Person = PersonDb.GetPerson(PersonId);
-        }
+        AddressDb.DeleteAddress(PersonId);
+        PersonDb.DeletePerson(PersonId);
 
-        protected void DeletePerson()
-        {
-            AddressDb.DeleteAddress(PersonId);
-            PersonDb.DeletePerson(PersonId);
-
-            NavigationManager.NavigateTo("data/people/index");
-        }
+        NavigationManager.NavigateTo("data/people/index");
     }
 }

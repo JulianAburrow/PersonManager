@@ -1,35 +1,30 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.Reminders;
 
-namespace PersonManagerUI.Pages.MyPersonManager.Reminders
+public partial class Edit
 {
-    public partial class Edit
+    protected override async Task OnInitializedAsync()
     {
-        protected override async Task OnInitializedAsync()
+        var reminderModel = await ReminderDb.GetReminder(ReminderId);
+
+        DisplayReminder.Title = reminderModel.Title;
+        DisplayReminder.ReminderDate = reminderModel.ReminderDate;
+        DisplayReminder.Notes = reminderModel.Notes;
+        DisplayReminder.IsCurrent = reminderModel.IsCurrent;
+    }
+
+    private async Task UpdateReminder()
+    {
+        var reminderModel = new ReminderModel
         {
-            var r = await ReminderDb.GetReminder(ReminderId);
+            ReminderId = ReminderId,
+            Title = DisplayReminder.Title,
+            ReminderDate = DisplayReminder.ReminderDate,
+            Notes = DisplayReminder.Notes,
+            IsCurrent = DisplayReminder.IsCurrent
+        };
 
-            DisplayReminder.Title = r.Title;
-            DisplayReminder.ReminderDate = r.ReminderDate;
-            DisplayReminder.Notes = r.Notes;
-            DisplayReminder.IsCurrent = r.IsCurrent;
-        }
+        await ReminderDb.UpdateReminder(reminderModel);
 
-        private async Task UpdateReminder()
-        {
-            var r = new ReminderModel
-            {
-                ReminderId = ReminderId,
-                Title = DisplayReminder.Title,
-                ReminderDate = DisplayReminder.ReminderDate,
-                Notes = DisplayReminder.Notes,
-                IsCurrent = DisplayReminder.IsCurrent
-            };
-
-            await ReminderDb.UpdateReminder(r);
-
-            NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
-        }
+        NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
     }
 }

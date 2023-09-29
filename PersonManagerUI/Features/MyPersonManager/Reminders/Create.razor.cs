@@ -1,31 +1,25 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.MyPersonManager.Reminders;
 
-namespace PersonManagerUI.Pages.MyPersonManager.Reminders
+public partial class Create
 {
-    public partial class Create
+    protected override void OnInitialized()
     {
-        protected override void OnInitialized()
+        DisplayReminder.ReminderDate = DateTime.Today;
+        DisplayReminder.IsCurrent = true;
+    }
+
+    private async Task InsertReminder()
+    {
+        var reminderModel = new ReminderModel
         {
-            DisplayReminder.ReminderDate = DateTime.Today;
-            DisplayReminder.IsCurrent = true;
-        }
+            Title = DisplayReminder.Title,
+            ReminderDate = DisplayReminder.ReminderDate,
+            Notes = DisplayReminder.Notes,
+            IsCurrent = DisplayReminder.IsCurrent
+        };
 
-        private async Task InsertReminder()
-        {
-            var r = new ReminderModel
-            {
-                Title = DisplayReminder.Title,
-                ReminderDate = DisplayReminder.ReminderDate,
-                Notes = DisplayReminder.Notes,
-                IsCurrent = DisplayReminder.IsCurrent
-            };
+        await ReminderDb.InsertReminder(reminderModel);
 
-            await ReminderDb.InsertReminder(r);
-
-            NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
-        }
+        NavigationManager.NavigateTo("data/mypersonmanager/reminders/index");
     }
 }

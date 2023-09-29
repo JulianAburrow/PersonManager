@@ -1,7 +1,4 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-
-namespace PersonManagerUI.Components
+﻿namespace PersonManagerUI.Shared.Components
 {
     public partial class CountryDetails
     {
