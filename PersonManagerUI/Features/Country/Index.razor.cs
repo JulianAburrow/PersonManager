@@ -1,16 +1,9 @@
-﻿using DataAccessLibrary.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Country;
 
-namespace PersonManagerUI.Pages.Country
+public partial class Index
 {
-    public partial class Index
-    {
-        private List<CountryModel> Countries;
+    private List<CountryModel> Countries;
 
-        protected override async Task OnInitializedAsync()
-        {
-            Countries = await CountryDb.GetCountries();
-        }
-    }
+    protected override async Task OnInitializedAsync() =>
+        Countries = await CountryDb.GetCountries();
 }

@@ -1,33 +1,28 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Colour;
 
-namespace PersonManagerUI.Pages.Colour
+public partial class Edit
 {
-    public partial class Edit
+    private string ColourDisplayName { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        private string ColourDisplayName { get; set; }
+        var c = await ColourDb.GetColour(ColourId);
 
-        protected override async Task OnInitializedAsync()
+        Colour.ColourName = c.ColourName;
+
+        ColourDisplayName = Colour.ColourName;
+    }
+
+    private async Task UpdateColour()
+    {
+        var colourModel = new ColourModel
         {
-            var c = await ColourDb.GetColour(ColourId);
+            ColourId = ColourId,
+            ColourName = Colour.ColourName
+        };
 
-            Colour.ColourName = c.ColourName;
+        await ColourDb.UpdateColour(colourModel);
 
-            ColourDisplayName = Colour.ColourName;
-        }
-
-        private async Task UpdateColour()
-        {
-            var c = new ColourModel
-            {
-                ColourId = ColourId,
-                ColourName = Colour.ColourName
-            };
-
-            await ColourDb.UpdateColour(c);
-
-            NavigationManager.NavigateTo($"/data/colour/details/{ColourId}");
-        }
+        NavigationManager.NavigateTo($"/data/colour/details/{ColourId}");
     }
 }

@@ -1,21 +1,13 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Colour;
 
-namespace PersonManagerUI.Pages.Colour
+public partial class Create
 {
-    public partial class Create
+    private async Task InsertColour()
     {
-        private async Task InsertColour()
-        {
-            var c = new ColourModel
-            {
-                ColourName = DisplayColour.ColourName
-            };
+        var colourModel = new ColourModel(DisplayColour.ColourName);
 
-            await ColourDb.InsertColour(c);
+        await ColourDb.InsertColour(colourModel);
 
-            NavigationManager.NavigateTo("data/colours/index");
-        }
+        NavigationManager.NavigateTo("data/colours/index");
     }
 }

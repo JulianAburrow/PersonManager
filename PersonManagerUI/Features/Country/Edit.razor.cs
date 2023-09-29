@@ -1,33 +1,28 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Country;
 
-namespace PersonManagerUI.Pages.Country
+public partial class Edit
 {
-    public partial class Edit
+    private string CountryDisplayName { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        private string CountryDisplayName { get; set; }
+        var countryModel = await CountryDb.GetCountry(CountryId);
 
-        protected override async Task OnInitializedAsync()
+        DisplayCountry.CountryName = countryModel.CountryName;
+
+        CountryDisplayName = DisplayCountry.CountryName;
+    }
+
+    private async Task UpdateCountry()
+    {
+        var countryModel = new CountryModel
         {
-            var c = await CountryDb.GetCountry(CountryId);
+            CountryId = CountryId,
+            CountryName = DisplayCountry.CountryName
+        };
 
-            DisplayCountry.CountryName = c.CountryName;
+        await CountryDb.UpdateCountry(countryModel);
 
-            CountryDisplayName = DisplayCountry.CountryName;
-        }
-
-        private async Task UpdateCountry()
-        {
-            var c = new CountryModel
-            {
-                CountryId = CountryId,
-                CountryName = DisplayCountry.CountryName
-            };
-
-            await CountryDb.UpdateCountry(c);
-
-            NavigationManager.NavigateTo($"/data/country/details/{CountryId}");
-        }
+        NavigationManager.NavigateTo($"/data/country/details/{CountryId}");
     }
 }

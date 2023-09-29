@@ -1,28 +1,23 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Country;
 
-namespace PersonManagerUI.Pages.Country
+public partial class Delete
 {
-    public partial class Delete
+    private bool OkToDelete = true;
+
+    protected override async Task OnInitializedAsync()
     {
-        private bool OkToDelete = true;
+        Country = await CountryDb.GetCountry(CountryId);
 
-        protected override async Task OnInitializedAsync()
+        if (Country.People.Count > 0)
         {
-            Country = await CountryDb.GetCountry(CountryId);
-
-            if (Country.People.Count > 0)
-            {
-                OkToDelete = false;
-            }
+            OkToDelete = false;
         }
+    }
 
-        private async Task DeleteCountry()
-        {
-            await CountryDb.DeleteCountry(CountryId);
+    private async Task DeleteCountry()
+    {
+        await CountryDb.DeleteCountry(CountryId);
 
-            NavigationManager.NavigateTo("data/countries/index");
-        }
+        NavigationManager.NavigateTo("data/countries/index");
     }
 }

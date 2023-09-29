@@ -1,7 +1,6 @@
 ﻿@page "/data/colour/details/{ColourId:int}"
-
-@    using PersonManagerUI.Components
-@inherits ColourBasePageClass
+@using PersonManagerUI.Shared.Components
+@inherits PersonManagerUI.Shared.BasePageClasses.ColourBasePageClass
 
 @if (Colour == null)
 {

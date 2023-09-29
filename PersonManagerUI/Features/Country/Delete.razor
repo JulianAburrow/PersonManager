@@ -1,9 +1,6 @@
 ﻿@page "/data/country/delete/{CountryId:int}"
-
-@inherits CountryBasePageClass
-
-@    using PersonManagerUI.Components;
-    using PersonManagerUI.Shared.BasePageClasses;
+@inherits PersonManagerUI.Shared.BasePageClasses.CountryBasePageClass
+@using PersonManagerUI.Components;
 
 @if (Country == null)
 {

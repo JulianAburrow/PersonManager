@@ -1,21 +1,13 @@
-﻿using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Country;
 
-namespace PersonManagerUI.Pages.Country
+public partial class Create
 {
-    public partial class Create
+    private async Task InsertCountry()
     {
-        private async Task InsertCountry()
-        {
-            var c = new CountryModel
-            {
-                CountryName = DisplayCountry.CountryName
-            };
+        var countryModel = new CountryModel(DisplayCountry.CountryName);
 
-            await CountryDb.InsertCountry(c);
+        await CountryDb.InsertCountry(countryModel);
 
-            NavigationManager.NavigateTo("/data/countries/index");
-        }
+        NavigationManager.NavigateTo("/data/countries/index");
     }
 }

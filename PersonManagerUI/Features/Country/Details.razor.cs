@@ -1,12 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿namespace PersonManagerUI.Features.Country;
 
-namespace PersonManagerUI.Pages.Country
+public partial class Details
 {
-    public partial class Details
-    {
-        protected override async Task OnInitializedAsync()
-        {
-            Country = await CountryDb.GetCountry(CountryId);
-        }
-    }
+    protected override async Task OnInitializedAsync() =>
+        Country = await CountryDb.GetCountry(CountryId);
 }
