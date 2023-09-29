@@ -10,10 +10,6 @@ namespace DataAccessLibrary.Configuration
         {
             builder.ToTable("Reminders");
             builder.HasKey(e => e.ReminderId);
-            builder.Property(e => e.Title)
-                .IsUnicode(false);
-            builder.Property(e => e.Notes)
-                .IsUnicode(false);
         }
     }
 }

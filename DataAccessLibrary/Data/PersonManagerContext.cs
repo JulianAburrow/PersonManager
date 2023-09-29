@@ -1,8 +1,9 @@
 ﻿using DataAccessLibrary.Configuration;
 using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace DataAccessLibrary
+namespace DataAccessLibrary.Data
 {
     public class PersonManagerContext : DbContext
     {
@@ -24,6 +25,13 @@ namespace DataAccessLibrary
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            foreach (var property in builder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetProperties()
+                .Where(p => p.ClrType == typeof(string))))
+            {
+                property.SetIsUnicode(false);
+            }
+
             builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new AddressTypeConfiguration());
             builder.ApplyConfiguration(new ColourConfiguration());

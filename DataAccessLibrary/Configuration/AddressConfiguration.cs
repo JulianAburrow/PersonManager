@@ -10,14 +10,6 @@ namespace DataAccessLibrary.Configuration
         {
             builder.ToTable("Addresses");
             builder.HasKey(e => e.AddressId);
-            builder.Property(e => e.AddressLine1)
-                .IsUnicode(false);
-            builder.Property(e => e.AddressLine2)
-                .IsUnicode(false);
-            builder.Property(e => e.Town)
-                .IsUnicode(false);
-            builder.Property(e => e.Postcode)
-                .IsUnicode(false);
             builder.HasOne(e => e.AddressType)
                 .WithMany(e => e.Addresses)
                 .HasForeignKey(e => e.AddressId)

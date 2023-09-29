@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using DataAccessLibrary.Models;
+﻿using DataAccessLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,12 +10,6 @@ namespace DataAccessLibrary.Configuration
         {
             builder.ToTable("People");
             builder.HasKey(e => e.PersonId);
-            builder.Property(e => e.FirstName)
-                .IsUnicode(false);
-            builder.Property(e => e.LastName)
-                .IsUnicode(false);
-            builder.Property(e => e.Skillset)
-                .IsUnicode(false);
             builder.HasOne(e => e.Country)
                 .WithMany(e => e.People)
                 .HasForeignKey(e => e.CountryId)

@@ -10,12 +10,6 @@ namespace DataAccessLibrary.Configuration
         {
             builder.ToTable("SavedUrls");
             builder.HasKey(e => e.UrlId);
-            builder.Property(e => e.Title)
-                .IsUnicode(false);
-            builder.Property(e => e.Url)
-                .IsUnicode(false);
-            builder.Property(e => e.Notes)
-                .IsUnicode(false);
         }
     }
 }

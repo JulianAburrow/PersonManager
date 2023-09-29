@@ -10,8 +10,6 @@ namespace DataAccessLibrary.Configuration
         {
             builder.ToTable("Statuses");
             builder.HasKey(e => e.StatusId);
-            builder.Property(e => e.StatusName)
-                .IsUnicode(false);
             builder.HasMany(e => e.People)
                 .WithOne(e => e.Status)
                 .HasForeignKey(e => e.StatusId)

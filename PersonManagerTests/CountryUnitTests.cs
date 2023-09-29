@@ -1,8 +1,4 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Xunit;
+﻿using DataAccessLibrary.Data;
 
 namespace PersonManagerTests
 {
@@ -20,9 +16,9 @@ namespace PersonManagerTests
             _countryData = new CountryData(_personManagerContext);
         }
 
-        readonly CountryModel country1 = new() { CountryName = "Bolivia", };
-        readonly CountryModel country2 = new() { CountryName = "Peru", };
-        readonly CountryModel country3 = new() { CountryName = "Guatemala", };
+        private readonly CountryModel country1 = new() { CountryName = "Bolivia", };
+        private readonly CountryModel country2 = new() { CountryName = "Peru", };
+        private readonly CountryModel country3 = new() { CountryName = "Guatemala", };
 
         [Fact]
         public async void AddCountryAddsCountry()
@@ -42,13 +38,13 @@ namespace PersonManagerTests
         {
             var initialCount = _personManagerContext.Countries.Count();
 
-            await _countryData.InsertCountry(country1);
-            await _countryData.InsertCountry(country2);
-            await _countryData.InsertCountry(country3);
+            _personManagerContext.Countries.Add(country1);
+            _personManagerContext.Countries.Add(country2);
+            _personManagerContext.Countries.Add(country3);
             _personManagerContext.SaveChanges();
 
             var currentCountries = await _countryData.GetCountries();
-            currentCountries.Count().Should().Be(initialCount + 3);
+            currentCountries.Count.Should().Be(initialCount + 3);
         }
 
         [Fact]
@@ -56,7 +52,7 @@ namespace PersonManagerTests
         {
             var initialCount = _personManagerContext.Countries.Count();
 
-            await _countryData.InsertCountry(country1);
+            _personManagerContext.Countries.Add(country1);
             _personManagerContext.SaveChanges();
             await _countryData.DeleteCountry(country1.CountryId);
             _personManagerContext.SaveChanges();
@@ -67,7 +63,7 @@ namespace PersonManagerTests
         [Fact]
         public async void GetCountryByIdGetsCountryById()
         {
-            await _countryData.InsertCountry(country1);
+            _personManagerContext.Countries.Add(country1);
             _personManagerContext.SaveChanges();
             var country = await _countryData.GetCountry(country1.CountryId);
             country.Should().Be(country1);
@@ -77,11 +73,13 @@ namespace PersonManagerTests
         public async void UpdateCountryUpdatesCountry()
         {
             var newCountryName = "Brazil";
-            await _countryData.InsertCountry(country1);
-            var country = await _countryData.GetCountry(country1.CountryId);
+            _personManagerContext.Countries.Add(country1);
+            _personManagerContext.SaveChanges();
+            var country = _personManagerContext.Countries.Single(c => c.CountryId == country1.CountryId);
             country.CountryName = newCountryName;
             await _countryData.UpdateCountry(country);
-            country = await _countryData.GetCountry(country1.CountryId);
+            _personManagerContext.SaveChanges();
+            country = _personManagerContext.Countries.Single(c => c.CountryId == country1.CountryId);
 
             country.CountryName.Should().Be(newCountryName);
         }
