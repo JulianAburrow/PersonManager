@@ -1,15 +1,12 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
-
-namespace PersonManagerUI.Shared
+﻿namespace PersonManagerUI.Shared
 {
     public partial class MainLayout
     {
         [Inject] NavigationManager NavigationManager { get; set; }
 
         [Inject] ISavedUrlHandler SavedUrlDb { get; set; }
+
+        private bool @_drawerOpen = true;
 
         private async Task SaveUrl()
         {
@@ -22,6 +19,11 @@ namespace PersonManagerUI.Shared
             };
 
             await SavedUrlDb.InsertSavedUrl(savedUrl);
+        }
+
+        private void DrawerToggle()
+        {
+            _drawerOpen = !_drawerOpen;
         }
     }
 }

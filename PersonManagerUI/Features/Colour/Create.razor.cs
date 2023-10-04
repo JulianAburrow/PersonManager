@@ -4,7 +4,10 @@ public partial class Create
 {
     private async Task InsertColour()
     {
-        var colourModel = new ColourModel(DisplayColour.ColourName);
+        var colourModel = new ColourModel
+        {
+            ColourName = DisplayColour.ColourName,
+        };
 
         await ColourDb.InsertColour(colourModel);
 

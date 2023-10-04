@@ -4,7 +4,10 @@ public partial class Create
 {
     private async Task InsertCountry()
     {
-        var countryModel = new CountryModel(DisplayCountry.CountryName);
+        var countryModel = new CountryModel
+        {
+            CountryName = DisplayCountry.CountryName,
+        };
 
         await CountryDb.InsertCountry(countryModel);
 

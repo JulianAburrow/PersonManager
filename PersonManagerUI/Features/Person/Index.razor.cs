@@ -4,7 +4,7 @@ public partial class Index
 {
     [Parameter] public string FirstInitial { get; set; }
 
-    protected string Header = "People";
+    protected string Header = "People Page";
 
     protected List<PersonModel> People;
 

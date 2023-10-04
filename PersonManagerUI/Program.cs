@@ -1,4 +1,3 @@
-
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
@@ -9,6 +8,7 @@ builder.Services.AddRazorPages(options =>
 });
 
 builder.Services.AddServerSideBlazor();
+builder.Services.AddMudServices();
 builder.Services.ConfigureSqlConnections(configuration);
 builder.Services.AddDependencies();
 

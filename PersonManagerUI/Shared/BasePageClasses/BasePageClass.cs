@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿namespace PersonManagerUI.Shared.BasePageClasses;
 
-namespace PersonManagerUI.Shared.BasePageClasses
+public class BasePageClass : ComponentBase
 {
-    public class BasePageClass : ComponentBase
-    {
-        [Inject] protected NavigationManager NavigationManager { get; set; }
-    }
+    [Inject] protected NavigationManager NavigationManager { get; set; }
 }

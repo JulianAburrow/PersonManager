@@ -1,18 +1,12 @@
-﻿using DataAccessLibrary.Interfaces;
-using DataAccessLibrary.Models;
-using Microsoft.AspNetCore.Components;
-using PersonManagerUI.Models;
+﻿namespace PersonManagerUI.Shared.BasePageClasses;
 
-namespace PersonManagerUI.Shared.BasePageClasses
+public class SavedUrlBasePageClass : BasePageClass
 {
-    public class SavedUrlBasePageClass : BasePageClass
-    {
-        [Inject] protected ISavedUrlHandler SavedUrlDb { get; set; }
+    [Inject] protected ISavedUrlHandler SavedUrlDb { get; set; }
 
-        protected DisplaySavedUrlModel DisplaySavedUrl = new();
+    protected DisplaySavedUrlModel DisplaySavedUrl = new();
 
-        [Parameter] public int UrlId { get; set; }
+    [Parameter] public int UrlId { get; set; }
 
-        protected SavedUrlModel SavedUrl;
-    }
+    protected SavedUrlModel SavedUrl;
 }

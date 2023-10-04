@@ -1,51 +1,17 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Person Manager</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="data/people/index" target="_top">
-                <span class="oi" aria-hidden="true"></span> People
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="data/countries/index">
-                <span class="oi" aria-hidden="true"></span> Countries
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="data/colours/index">
-                <span class="oi" aria-hidden="true"></span> Colours
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="data/addresstypes/index">
-                <span class="oi" aria-hidden="true"></span> Address Types
-            </NavLink>
-        </li>
-    </ul>
-    <div class="top-row pl-4 navbar navbar-dark">
-        <p class="navbar-brand">My Person Manager</p>
-    </div>
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="data/mypersonmanager/savedurls/index">
-                <span class="oi" aria-hidden="true"></span> Saved Urls
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="data/mypersonmanager/reminders/index">
-                <span class="oi" aria-hidden="true"></span> Reminders
-            </NavLink>
-        </li>
-    </ul>
-</div>
+<MudNavMenu>
+    <MudNavLink Href="">Home</MudNavLink>
+    <MudNavLink Href="data/people/index">People</MudNavLink>
+    <MudNavGroup Title="My Person Manager" Expanded="false">
+        <MudNavLink Href="data/mypersonmanager/savedurls/index">Saved Urls</MudNavLink>
+        <MudNavLink Href="data/mypersonmanager/reminders/index">Reminders</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Manage" Expanded="false">
+        <MudNavLink Href="data/countries/index">Countries</MudNavLink>
+        <MudNavLink Href="data/colours/index">Colours</MudNavLink>
+        <MudNavLink Href="data/addresstypes/index">Address Types</MudNavLink>
+    </MudNavGroup>
+</MudNavMenu>
