@@ -14,17 +14,26 @@ public partial class Edit
 
     private async Task UpdateSavedUrl()
     {
-        var savedUrlModel = new SavedUrlModel
+        try
         {
-            UrlId = UrlId,
-            Title = DisplaySavedUrl.Title,
-            Url = DisplaySavedUrl.Url,
-            Notes = DisplaySavedUrl.Notes,
-            IsExternal = DisplaySavedUrl.IsExternal
-        };
+            var savedUrlModel = new SavedUrlModel
+            {
+                UrlId = UrlId,
+                Title = DisplaySavedUrl.Title,
+                Url = DisplaySavedUrl.Url,
+                Notes = DisplaySavedUrl.Notes,
+                IsExternal = DisplaySavedUrl.IsExternal
+            };
 
-        await SavedUrlDb.UpdateSavedUrl(savedUrlModel);
+            await SavedUrlDb.UpdateSavedUrl(savedUrlModel);
+            Snackbar.Add("Saved Url successfully updated", Severity.Success);
+            NavigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
+        }
+        catch
+        {
+            Snackbar.Add("Saved Url not updated. Please try later", Severity.Error);
+        }
 
-        NavigationManager.NavigateTo($"data/mypersonmanager/savedurl/details/{UrlId}");
+        
     }
 }

@@ -27,7 +27,8 @@ public class SavedUrlHandler : ISavedUrlHandler
     public async Task UpdateSavedUrl(SavedUrlModel savedUrl)
     {
         var oldSavedUrl = _context.SavedUrls
-            .SingleOrDefault(s => s.UrlId == savedUrl.UrlId);
+            .SingleOrDefault(s =>
+                s.UrlId == savedUrl.UrlId);
         if (oldSavedUrl == null) return;
 
         oldSavedUrl.Title = savedUrl.Title;

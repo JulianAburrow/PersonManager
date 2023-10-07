@@ -24,6 +24,7 @@ public partial class Index
     {
         GetPeople();
         GetInitials();
+        Snackbar.Add($"{People.Count} record(s) found", Severity.Info);
     }
 
     protected void SearchPeople()

@@ -2,6 +2,11 @@
 @inherits SavedUrlBasePageClass
 @using PersonManagerUI.Shared.Components
 
+@if(SavedUrl == null)
+{
+    return;
+}
+
 <PageTitle>Delete @SavedUrl.Title</PageTitle>
 
 <h3>Delete</h3>

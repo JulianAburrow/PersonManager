@@ -7,9 +7,16 @@ public partial class Delete
 
     protected void DeletePerson()
     {
-        AddressDb.DeleteAddress(PersonId);
-        PersonDb.DeletePerson(PersonId);
-
-        NavigationManager.NavigateTo("data/people/index");
+        try
+        {
+            AddressDb.DeleteAddress(PersonId);
+            PersonDb.DeletePerson(PersonId);
+            Snackbar.Add($"{Person.FirstName} {Person.LastName} successfully deleted", Severity.Success);
+            NavigationManager.NavigateTo("data/people/index");
+        }
+        catch
+        {
+            Snackbar.Add("Person not deleted. Please try later", Severity.Error);
+        }
     }
 }

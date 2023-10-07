@@ -32,24 +32,31 @@ public partial class Create
 
     private async Task InsertPerson()
     {
-        var personModel = new PersonModel
+        try
         {
-            FirstName = DisplayPerson.FirstName,
-            LastName = DisplayPerson.LastName,
-            Skillset = DisplayPerson.Skillset,
-            EmailAddress = DisplayPerson.EmailAddress,
-            DateOfBirth = DisplayPerson.DateOfBirth,
-            CountryId = DisplayPerson.CountryId,
-            StatusId = DisplayPerson.StatusId,
-            FavouriteColourId = DisplayPerson.FavouriteColourId != -1
+            var personModel = new PersonModel
+            {
+                FirstName = DisplayPerson.FirstName,
+                LastName = DisplayPerson.LastName,
+                Skillset = DisplayPerson.Skillset,
+                EmailAddress = DisplayPerson.EmailAddress,
+                DateOfBirth = DisplayPerson.DateOfBirth,
+                CountryId = DisplayPerson.CountryId,
+                StatusId = DisplayPerson.StatusId,
+                FavouriteColourId = DisplayPerson.FavouriteColourId != -1
                 ? DisplayPerson.FavouriteColourId
                 : null,
-            Picture = DisplayPerson.Picture
-        };
+                Picture = DisplayPerson.Picture
+            };
 
-        await PersonDb.InsertPerson(personModel);
-
-        NavigationManager.NavigateTo("/data/people/index");
+            await PersonDb.InsertPerson(personModel);
+            Snackbar.Add($"{personModel.FirstName} {personModel.LastName} successfully added", Severity.Success);
+            NavigationManager.NavigateTo("/data/people/index");
+        }
+        catch
+        {
+            Snackbar.Add("Person not added. Please try later", Severity.Error);
+        }        
     }
 
     private async void LoadFile(InputFileChangeEventArgs e)

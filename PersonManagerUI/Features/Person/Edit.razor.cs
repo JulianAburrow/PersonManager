@@ -33,25 +33,32 @@ public partial class Edit
 
     private void UpdatePerson()
     {
-        var personModel = new PersonModel
+        try
         {
-            PersonId = PersonId,
-            FirstName = DisplayPerson.FirstName,
-            LastName = DisplayPerson.LastName,
-            EmailAddress = DisplayPerson.EmailAddress,
-            DateOfBirth = DisplayPerson.DateOfBirth,
-            CountryId = DisplayPerson.CountryId,
-            StatusId = DisplayPerson.StatusId,
-            FavouriteColourId = DisplayPerson.FavouriteColourId != -1
+            var personModel = new PersonModel
+            {
+                PersonId = PersonId,
+                FirstName = DisplayPerson.FirstName,
+                LastName = DisplayPerson.LastName,
+                EmailAddress = DisplayPerson.EmailAddress,
+                DateOfBirth = DisplayPerson.DateOfBirth,
+                CountryId = DisplayPerson.CountryId,
+                StatusId = DisplayPerson.StatusId,
+                FavouriteColourId = DisplayPerson.FavouriteColourId != -1
                 ? DisplayPerson.FavouriteColourId
                     : null,
-            Skillset = DisplayPerson.Skillset,
-            Picture = DisplayPerson.HasPicture ? DisplayPerson.Picture : null
-        };
+                Skillset = DisplayPerson.Skillset,
+                Picture = DisplayPerson.HasPicture ? DisplayPerson.Picture : null
+            };
 
-        PersonDb.UpdatePerson(personModel);
-
-        NavigationManager.NavigateTo($"/data/person/details/{PersonId}");
+            PersonDb.UpdatePerson(personModel);
+            Snackbar.Add($"{personModel.FirstName} {personModel.LastName} successfully updated", Severity.Success);
+            NavigationManager.NavigateTo($"/data/person/details/{PersonId}");
+        }
+        catch
+        {
+            Snackbar.Add("Person not updated. Please try later", Severity.Error);
+        }
     }
 
     private async void LoadFile(InputFileChangeEventArgs e)

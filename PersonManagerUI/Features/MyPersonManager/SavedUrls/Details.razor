@@ -2,6 +2,11 @@
 @inherits SavedUrlBasePageClass
 @using PersonManagerUI.Shared.Components
 
+@if (SavedUrl == null)
+{
+    return;
+}
+
 <PageTitle>View @SavedUrl.Title</PageTitle>
 
 <SavedUrlDetails SavedUrl="SavedUrl" />
