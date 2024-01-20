@@ -4,6 +4,9 @@ public partial class Index
 {
     private List<CountryModel> Countries;
 
-    protected override async Task OnInitializedAsync() =>
+    protected override async Task OnInitializedAsync()
+    {
         Countries = await CountryDb.GetCountries();
+        MainLayout.SetHeaderValue("Countries");
+    }        
 }

@@ -6,7 +6,7 @@ public class AddressBasePageClass : BasePageClass
 
     [Inject] protected IAddressTypeHandler AddressTypeDb { get; set; }
 
-    protected List<AddressTypeModel> AddressTypes { get; set; }
+    protected List<AddressTypeModel> AddressTypes { get; set; } = new();
 
     protected DisplayAddressModel DisplayAddress = new();
 

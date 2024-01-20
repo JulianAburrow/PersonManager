@@ -3,8 +3,6 @@
 
 <PageTitle>Edit @Colour.ColourName</PageTitle>
 
-<h1>Edit @ColourDisplayName</h1>
-
 <EditForm Model="@Colour" OnValidSubmit="@UpdateColour">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -12,7 +10,7 @@
     <table class="table table-striped">
         <tbody>
         <tr>
-            <td><strong>Country Name</strong></td>
+            <td><strong>Colour Name</strong></td>
             <td><InputText id="colourName" @bind-Value="Colour.ColourName" /></td>
         </tr>
         </tbody>

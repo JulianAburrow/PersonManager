@@ -6,24 +6,27 @@
 
 <PageTitle>Person Manager</PageTitle>
 
-<MudLayout>
-    <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu"
-                        Color="Color.Inherit"
-                        Edge="Edge.Start"
-                        OnClick="@((e) => DrawerToggle())">
-            Person Manager
-        </MudIconButton>
-        <div class="top-row px-4">
-            <a class="btn btn-info" @onclick="SaveUrl" style="cursor: pointer">Save Page</a>
-        </div>
-    </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <NavMenu />
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large">
-            @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+<CascadingValue Value="this">
+    <MudLayout>
+        <MudAppBar>
+            <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                            Color="Color.Inherit"
+                            Edge="Edge.Start"
+                            OnClick="@((e) => DrawerToggle())">
+                Person Manager
+            </MudIconButton>
+            <div style="width: 85%; color: white; font-size: 24px">@HeaderValue</div>
+            <div class="top-row px-4" style="float: right">
+                <a class="btn btn-info" @onclick="SaveUrl" style="cursor: pointer">Save Page</a>
+            </div>
+        </MudAppBar>
+        <MudDrawer @bind-Open="@_drawerOpen">
+            <NavMenu />
+        </MudDrawer>
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.Large">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+</CascadingValue>

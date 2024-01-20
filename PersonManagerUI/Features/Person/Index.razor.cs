@@ -4,8 +4,6 @@ public partial class Index
 {
     [Parameter] public string FirstInitial { get; set; }
 
-    protected string Header = "People Page";
-
     protected List<PersonModel> People;
 
     protected string SearchTerm;
@@ -25,6 +23,7 @@ public partial class Index
         GetPeople();
         GetInitials();
         Snackbar.Add($"{People.Count} record(s) found", Severity.Info);
+        //MainLayout.SetHeaderValue("People Page");
     }
 
     protected void SearchPeople()
@@ -40,7 +39,7 @@ public partial class Index
             .OrderBy(p => p.FirstName)
             .ToList();
 
-        Header = $"People with names containing '{SearchTerm}'";
+        MainLayout.SetHeaderValue($"People with names containing '{SearchTerm}'");
     }
 
     protected void ClearSearch()
@@ -48,7 +47,7 @@ public partial class Index
         FirstInitial = null;
         SearchTerm = null;
         GetPeople();
-        Header = "People";
+        MainLayout.SetHeaderValue("People Page");
         NavigationManager.NavigateTo("/data/people/index");
     }
 
@@ -56,6 +55,7 @@ public partial class Index
     {
         People = PersonDb.GetPeople()
             .ToList();
+        MainLayout.SetHeaderValue("People Page");
 
         if (FirstInitial != null)
         {
@@ -63,7 +63,7 @@ public partial class Index
                 .Where(p => p.FirstName.StartsWith(FirstInitial))
                 .ToList();
 
-            Header = $"People beginning with {FirstInitial.ToUpper()}";
+            MainLayout.SetHeaderValue($"People beginning with {FirstInitial.ToUpper()}");
         }
 
         People = People.OrderBy(p => p.FirstName).ToList();

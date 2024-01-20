@@ -11,6 +11,8 @@ public partial class Edit
         DisplayAddressType.AddressTypeName = a.AddressTypeName;
 
         AddressTypeDisplayName = DisplayAddressType.AddressTypeName;
+
+        MainLayout.SetHeaderValue("Edit Address Type");
     }
 
     private async Task UpdateAddressType()

@@ -2,6 +2,9 @@
 
 public partial class Details
 {
-    protected override async Task OnInitializedAsync() =>
+    protected override async Task OnInitializedAsync()
+    {
         Country = await CountryDb.GetCountry(CountryId);
+        MainLayout.SetHeaderValue("Country Details");
+    }        
 }

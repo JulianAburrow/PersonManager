@@ -14,7 +14,7 @@ public partial class Edit
 
         PersonId = addressModel.PersonId;
 
-        await base.OnInitializedAsync();
+        MainLayout.SetHeaderValue("Edit Address");
     }
 
     private async Task UpdateAddress()

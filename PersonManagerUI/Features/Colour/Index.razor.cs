@@ -4,7 +4,10 @@
     {
         private List<ColourModel> Colours;
 
-        protected override async Task OnInitializedAsync() =>
+        protected override async Task OnInitializedAsync()
+        {
             Colours = await ColourDb.GetColours();
+            MainLayout.SetHeaderValue("Colours");
+        }            
     }
 }

@@ -6,6 +6,8 @@
 
         [Inject] ISavedUrlHandler SavedUrlDb { get; set; }
 
+        [Inject] ISnackbar Snackbar { get; set; }
+
         private bool @_drawerOpen = true;
 
         private async Task SaveUrl()
@@ -18,12 +20,28 @@
                 IsExternal = false
             };
 
-            await SavedUrlDb.InsertSavedUrl(savedUrl);
+            try
+            {
+                await SavedUrlDb.InsertSavedUrl(savedUrl);
+                Snackbar.Add("URL saved successfully", Severity.Success);
+            }
+            catch
+            {
+                Snackbar.Add("There was an error saving this URL. Please try again.", Severity.Error);
+            }            
         }
 
         private void DrawerToggle()
         {
             _drawerOpen = !_drawerOpen;
+        }
+
+        private string HeaderValue { get; set; } = null!;
+
+        public void SetHeaderValue(string headerValue)
+        {
+            HeaderValue = headerValue;
+            StateHasChanged();
         }
     }
 }

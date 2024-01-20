@@ -9,7 +9,9 @@ public partial class Delete
         Colour = await ColourDb.GetColour(ColourId);
 
         if (Colour.People.Count > 0)
-            OkToDelete = false;               
+            OkToDelete = false;
+
+        MainLayout.SetHeaderValue("Delete Colour");
     }
 
     private async Task DeleteColour()

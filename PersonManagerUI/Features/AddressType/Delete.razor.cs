@@ -14,6 +14,8 @@ public partial class Delete
         {
             OkToDelete = false;
         }
+
+        MainLayout.SetHeaderValue("Delete Address");
     }
 
     private async Task DeleteAddressType()

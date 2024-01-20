@@ -6,13 +6,15 @@ public partial class Create
     {
         DisplayAddress.AddressTypeId = -1;
 
+        AddressTypes = await AddressTypeDb.GetAddressTypes();
+
         AddressTypes.Insert(0, new AddressTypeModel
         {
             AddressTypeId = -1,
             AddressTypeName = "Please select"
         });
 
-        await base.OnInitializedAsync();
+        MainLayout.SetHeaderValue("Create Address");
     }
 
     private async Task InsertAddress()

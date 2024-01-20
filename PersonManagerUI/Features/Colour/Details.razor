@@ -2,7 +2,7 @@
 @using PersonManagerUI.Shared.Components
 @inherits ColourBasePageClass
 
-@if (Colour == null)
+@if (Colour == null || Colour.People == null)
 {
     <p>Loading...</p>
     return;

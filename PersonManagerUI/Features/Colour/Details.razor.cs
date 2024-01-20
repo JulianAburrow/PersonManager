@@ -5,5 +5,6 @@ public partial class Details
     protected override async Task OnInitializedAsync()
     {
         Colour = await ColourDb.GetColour(ColourId);
+        MainLayout.SetHeaderValue("Colour Details");
     }
 }

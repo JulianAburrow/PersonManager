@@ -3,12 +3,12 @@
 
 <PageTitle>Create Address Type</PageTitle>
 
-<h1>Create Address</h1>
-
 @if (AddressTypeAlreadyExists)
 {
     <h4 style="color: red">An address type with this name already exists</h4>
 }
+
+<br />
 
 <EditForm Model="@DisplayAddressType" OnValidSubmit="@InsertAddressType">
     <DataAnnotationsValidator />

@@ -2,15 +2,11 @@
 
 public partial class Edit
 {
-    private string CountryDisplayName { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
         var countryModel = await CountryDb.GetCountry(CountryId);
-
         DisplayCountry.CountryName = countryModel.CountryName;
-
-        CountryDisplayName = DisplayCountry.CountryName;
+        MainLayout.SetHeaderValue("Edit Country");
     }
 
     private async Task UpdateCountry()

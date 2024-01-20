@@ -4,6 +4,9 @@
     {
         private bool AddressTypeAlreadyExists { get; set; }
 
+        protected override void OnInitialized() =>
+            MainLayout.SetHeaderValue("Create Address Type");
+
         private async Task InsertAddressType()
         {
             if (AddressTypeDb.AddressTypeExists(

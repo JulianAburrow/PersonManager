@@ -8,5 +8,5 @@ public class ColourBasePageClass : BasePageClass
 
     [Parameter] public int ColourId { get; set; }
 
-    protected ColourModel Colour;
+    protected ColourModel Colour = new();
 }

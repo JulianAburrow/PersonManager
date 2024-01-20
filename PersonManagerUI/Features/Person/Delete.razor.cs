@@ -2,8 +2,11 @@
 
 public partial class Delete
 {
-    protected override void OnInitialized() =>
+    protected override void OnInitialized()
+    {
         Person = PersonDb.GetPerson(PersonId);
+        MainLayout.SetHeaderValue("Delete Person");
+    }        
 
     protected void DeletePerson()
     {

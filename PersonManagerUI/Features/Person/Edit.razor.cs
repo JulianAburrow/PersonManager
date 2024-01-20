@@ -29,6 +29,8 @@ public partial class Edit
             ColourId = -1,
             ColourName = "None"
         });
+
+        MainLayout.SetHeaderValue("Edit Person");
     }
 
     private void UpdatePerson()

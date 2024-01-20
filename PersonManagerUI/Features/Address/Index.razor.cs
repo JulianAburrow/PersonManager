@@ -12,6 +12,7 @@
         {
             Addresses = await AddressDb.GetAddresses(PersonId);
             personModel = PersonDb.GetPerson(PersonId);
+            MainLayout.SetHeaderValue("Addresses");
         }
     }
 }

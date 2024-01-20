@@ -28,6 +28,8 @@ public partial class Create
             ColourId = -1,
             ColourName = "None"
         });
+
+        MainLayout.SetHeaderValue("Create Person");
     }
 
     private async Task InsertPerson()

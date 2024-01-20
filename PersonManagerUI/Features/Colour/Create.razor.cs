@@ -2,6 +2,9 @@
 
 public partial class Create
 {
+    protected override void OnInitialized() =>
+        MainLayout.SetHeaderValue("Create Colour");
+
     private async Task InsertColour()
     {
         var colourModel = new ColourModel

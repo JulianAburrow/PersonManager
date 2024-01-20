@@ -7,11 +7,11 @@ public partial class Delete
     protected override async Task OnInitializedAsync()
     {
         Country = await CountryDb.GetCountry(CountryId);
-
         if (Country.People.Count > 0)
         {
             OkToDelete = false;
         }
+        MainLayout.SetHeaderValue("Delete Country");
     }
 
     private async Task DeleteCountry()
